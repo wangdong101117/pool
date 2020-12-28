@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>防抖和节流</title>
+</head>
+<body>
+	<div onclick="fangdou(2000)">防抖按钮</div>
+	<div onclick="jieliu(2000)">节流按钮</div>
+	<script type="text/javascript">
+	/** 防抖和节流: 
+			作用: 防止函数的多次调用;
+			区别: 假设用户一直触发某个函数, 且延时间隔为2s, 防抖是你第一次触发这个函数生效与下一次触发函数生效的时间间隔为2s, 如果你在10s内持续操作该按钮, 那么该按钮触发效果会有6次; 而节流是你上一次操作该按钮与下一次操作该按钮之间要间隔2s, 下一次才会触发, 如果你在10s内持续操作该按钮, 该按钮触发效果只会有一次, 即只有第一次触发
+	*/
+	/** 防抖: 最常用的场景: 避免用户短时间内多次点击操作按钮
+			高频率的触发事件在某段时间内只会执行1次
+
+			实现思路: 每次触发事件时都取消之前的延时调用方法
+	 */
+
+	var flag = false;
+	function fangdou (time) {
+		var fangdou_timer = null;
+		if (!flag) {
+			console.log('防抖按钮被点击了', flag);
+			flag = true;
+
+			fangdou_timer = setTimeout(function () {
+				flag = false;
+			}, time)	
+		} else {
+			if (fangdou_timer) {
+				clearTimeout(fangdou_timer)
+			}
+		}
+	}
+
+	/** 节流: 
+			思路: 通过延时定时器的有无来判断效果是否触发
+				有定时器: 不触发效果, 并移除掉之前的定时器, 设置新的延迟时间
+
+				无定时器: 触发效果, 设置延迟时间 
+	*/
+	var jieliu_timer = null;
+	function jieliu (time) {
+		if (jieliu_timer) {
+			// 如果存在定时器, 说明, 事件触发延迟时间未过, 清除掉之前的定时器, 防止timer赋值为null
+			clearTimeout(jieliu_timer)
+		} else {
+			// 不存在定时器, 说明已经超过延迟时间, 可触发效果
+			console.log('节流按钮触发')
+		}
+		jieliu_timer = setTimeout(function() {
+			jieliu_timer = null;
+		}, time)
+
+	}
+
+</script>
+</body>
+</html>
