@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>导航守卫</title>
+</head>
+<body>
+<!-- 导航守卫:
+	src/router/index.js中
+		import Vue from 'vue';
+		import VueRouter from 'vue-router';
+
+		// 导入路由对象数据:
+		import routes from './routes';
+
+		Vue.use(VueRouter);
+
+		const LOGIN_PAGE_NAME = 'login';
+		const FORGET_PAGE_NAME = 'forgot';
+
+		const router = new VueRouter({
+			routers,
+			mode: '路由模式'
+		})	 
+
+		// 路由拦截 权限验证
+
+		router.beforEach((to, from, next) => {
+			// 1. 可设置 加载进度条
+
+			// 2. 获取token, 根据token判断是否登录
+
+			if (!token && to.name !== LOGIN_PAGE_NAME) {
+				if (to.name === FOGET_PAGE_NAME) {
+					next();
+					return
+				}
+
+				// 未登录且要跳转的页面不是登录页, 
+				router.push({ naem: LOGIN_PAGE_NAME })
+			} else if (!token && to.name === LOGIN_PAGE_NAME) {
+				next();
+			} else if (token && to.bane === LOGIN_PAGE_NAME) {
+				router.replace('/')
+			}
+
+			next();
+		})
+
+		router.afterEach(to => {
+		    if (Setting.showProgressBar) iView.LoadingBar.finish();
+		    // 多页控制 打开新的页面
+		    store.dispatch('admin/page/open', to);
+		    // 更改标题
+		    util.title({
+		        title: to.meta.title
+		    });
+		    // 返回页面顶端
+		    window.scrollTo(0, 0);
+		});
+
+		export default router;
+ -->
+
+</body>
+</html>

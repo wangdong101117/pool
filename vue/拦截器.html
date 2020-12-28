@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>拦截器</title>
+</head>
+<body>
+<!-- 例如: 在 src/plugins/request/index.js 中
+	import router from '@/router';
+	import axios from 'axios';
+
+	// 创建axios实例:
+	const service = axios.creat({
+		baseUrl: 接口基本地址,
+		timeout: 10000 // 请求超时时间
+	}) 
+
+	// 请求拦截器
+	service.interceptors.request.use(
+		config => {
+			// config: 请求对象, 内部保存了所有的请求参数:
+				// config.url: 请求地址
+				// config.data: 请求参数
+
+			let data = config.data;
+
+			// 可根据请求参数进行 url 拼接
+
+			// 在请求发送之前进行一些处理
+			const token = '获取到的token'
+			config.headers['X-Token'] = token
+
+			return config; // 一定要返回修改后的config
+
+		},
+		error => {
+			// 发送失败
+
+			Promise.reject(error)
+		}
+	)
+
+	// 响应拦截器
+	service.interceptops.response.use( 
+		response => {
+			const dataAxios = response
+
+			const code = dataAxios.data['error_code']	
+			const desc = dataAxios.data['error_desc']
+
+			// 根据code进行判断, 做统一处理	
+		}
+	)
+ -->
+</body>
+</html>
