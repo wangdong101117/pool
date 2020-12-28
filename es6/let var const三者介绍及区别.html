@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		/**
+		  	let: 
+		  		1. let声明的变量在预解析时没有提升: 保证代码的逻辑通畅
+		  		2. let不能重复声明同一个变量: 保证变量的唯一性
+		  		3. let具有块级作用域的限制
+
+		   	var:
+		   	const: 
+				const 用于声明常量, 常量一旦声明赋值就不能再更改, 且常量运行解析速度比变量快
+
+		 */
+		
+		for(var i = 0; i < 5; i++) {
+			setTimeout(() => {
+				console.log(i); // 打印5次 5
+			})
+		}
+
+		for(let j = 0; j < 5; j++) {
+			setTimeout(() => {
+				console.log(j); // 0 1 2 3 4
+			})
+		}
+
+		/** 上面for循环中, let声明变量和var声明变量后, 结果产生区别的原因: 
+				var 声明的变量在预解析时有变量提升, 将变量声明提升到当前作用域顶端, 相当于声明了一个全局变量, 而定时器时异步的, 会在循环结束后执行, 因此只能得到5
+
+				let 没有变量提升, 相当于每次都在 {} 代码块(作用域)中 声明一个局部变量, 并赋值为 0 1 2 3 4, 因此会输出0 1 2 3 4
+
+				那么, for循环中 var 怎么实现跟 let 一样的效果呢: 使用闭包: == 闭包函数详解在 js 高级中有讲到
+		*/
+		for(var t = 0; t < 5; t++) {
+			(function (t) {
+				setTimeout(() => {
+					console.log(t);
+				})
+			})(t);
+		}
+
+		
+	</script>
+</body>
+</html>

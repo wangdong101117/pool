@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>reduce</title>
+</head>
+<body>
+	<script type="text/javascript">
+		/** reduce() 接收一个回调函数作为累加器, 数组的每一个值开始合并, 最后成为一个值, reduce()为数组中的每一个元素一次执行回调函数
+			array.reduce(callback, [initialValue]);
+				callback 回调函数中包含四个参数:
+					参数1: preVal: 上一次调用回调函数返回的值, 或者是初始值: initialValue 
+					参数2: curVal: 数组中当前被处理的元素
+					参数3: index: 当前元素在数组中的索引值, 即curVal索引值
+					参数4: array: 调用reduce() 方法的数组
+
+				如果reduce()方法参数二: initialVal 在调用时被提供, 那么第一个preVal就等于 initialVal, 如果没提供initialVal, 那么第一个PreVal就是数组的第一个元素, curVal就是数组的第二个元素
+		 */
+		var arr = [1, 2, 3, 4];
+		var sum1 = arr.reduce((preVal, curVal, index, array) => {
+			console.log(preVal, curVal, index, arr);
+			/** curVal preVal分别为:
+			 	  第一次执行回调: 1 2
+			 	  第二次执行回调: 3 3
+			 	  第三次执行回调: 6 4
+			 */
+			return preVal + curVal;
+		});	
+		console.log(sum1); // 1 + 2 + 3 + 4 = 10
+
+		var sum2 = arr.reduce((pre, cur, index, arr) => {
+			console.log(pre, cur, index, arr);
+			/** cur pre分别为:
+			 	  第一次执行回调: 5 1
+			 	  第二次执行回调: 6 2
+			 	  第三次执行回调: 8 3
+			 	  第三次执行回调: 11 4
+			 */
+			return pre + cur;
+		}, 5); 
+		console.log(sum2); // 提供了初始值 initialVal:5, 那么就是5+4+3+2+1 = 15;
+
+		var pow = arr.reduce((x, y) => {
+			return x * y;
+		})
+		console.log(pow);
+
+
+		/** 使用map和reduce结合使用 小练习 */
+
+			// 将字符串 13579变成数组, 并将字符串转为Number
+			
+			function string2int (s) {
+				let arr = s.split('')
+				function turn (x) {
+					return +x;
+				}
+				var result = arr.map(turn)
+				var int = result.reduce((x,y) => {
+					return x * 10 + y;
+				})
+
+				return int;
+			}
+			console.log(string2int('12300'));
+			if (string2int('0') === 0 && string2int('12345') === 12345 && string2int('12300') === 12300) {
+			    if (string2int.toString().indexOf('parseInt') !== -1) {
+			        console.log('请勿使用parseInt()!');
+			    } else if (string2int.toString().indexOf('Number') !== -1) {
+			        console.log('请勿使用Number()!');
+			    } else {
+			        console.log('测试通过!');
+			    }
+			}
+			else {
+			    console.log('测试失败!');
+			}
+	</script>
+</body>
+</html>

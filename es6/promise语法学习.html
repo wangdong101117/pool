@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>promise语法学习</title>
+</head>
+<body>
+	<script type="text/javascript">
+
+		/** [description]
+			resolve作用: 将Promise对象的状态从 未完成 变为 成功(pedding=>resolved), 在异步操作成功时调用, 并将异步操作的结果, 作为参数传递出去
+
+			reject作用: 将Promise对象的状态从 未完成 变为 失败(pedding=>rejected), 在异步操作失败时调用, 并将异步操作报出的错误作为参数传递出去
+
+			Promise有三个状态:
+				pedding: 初始状态
+				fulfilled: 操作成功
+				rejected: 操作失败
+
+				当promise状态改变时, 就会触发 then 里面的回调函数处理后续步骤,  promise状态一经改变就不会更改	
+		 */	
+		
+		/** 简单示例 */
+		// new Promise((resolve, reject) => {
+		// 	setTimeout(() => {
+		// 		resolve('成功');
+		// 	}, 1000)
+		// }).then(
+		// 	(res) => {console.log(res)},
+		// 	(err) => {console.log(err)}
+		// )
+
+		/** 分两次顺序执行: */ 
+		// new Promise((resolve, reject) => {
+		// 	setTimeout(() => {
+		// 		resolve('1');
+		// 	}, 1500)
+		// }).then(res => {
+		// 	console.log(res); // 1
+		// 	return new Promise((resolve, reject) => {
+		// 		setTimeout(() => {
+		// 			resolve('2');
+		// 		}, 2000)
+		// 	})
+		// }).then(res => {
+		// 	console.log(res); // 2
+		// })
+
+		// promise完成后 .then(), 可将promise实例作为一个变量传递到其他的地方
+		let promise = new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve('wangdong');
+			}, 3500)
+		})
+
+		setTimeout(() => {
+			promise.then(res => {
+				console.log(res);
+			})
+		}, 1500)
+
+		/** .then()里面 包含.then()的情况
+		 	.then() 返回的还是promise实例
+		 */
+		new Promise((resolve, reject) => {
+			console.log('步骤1');
+			setTimeout(() => {
+				resolve('100');
+			}, 1000)
+ 		}).then(res => {
+ 			return new Promise((resolve, reject) => {
+ 				console.log('步骤1-1');
+ 				setTimeout(() => {
+ 					resolve('100-1');
+ 				})
+ 			}).then(res => {
+ 				console.log('步骤1-2', res);
+ 				return res; // res: 100-1
+ 			}).then(res => {
+ 				console.log('步骤1-3', res);
+ 				return res; // res: 100-1
+ 			})
+ 		}).then(res => {
+ 			console.log('步骤2', res); // 100-1 
+ 		})
+ 		// 针对上面的 then() 嵌套, 可以将其展开改写为:
+ 		new Promise((resolve, reject) => {
+ 			console.log('步骤1');
+ 			setTimeout(() => {
+ 				resolve('100');
+ 			}, 1000)
+ 		}).then(res => {
+ 			return new Promise((resolve, reject) => {
+ 				console.log('步骤2');
+ 				setTimeout(() => {
+ 					resolve('100-1');
+ 				}, 1000)
+ 			})
+ 		}).then(res => {
+ 			console.log('步骤1-1', res); // 100-1
+ 			return res;
+ 		}).then(res => {
+ 			console.log('步骤1-2', res); // 100-1
+ 			return res;
+ 		}).then(res => {
+ 			console.log('步骤2', res); // 100-1
+ 		})
+
+ 		/** promise 错误处理: */
+ 			// 第一种: 通过 new Error() 实现; .catch()接收, catch也会返回一个promise实例, 且是resolved状态
+ 				// 推荐使用: 清晰易读, 可捕获到前面所有的错误 
+ 			new Promise((resolve) => {
+ 				// setTimeout(() => {
+ 					throw new Error('错误');
+ 				// })
+ 			}).then(res => {
+ 				console.log(res);
+ 			}).catch(err => {
+ 				console.log(err);
+ 			})
+
+ 			// 第二种: 通过reject() 实现
+ 				// reject('错误信息').then(() => {}, () => {})
+ 			new Promise(reject => {
+ 				setTimeout(() => {
+ 					reject('错误');
+ 				}, 2000)
+ 			}).then((res) => {
+ 				console.log(res);
+ 			}, (err) => {
+ 				console.log('Error + ', err)
+ 			})
+
+ 			// 存在两种情况:
+ 				// 情况1: 
+	 			new Promise(resolve => {
+	 				setTimeout(() => {
+	 					resolve();
+	 				}, 2000)
+	 			}).then(() => {
+	 				console.log(1);
+	 				throw new Error('错误');
+	 			}).catch(err => {
+	 				console.log('2', err);
+	 			}).then(() => {
+	 				console.log('3');
+	 			}).then(() => {
+	 				console.log('4'); // 执行到这一步, 下面不会执行
+	 			}).catch(err => {
+	 				console.log('5', err); // 并不会执行
+	 			})
+
+	 			// 情况2: 
+	 			new Promise(resolve => {
+	 				setTimeout(() => {
+	 					resolve()
+	 				}, 1000)
+	 			}).then(res => {
+	 				console.log('1');
+	 				throw new Error('错误');
+	 			}).catch(err => {
+	 				console.log('2', err);
+	 				throw new Error('另一个错误');
+	 				// new Error() 抛出错误后, 状态变为 rejected, 会找到最近的.catch()执行, 下面的.catch()前的两个.then()会直接跳过
+	 			}).then(() => {
+	 				console.log('3'); // 被跳过
+	 			}).then(() => {
+	 				console.log('4'); // 被跳过
+	 			}).catch(err => {
+	 				console.log('5', err); // 5, 另一个错误
+	 			}).then(() => {
+	 				console.log('6');
+	 			})
+
+	 	/** Promise.all(): 批量执行: 
+				场景: 例如a,b 两个请求都完成后发送c请求
+				Promise.all([p1, p2]); 用于将多个promise实例, 包装成一个新的promise实例, 返回的实例就是普通的promise实例, 该方法接收一个数组作为参数, 数组元素只有是promise时会等待状态改变, 当所有的子promise完成, 该promise完成, 返回值是所有值的数组, 任何一个子promise失败, 该promise失败, 返回值是第一个失败的子promise结果
+	 	*/
+	 	var p1 = new Promise(resolve => {
+	 		setTimeout(() => {
+	 			console.log('a请求');
+	 			resolve('a');
+	 		}, 1500)
+	 	})
+	 			
+	 	var p2 = new Promise(resolve => {
+	 		setTimeout(() => {
+	 			console.log('b请求');
+	 			resolve('b');
+	 		}, 5000)
+	 	})		
+
+	 	Promise.all([p1, p2]).then(res => {
+	 		console.log('a, b请求都发送成功');
+	 		console.log(res);
+	 	})
+
+	 	/** Promise.race(): 当a,b 两个请求中有一个请求完成, 就可发送c请求 */
+	 	Promise.race([p1, p2]).then(res => {
+	 		console.log(res);
+	 	})
+	</script>
+</body>
+</html>

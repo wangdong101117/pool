@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>map方法</title>
+</head>
+<body>
+	<script type="text/javascript">
+		/** map():
+				在调用map() 传入自己的函数, 会得到一个新的Array作为结果
+
+				参数: 
+					参数1: 回调函数
+						function(currentVal, index, arr) {}
+							回调函数的三个参数:
+									currentVal: 当前元素的值
+									index: 当前元素的索引值
+									arr: 当前元素所属数组
+					参数2: thisVal
+						可选: 对象作为该执行回调时使用, 传递个参数, 用作this的值, 如果不填, 或者传入 null undefined, 那么回调函数的this为全局对象	
+		 */
+		// 例如有一个函数: f(x) = x的平方
+		var arr = [1, 2, 3, 4];
+		function pow (x) {
+			return x * x;
+		}
+		var result = arr.map(pow); // pow函数作为回调函数整体传入
+		console.log(result);
+
+		/** 
+		 	map() 传入的参数为 函数对象本身
+		 */
+		
+		// == 将数组中的数字转为字符串
+		var stringArr = arr.map(String);
+		console.log(stringArr); // ['1', '2', '3', '4']
+
+		/** 而如果在使用 stringArr.map(parseInt) ==> [1, NaN, NaN, NaN]
+				这里需要知道 parseInt(string, redix)						parseInt()接收两个参数:
+					string: 要被解析的字符串
+						如果string以 0x 开头, 会把string的其余部分解析为16进制的整数
+						如果以1-9 的数组开头, 那么解析为10进制整数
+						
+					redix: 解析数字的基数 2-36之间
+
+			也就是说 当['1', '2', '3'].map(parseInt) 执行时, parseInt的实际传参为:
+				parseInt('1', 0)				
+				parseInt('2', 1)				
+				parseInt('3', 2)				
+		 */
+	</script>
+</body>
+</html>
