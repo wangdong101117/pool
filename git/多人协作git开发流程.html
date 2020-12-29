@@ -22,7 +22,17 @@
 			git checkout master + git merge 分支名: 分支合并
 			git branch -d 分支名: 删除分支
 
-		当执行 git branch 查看分支时, 前面有 * 的分支表示当前所在的分支, 默认情况下, 只有一个master分支		
+		当执行 git branch 查看分支时, 前面有 * 的分支表示当前所在的分支, 默认情况下, 只有一个master分支
+		
+		当执行 git add 及 git commit 后, 可使用 git log 查看commit提交信息
+
+		分支的合并: 
+			分支的合并一定是在主分支上进行的, 只能在主分支合并其他分支
+				<1> 切换到主分支
+				<2> 使用 git merge 分支名 进行合并
+
+				git checkout master: 切换到主分支
+				git merge wd201229: 将 wd201229 这个分支合并到主分支上		
 
 -->
 </body>
