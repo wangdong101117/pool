@@ -5,7 +5,43 @@
 </head>
 <body>
 	<script type="text/javascript">
-		
+		/** Object.assign() 用于对象的合并, 将 源对象(source) 的所有可枚举属性 赋值到 目标对象(target) 中 */
+
+		// 1. 基本使用: 合并对象
+			let target = {a: 1};
+			let source_a = {b: 2};
+			let source_b = {c: {age: 18}};
+			Object.assign(target, source_a, source_b);
+			console.log(target); // {a:1, b:2, c:3}
+
+			/** 参数:
+					参数1: 目标对象: target
+					后续参数: 源对象: source_a, source_b
+
+				返回值: 合并后的目标对象: target {a: 1, b: 2, c: 3}	
+			 */
+			
+			/** 注意:
+					<1> 如果目标对象与源对象存在同名属性, 或者多个源对象有同名属性, 那么后面的属性会覆盖掉前面的属性
+
+						如: 下面中 source_d中的 a: 100 会覆盖掉之前的target中的 a: 1 属性
+
+					<2> 如果只有一个参数: 目标对象, 会直接返回该目标对象
+					
+					<3> 如果只有一个参数, 且参数不是对象, 则会尝试转换为对象, 然后再进行返回
+
+					<4> undefined和null无法转换为 对象, 则他们作为参数1 会报错	
+
+					<5> 属于浅拷贝, 源对象的某属性值为对象时, 源对象发生任何变化, 都会反映到目标对象上面
+			 */
+			
+			let source_c = {a:100, d: 4};
+			Object.assign(target, source_c);
+			console.log(target); // {a: 100, b: 2, c: 3, d: 4}
+
+			console.log(Object.assign(2)); // { 2 }
+			source_b.c.age = 20
+			// console.log(Object.assign(2, target));
 	</script>
 </body>
 </html>
