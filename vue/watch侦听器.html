@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>watch侦听器</title>
+</head>
+<body>
+<!-- watch侦听器: 当数据在变化时 要执行的是异步操作, 或者是一些消耗性能的操作, 这时需要使用侦听器, 例如搜索关键字进行查询
+
+	data() {
+		return {
+			value: '1',
+			queryParam: {
+				select_key: {
+					uid: ''
+				}
+			}
+		}
+	},
+	watch: {
+		// 如果要监听 value
+		value: function (newV, oldV) {
+			console.log(newV)
+		},
+
+		/* 当 value 发生改变后, watch监听每次变化后的新值, 在这里 watch的一个特点: 最初绑定的时候是不会执行的, 需要绑定的 value 发生改变时, 才会触发执行watch 内的方法, 如果我们想要一开始绑定value时就执行watc, 那么要进行修改 */
+
+		value: {
+			/* 这里的handler函数, 其实之前上面的value函数, 就是这个handler, vue.js会对其进行处理, 最终编译出来就是这个handler */ 
+			handler(newV, oldV) {
+				
+			},
+			/* immediate: true表示如果在watch中声明了value后, 就会立即执行绑定的handler 方法, 如果为false, 就跟上面写的效果一样 */
+			immediate: true
+		},
+
+		/* 对于要监听的状态为 对象内的属性时, 需要使用deep属性, deep属性代表深度监听, 默认为false */
+		/* 如果我们在改变输入框双向绑定的 uid 的值, 会发现 watch 不能检测到, 因为受现在的 js 限制, vue不能检测到对象属性的添加或者修改, 默认情况下, 我们只有给queryParam进行赋值时, 才会触发侦听器, 因此要监听 uid 可使用deep属性 
+			deep属性会给对象的所有属性都加上这个监听器, 但是会有性能问题
+		*/
+		queryParam: {
+			handler() {},
+			deep: true
+		},
+
+		// 解决: deep属性开启后导致的性能问题
+		'queryParam.select_key.uid': function (newV, oldV) {}
+	}
+ -->
+</body>
+</html>

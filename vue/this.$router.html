@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>this.$router</title>
+</head>
+<body>
+<!-- 路由传参: this.$router.push 
+
+	1.
+		this.$router.push({
+			path: `/news/${id}`
+		})
+
+		对应的路由配置为:
+			{
+				path: '/news/:id',
+				name: 'news',
+				components: news
+			}
+		获取参数时: this.$route.params.id
+	
+
+	2. 通过路由对象中的 name 来匹配路由, 通过params来传递参数
+		this.$router.push({
+			name: 'news',
+			params: {
+				id: id
+			}
+		})
+
+		对应的路由配置: (path后面也可加上 /:id, 这样刷新时, 携带的id数据不会消失)
+			{
+				path: '/news',
+				name: 'news',
+				component: news
+			}
+
+		获取参数: this.$route.params.id
+		
+	3. 使用path 匹配路由, 通过query传递参数, query传递的参数会显示在url后面  ?id=
+		this.$router.push({
+			path: '/news',
+			query: {
+				id: id
+			}
+		})		
+
+		获取参数: this.$route.query.id
+-->
+</body>
+</html>
