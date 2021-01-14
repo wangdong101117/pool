@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>入口函数</title>
+</head>
+<body>
+<!-- 
+	1. 入口函数
+		dom中入口函数: 是在页面结构 图片 文件加载完成后执行
+			window.onload = function () {}
+
+		jqurey中是在结构加载完毕后执行:
+			$(function () {})
+			$(document).ready(function () {})
+
+		在dom中要想实现在文档加载完成后执行:
+			$(window).load(function() {})	
+
+	2. jquery简介:
+		jquery实际上是一个js库, 可理解为jquery就是一个js文件
+
+		jquery对象实际上是一个伪数组结构, 内部保存了dom对象, 因此称: jquery对象为dom对象的包装集合
+
+		将jquery对象转换为DOM对象:
+			1. $('#box')[0]
+			2. $('#box').get(0)
+
+		$根据使用方式发现, 实际上是一个函数结构, 根据传入的参数不同, 可实现不同的功能:
+			1. 选择器功能: 
+				内部传入选择器字符串
+			2. 入口函数功能: 
+				$(function () {})
+			3. 将DOM对象转换为jquery对象:
+				$(this) $(ele)
+			4. 内部传入结构字符串, 可直接生成结构:	
+				$('<p>p标签</p>')
+
+	3. 索引选择器:
+		:even(): 用来选择多个元素中, 索引为偶数的元素
+			$('.child:even()');
+	
+		:odd(): 用来选择多个元素中, 索引为奇数的元素
+			$('.child:odd()');
+	
+		:eq(): 获取多个元素中指定索引的元素
+			$('.child:eq(0)'); // 等同于$('.child').eq(0)
+
+	4. 索引操作: .eq()
+
+	5. 隐式迭代: 操作会自动的进行遍历操作
+	
+	6. 链式编程:
+		任意的设置型操作后面都可继续操作当前元素
+		原理: 利用了设置型操作不需要设置返回值, 获取型操作必须设置返回值, 当进行了获取型操作后, 得到的是当前操作元素的具体值, 在进行设置型操作, 此时操作的是该具体值, 因此进行了一次获取型操作后, 链式编程就结束了
+	
+	7. 筛选选择器: 用于完善链式编程操作
+		1/ 上下级关系
+			子代选择器: .children() 选择的是亲儿子
+				$('.box').children()
+					参数: 传入, 表示选择指定的子代, 不传, 默认选中所有的子代
+
+			后代选择器: .find()
+				参数: 必须, 不传会被忽略, 不选中任何后代
+
+			父元素选择器: .parent()
+			
+			祖先元素选择器: .parents()
+
+		2/ 同级关系:
+			.siblings() - 获取所有的同级组件
+
+			.next() - 获取下一个同级元素
+
+			.prev() - 获取上一个同级元素
+
+			.nextAll() - 获取下面所有的同级元素
+
+			.prevAll() - 获取上面所有的同级元素
+	
+	8. 使用css样式操作:
+		1/ 设置样式: 
+			进行单个样式设置:
+				$('.box').css('width', 100);
+
+			进行多个样式的设置, 使用对象形式:
+				$('.box').css({
+					width: 100,
+					height: 200
+				})	
+
+		2/ 获取操作: 得到生效后的样式:
+			$('.box').css('width');
+
+	9. .index(): 获取某个元素在同级元素中的索引值
+	
+	10. 类名的操作方法:
+		1/ 添加类名: addClass()
+			添加单个: addClass('fl');
+			添加多个: addClass('fl, fr');
+
+		2/ 移除类名: removeClass()
+			不传参: 默认移除所有的类名
+				$('.box').removeClass('fl');
+				$('.box').removeClass('fl, fr');
+
+		3/ toggleClass():
+			规则: 
+				如果类名存在: 移除
+				如果不存在: 添加
+
+				$('#box').toggleClass('fl')
+
+			不传参数: 默认移除所有类名, 与removeClass()不传参数相同			
+
+		4/ hasClass(): 检测元素中的某些类名是否存在
+			存在: 返回true,  否则返回false
+				参数: 字符串的类名形式
+				推荐: 单个元素的单个类名进行检测
+
+				当对单个元素的多个类名同时检测时, 类名的传入顺序如果不对, 返回false
+				当对多个元素的某一个类名进行检测时, 只要有一个元素含有该类名, 即返回true
+					$('li').hasClass('fl')
+
+	11. 动画操作:
+		1/ show()/hide() 显示/隐藏
+			参数: 
+				参数1: 运动时间, 毫秒, 支持字符串类型参数
+					fast: 200; normal: 400; slow: 600
+				参数2: 回调函数, 保存运动结束后执行的操作
+				
+		2/ slideDown()/slideUp()/slideToggle(): 下拉/上拉/切换
+			参数: 
+				参数1: 运动时间
+				参数2: 回调函数
+
+		3/ fadeIn()/fadeOut()fadeToggle()/fadeTo(): 渐入/渐出/切换/渐变到...
+
+		4/ animate(): 自定义动画:
+			参数:
+				参数1: 对象结构, 里面传入css的样式值, 表示元素要进行哪些样式的运动
+				参数2: 运动时间, 可选
+				参数3: 默认为变速运动 swing, 匀速运动为 linear
+				参数4: 回调函数, 运动结束后执行的操作
+
+				$('.box').animate({
+					left: 300,
+					top: 180
+				}, 400, 'linear', function () {})
+
+		5/ 动画队列和stop()
+			jquery中的动画采用排队的方式, 称为动画队列, 是帧动画, 当一个动画执行完毕后才会执行下一个动画
+
+			.stop() 用来结束上一个旧动画, 设置在新动画之前
+
+	12. .each(): 显示迭代
+		$('div').each(function(i, ele) {
+			// i: 索引值
+			// ele: dom对象
+			// === 此时的 $(this) 与 $(ele) 相同
+			$(ele).css('width', 100*(i + 1));
+		})										
+
+		$.each() 将对象和数组的遍历操作进行了统一
+
+	13. 创建元素:
+		html(): 相当于DOM中的innerHTML()
+			特点: 生产的新内容会对原内容产生覆盖
+
+		$(): 相当于 document.createElement()
+			特点: 创建的元素默认不在页面中显示, 需进行移动节点操作
+	
+	14. 移动节点操作:
+		append(): 向某个元素内部的最后位置移动(添加)元素
+			$('.box').append()
+				参数: 字符串形式
+					- 里面传入结构字符串可直接进行创建操作并移动
+
+					$('#box').append('<p>p标签</p>')
+		
+		prepend(): 向某个元素内的最前面位置移动(添加)元素
+
+		after(): 向某个元素的同级后面添加元素
+
+		before(): 向某个元素的同级前面添加元素
+
+		---- 下面的四个方法是为了完善链式编程操作
+			appendTo()
+			prependTo()
+			insertAfter()
+			insertBefore()
+
+			$('<p>p标签</p>').appendTo('#box');
+
+	15. 移除元素:
+		html(''): 利用了生成的新内容会对原内容进行覆盖的特性, 因此内部传入一个空字符串
+
+		empty(): 移除某个元素内的所有内容, 推荐
+
+		remove(): 用于移除自身和内部元素
+
+	16. clone() 克隆元素, 拷贝元素默认不在页面中显示, 需进行移动节点操作
+		参数: 
+			false: 浅拷贝: 拷贝结构和内容
+			true: 深拷贝: 不仅仅拷贝结构和内容, 还拷贝事件
+
+		$('body').append($('#box').clone(true))	
+
+	17. 页面滚动的设置方式
+		$('#btn').click(function () {
+			$(body, html).animate({
+				scrollTop: 2000
+			}, 1500)
+		})			
+
+	18. jquery中的事件发展历程
+			-- 在jquery中设置的事件均不会出现覆盖问题
+
+		1. 基本事件设置方式:
+			$('#btn').click(function() {})
+			$('#btn').dbclick(function () {})
+
+			缺点: 不利于事件的统一管理, 不会对动态创建的元素生效
+
+		2. bind(): 用于单个元素同时管理多个事件
+			$('#btn').bind({
+				click: function () {},
+				dbclick: function () {}
+			})	
+
+			缺点: 不会对动态创建的元素生效
+
+		3. delegate(): 用于设置事件委托
+			参数:
+				参数1: 选择器, 表示事件由哪些元素触发执行
+				参数2: 事件类型
+				参数3: 回调函数: 表示事件触发后执行的操作
+
+			$('#btn').delegate('p', 'click', function () {})
+			
+		4. on() -- 重要
+			由于jquery中有很多事件设置方式, 最后通过 on() 统一了所有的操作
+				$('#btn').on('click', function () {})
+				$('#btn').on({
+					click: function () {},
+					dbclick: function () {}
+				})
+
+				$('#container').on('click', 'p', function () {})
+
+		5. 移除事件:
+			unbind() undelegate() 
+
+			off(): 用于 事件的移除操作
+				- 不传参: 默认移除元素的所有事件
+				$('#container').off()
+
+				- 传入字符串类型的参数, 移除指定类型的事件
+				$('#container').off('click')
+
+				- 传入事件类型和事件处理程序
+				$('#container').off('click', fun)
+					表示移除事件类型为click中 函数名为 fun 的事件
+
+				== 移除事件委托设置:
+					$('#box').off('**')
+
+		6. 事件对象的方法:
+			return false
+				- dom中, return false可取消默认事件的效果
+				- jquery中, 不仅仅可以取消默认事件的效果, 还可以阻止事件的传播
+
+				- 如果希望分别执行取消默认事件的效果和阻止事件的传播:
+					e.preventDefault(): 取消默认事件的效果
+					e.stopPropagation(): 阻止事件的传播
+
+	19. 当链式操作被终止, 称为断链, jquery中提供了 end() 用来回去上一次操作的jquery对象		
+	
+	20. trim(): 用于去除字符串的首尾空格							
+	21. 标签行内属性:
+		prop(): 自带行内属性
+
+		attr(): 自定义行内属性
+
+		data(): 自定义行内属性
+
+	22. jquery中元素样式的操作方法
+			在进行设置操作时, margin padding border值给出, 只会修改width属性的值
+
+			宽度获取:
+				width(): 获取宽度
+				innerWidth(): width + padding
+				outerWidth(): width + padding + border
+				outerWidth(true): 获取的是盒模型的宽度
+	
+			高度获与宽度获取的操作方法相同
+
+	23. 卷曲尺寸的获取方式:
+		scrollTop() - 卷曲高度
+		scrollLeft() - 卷曲宽度
+		卷曲事件: scroll(function() {})
+
+		当元素内部的滚动条滚动时触发事件:
+			$(window).scroll(function() {})
+
+		获取操作:
+			$(window).scrollTop()
+			$(window).scrollLeft()
+
+	24. offset()
+			用于获取元素到页面(body)的距离(左上角的距离), 结果为对象形式, 包含 left和top 属性
+
+			= 设置方法:
+				在使用是如果元素没有添加定位, 会自动添加伪相对定位
+				因此, 需要自己设置为绝对定位, 让其脱标
+				$('#box').offset({
+					top: 100,
+					left: 80
+				})			
+
+	25. position(): 获取结果为: 只读
+			用于获取当前元素到定位父元素之间的距离
+			DOM中offset系列属性的区别:
+				DOM中offset属性是获取元素边框到定位父盒子边框之间的距离
+					- 边框到边框之间的距离
+
+				jquery中position() 是盒模型到盒模型之间的距离
+					- 多了一个margin
+					- 避免方法: 不设置margin即可
+
+	26: jquery中 表单元素的内容操作使用 val()
+			清空表单元素内容使用 val('')
+
+	27: 多库共存:
+			jquery中提供了两个顶级对象名称
+				$ 与 jquery
+					这两个顶级对象完全相等, 只是名称不同
+
+			noConflict(): 
+				可让jquery放弃对顶级对象名称的使用权
+				返回值:
+					返回对jquery的顶级名称使用权, 保存在变量中
+					该变量可作为jquery的顶级对象来使用
+
+				参数:
+					true表示对 $ 和 jquery 的名称使用权都放弃
+
+					false表示之放弃对 $ 的名称使用权			
+
+
+ -->
+</body>
+</html>

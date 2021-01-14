@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>逻辑层-注册页面</title>
+</head>
+<body>
+<!-- 注册页面:
+	对于小程序中的每个页面, 都需要在页面对应的js文件中进行注册, 指定页面的初始数据 生命周期回调 事件处理函数等
+
+	使用Page构造器注册页面
+
+		Page({
+			data: {
+				text: '123'
+			},
+				/* data: 页面的初始数据
+				
+				 */
+			onLoad: function (options) {
+		
+			},
+				/* onLoad: 页面加载时触发, 一个页面只会调用一次
+				
+				 */
+			onShow: function () {
+				
+			},
+			onReady: function () {
+				
+			},
+				/* onReady: 页面初次渲染完成时触发, 一个页面只会调用一次, 表示页面以准备妥当, 可跟视图层进行交互
+					注: 
+						对界面内容进行设置的 API, 要在 onReady之后进行, 例如: wx.setNavigationBarTitle
+				
+				 */
+			onHide: function () {
+	
+			},
+			onUnload: function () {
+	
+			},
+				/* onUnload: 页面卸载时触发
+					例如: 在wx.directionTo 或者 wx.navigateBack 到其他页面时
+				
+				 */
+			onPullDownRefresh: function () {
+	
+			},
+				/* 监听用户下拉刷新事件
+					1/ 需要在app.json 的 window 选项中或者页面配置中开启: enablePullDownRefresh
+					2/ 也可通过调用: wx.startPullDownRefresh() 触发下拉刷新, 调用后触发下拉刷新动画, 效果与用户手动下拉刷新一致
+					3/ 当处理完数据刷新后, 可调用: wx.stopPullDownRefresh() 停止当前页面的下拉刷新
+				 */
+			onReachBottom: function () {
+	
+			},
+				/* onReachBottom: 监听用户上拉触底事件
+					1/ 可在 app.json 中的 window 选项中或者页面配置中设置触发距离: onReachBottomDistance
+					2/ 在触发距离内滑动期间, 该事件只会被触发一次
+				 */
+			onShareAppMessage: function () {
+	
+			},
+				/* onShareAppMessage: 监听用户点击页面内转发按钮(button组件 open-type="share")或右上角"转发"按钮的行为, 并自定义转发内容
+					注:
+						只有定义了此事件处理函数, 右上角才会显示 转发 按钮
+					参数: object, 包括:
+						from: 转发事件的来源:
+							button: 页面内转发按钮
+							menu: 右上角转发菜单
+						target: 如果from值是button, 则target是触发这次转发事件的button,否则为undefined
+						webViewUrl: 页面中包含web-view组件时, 返回当前web-view的url
+
+					该事件处理函数需要return 一个 对象, 用于自定义转发内容, 返回内容如下:
+						title: 转发标题, 默认为当前小程序名称
+						path: 转发路径
+						imageUrl: 自定义图片路径, 本地 代码包 网络图片, png或jpg格式, 显示图片长宽比为5:4
+
+
+					onShareAppMessage (res) {
+						if (res.from === 'button') {
+							// 来自页面内转发按钮
+						}
+						return {
+							title: '转发标题',
+							path: 'page/user?id=123'
+						}
+					}				
+				
+				 */
+			onShareTimeLine() {
+				
+			},	
+				/* 监听右上角菜单 "分享到朋友圈" 按钮的行为, 并自定义分享内容
+					注: 只有定义了此事件处理函数, 右上角才会显示 "分享到朋友圈" 按钮
+				
+				 */
+			onPageScroll: function () {
+	
+			},
+				/* onPageScroll: 监听用户滑动页面事件
+					注: 
+						1/ 在需要的时候才在Page 中定义该方法, 不要定义空方法, 以减少不必要的事件派发对渲染层-逻辑层通信的影响
+						2/ 避免在该监听事件里面频繁的执行 setData 等引起逻辑层-渲染层通信的操作, 尤其是每次传输大量数据, 会影响通信耗时
+				 */
+			onResize: function () {
+	
+			},
+				/* onResize: 小程序屏幕旋转时触发 */
+			onTabItemTap() {
+	
+			},
+				/* onTabItemTap: 点击tab时触发
+					参数: object, 包括
+						index: 被点击tabItem的序号, 从0开始
+						pagePath: 被点击tabItem的页面路径
+						text: 被点击tabItem的按钮文字
+
+					onTabItemTap(item) {
+						console.log(item.index, item.pagePath, item.text);
+					}	
+				
+				 */
+			listItemTap() {
+	
+			},
+			customData: {
+				hi: 'nihao'
+			}
+
+			// 除此之外: 
+				this.route: 当前页面的路径
+				this.setData():
+					用于将数据从逻辑层发送到视图层(异步), 同时改变对应的 this.data 的值(同步)
+
+					注:
+						1/ 直接修改this.data而不调用this.setData是无法改变页面的状态的, 还会造成数据不一致
+						2/ 仅支持设置可JSON化的数据
+						3/ 单次设置的数据不能超过1024kb
+						4/ 不要将data中任何一项的value设为undefined
+						5/ 可修改this.data后马上用setData设置一下修改了的字段
+							this.data.num = 1;
+							this.setData({
+								num: this.data.num
+							})	
+						6/ 对于对象或数组字段, 可直接修改一个子字段
+							this.setData({
+								'arr[0]': 5
+							})	
+
+							this.setData({
+								'obj.name': 'ls'
+							})
+
+				页面间通信:
+					如果一个页面由另一个页面通过wx.navigateTo 打开, 这两个页面间将建立一条数据通道:
+						1/ 被打开的页面可通过 this.getOpenerEventChannel() 获得一个 eventChannel 对象
+						2/ wx.navigateTo() 的success 回调中也包含一个 eventChannel 对象
+
+					这两个 eventChannel 对象间可使用 emit 和 on 方法想法发送 监听事件	
+
+				在页面中使用 behaviors
+					页面可使用 behaviors, 可用来让多个页面有相同的数据字段和方法
+
+					behaviors是用于组件间代码共享的特性, 类似于 mixins / traits, 
+					每个behaviors可包含医嘱属性 数组 生命周期和方法, 组件引用它时, 它的属性 数据和方法会被合并到数组中, 生命周期函数也会在对应时机被调用, 每个组件可引用多个behaviors, behavior也可引用其他的behavior
+
+					// my-behaviors.js
+					module.exports = Behavior({
+						data: {
+							text: '000'
+						},
+						methods: {
+							textMethod: function () {
+								this.data.text === '111'
+							}
+						}
+					})	
+
+					// page-a.js 某个page.js
+					var myBehavior = require('./my-behavior.js')
+					Page({
+						behaviors: [myBehavior],
+						onLoad() {
+	
+						}
+					})			
+
+		})
+
+-->
+</body>
+</body>
+</html>

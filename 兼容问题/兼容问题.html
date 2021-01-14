@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>兼容问题</title>
+</head>
+<body>
+<!-- 
+	常见的浏览器内核可分为四种:
+		ie: trident内核
+		chrome: webkit内核, 现在是blink内核
+		firefox: gecko内核
+		safari: webkit内核
+		opera浏览器: 开始是presto内核, 后来是blink内核
+
+	常见的兼容性问题:
+		1/ 不同浏览器的标签默认margin和padding不同:
+			解决: 增加通配符: 
+				*{margin: 0; padding: 0;}
+		
+		2/ ie6 双边距的问题: 
+			- 在ie6中设置了 float, 同时又设置了margin, 就会出现双边距问题
+				解决: 设置 display: inline;
+
+		3/ 当标签的高度设置小于10px, 在ie6 7中会超出自己设置的高度
+			解决: 超出高度的标签设置: overflow: hidden; 或者设置 line-height的值小于你设置的高度
+
+		4/ 图片默认有间距
+			解决: 设置float, 脱离标准流
+
+		5/ ie9以下不能使用 opacity
+			解决: opacity：0.5；filter：alfha（opacity=50）；filter：progid：DXlmageTransform.Microsoft.Alfha(style=0,opacity=50);
+	
+		6/ cursor: hand; 在safari上不支持
+			解决: 使用 cursor: pointer;
+
+		7/ 两个块级元素, 父元素设置了overflow: auto; 子元素设置了 position: relative; 且高度大于父元素高度, 在ie6 7会被隐藏而不是溢出
+			解决: 父级元素设置: position: relative;
+
+		8/ ie9以下不能操作 tr 的innerHTML		
+
+
+
+
+
+ -->
+</body>
+</html>

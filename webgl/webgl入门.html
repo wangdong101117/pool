@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>webgl入门</title>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"></script>
+</head>
+<body>
+<!-- webgl简介:
+	webgl使得支持 html 的 canvas 标签的浏览器中, 不需要安装任何插件, 便可以使用一些api在 canvas 中进行2d和3d渲染, webgl程序包括用 js 写的控制代码, 以及在图形处理单元中 执行的 着色代码, webgl元素可以和其他 html元素混合使用, 并且可以和网页其他部分或者网页背景结合起来
+ -->
+ 	<!-- 1. 为了使用webgl, 首先需要一个 canvas元素 -->
+ 	<canvas id="glcanvas" width="640" height="480">
+ 		你的浏览器似乎不支持或者禁用了HTML5 <code>&lt;canvas&gt;</code> 元素.
+ 	</canvas>
+
+ 	
+ 	<script type="text/javascript">
+ 		window.onload = function () {
+ 			main()
+ 		}
+
+ 		function main() {
+		  	const canvas = document.querySelector('#glcanvas');
+
+	 		// 初始化 webgl 上下文
+	 		const gl = canvas.getContext('webgl');
+
+	 		// 确认webgl 的支持性
+	 		if (!gl) {
+	 			alert('不支持webgl');
+	 		} 
+
+	 		// 使用不透明黑色 清除所有图像
+	 		gl.clearColor(0, 0, 0, 1);
+
+	 		// 使用上面指定的颜色 清除 缓冲区
+	 		gl.clear(gl.COLOR_BUFFER_BIT); 
+
+			const vsSource = `
+			    attribute vec4 aVertexPosition;
+
+			    uniform mat4 uModelViewMatrix;
+			    uniform mat4 uProjectionMatrix;
+
+			    void main() {
+			      gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
+			    }
+		    	`;
+
+			const fsSource = `
+			    void main() {
+			      gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+			    }
+			  `;    
+
+			// 之后我们可以这样调用:
+ 			const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
+
+		  	/* 在创建着色器程序后, 我们需要查找webgl返回分配的输入位置, 在上述情况下, 我们有一个属性和两个uniforms; 属性从缓冲区接收值; 顶点着色器的每次迭代都从分配给该属性的缓冲区接下一个值; uniforms类似于js全局变量; 他们在着色器的所有迭代中保持相同的值; 由于属性和统一的位置是特定于单个着色器程序的, 因此我们将他们存储在一起以使它们便于传递 */ 
+
+ 			const programInfo = {
+			    program: shaderProgram,
+			    attribLocations: {
+			      vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),
+			    },
+			    uniformLocations: {
+			      projectionMatrix: gl.getUniformLocation(shaderProgram, 'uProjectionMatrix'),
+			      modelViewMatrix: gl.getUniformLocation(shaderProgram, 'uModelViewMatrix'),
+			    },
+			};
+
+		  	// Here's where we call the routine that builds all the
+		 	// objects we'll be drawing.
+		 	const buffers = initBuffers(gl);
+
+		    // Draw the scene
+		 	drawScene(gl, programInfo, buffers);
+		}
+ 		
+
+
+ 		/* 一旦webgl上下文创建成功, 你就可以在这个上下文里渲染画图了. 对我们而言最简单的是绘制一个没有纹理 的2d图形 */
+
+ 		/* 另外, 需要明确一点的是, 即使是绘制一个二维物体, 但仍然是把它绘制在一个三维空间里, 所以我们依然需要创建着色器, 通过它来渲染我们的简单场景并画出我们的物体 */
+
+ 		/* 着色器是使用 openGL ES(GLSL) 着色语言 编写的程序, 它携带这绘制形状的顶点信息以及构造绘制在屏幕上的像素的所需数据: 也就是 它负责记录像素点的位置和颜色 
+
+			有两种不同的着色器函数:
+				顶点着色器:
+					每次渲染一个形状时, 顶点着色器会在形状中的每个顶点运行, 它的工作是将输入顶点从原始坐标系转换到webgl 使用的缩放控件坐标系, 其中每个轴的坐标范围从 -1.0 到 1.0, 且不考虑纵横比 实际尺寸 及 其他任何因素
+
+					顶点着色器需要对顶点坐标进行必要的转换, 在每个顶点基础上进行其他调整或计算, 再通过将其保存在有GLSL(着色语言)提供的特殊变量中来返回变换后的顶点
+
+				片段着色器:
+					在顶点着色器处理完图形的顶点后, 会被要绘制的每个图形的每个像素点调用一次, 它的职责是确定像素的颜色, 通过制定应用到像素的纹理元素(即图形纹理中的像素), 获取纹理元素的颜色, 然后将适当的光照应用于颜色, 之后颜色存储在特殊变量(gl_FragColor)中, 返回到webgl层, 该颜色将最终绘制到屏幕上图形对应像素的对应位置
+
+				两者集合称之为: 着色器程序
+ 		*/
+ 	
+ 		// === 初始化着色器
+ 			// 初始化着色器程序, 让webgl知道如何绘制我们的数据
+ 			function initShaderProgram(gl, vsSource, fsSource) {
+ 				const vertexShader = loadShader(gl, gl.VERTEX_SHADER, vsSource);
+ 				const fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fsSource);
+
+ 				// 创建着色器程序
+ 				const shaderProgram = gl.createProgram();
+ 				gl.attachShader(shaderProgram, vertexShader);
+ 				gl.attachShader(shaderProgram, fragmentShader);
+ 				gl.linkProgram(shaderProgram);
+
+ 				// 如果创建失败, alert
+ 				if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+ 					alter('创建失败');
+ 					return null;
+ 				}
+ 				return shaderProgram;
+ 			}
+
+ 			// 
+ 			// 创建指定类型的着色器, 上传source源码并编译
+ 			// 		参数:
+ 			// 			gl: webgl上下文
+ 			// 			type: 着色器类型
+ 			// 			source: 源码	
+ 			// 
+ 			function loadShader(gl, type, source) {
+
+ 				// 1. 调用gl.createShader() 创建一个新的着色器
+ 				const shader = gl.createShader(type);
+
+ 				// 将source 赋值给 shader object 对象
+ 				// 2. 调用gl.shaderSource() 将源代码发送到着色器
+ 				gl.shaderSource(shader, source);
+
+ 				// 解析 shader program
+ 				// 3. 一旦着色器获取到源代码, 就使用gl.compileShader() 进行编译
+ 				gl.compileShader(shader);
+
+ 				// 判断是否解析成功
+ 				// 4. 为了检查是否成功变异了着色器, 检查着色器参数: gl.COMPILE_STATUS状态, 通过调用gl.getShaderParameter()获取它的值, 并制定着色器和我们想要检查的参数名字: gl_COMPILE_STATUS, 若返回错误, 则着色器无法编译, 可通过gl.getShaderInfoLog()从编译器中获取错误日志信息
+ 				if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+ 					alter('解析失败');
+ 					return null;
+ 				}
+ 				// 5. 如果着色器被加载并成功编译, 则返回编译的着色器
+ 				return shader;
+ 			}
+
+ 			/* 创建对象:
+				在画正方形前, 我们要创建一个缓冲器来存储他的顶点, 会用到名称为 initBuffers() 的函数; 当我们了解到更多webgl的概念时, 这段代码将会有更多的参数, 也会更加复杂, 并用来创建更多的三维物体
+ 			 */ 
+ 			
+ 			// 这段代码简单的给出了绘画场景的本质
+ 			function initBuffers(gl) {
+ 				// 1. 首先 调用 gl.createBuffer() 得到了一个缓冲独享并存储在顶点缓冲器
+ 				const positionBuffer = gl.createBuffer()
+ 				// 2. 然后调用bindBuffer() 绑定上下文
+ 				gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+ 				// 3. 创建一个js 数组 记录每一个正方体的每个顶点; 然后将其转化为webgl浮点类型的数组, 并将其传到gl对象的 bufferData() 来建立对象的顶点
+ 				var vertices = [
+ 					1.0, 1.0, 0.0,
+ 					-1.0, 1.0, 0.0,
+ 					1.0, -1.0, 0.0,
+ 					-1.0, -1.0, 0.0
+ 				];
+
+ 				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+
+ 				return {
+ 					position: positionBuffer
+ 				};
+ 			}
+
+ 			/* 绘制场景:
+				当着色器和物体都创建好后, 我们可以开始渲染这个场景了;
+					== 需要有gl-matrix.js 这个文件
+ 			 */
+ 			
+ 			function drawScene(gl, programInfo, buffers) {
+ 				// 用背景色擦除画布
+ 				gl.clearColor(0.0, 0.0, 0.0, 1.0);
+
+ 				gl.clearDepth(1.0);
+
+ 				// 建立摄像机透视矩阵
+ 				gl.enable(gl.DEPTH_TEST);
+
+ 				gl.depthFunc(gl.LEQUAL);
+
+ 				gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+ 				// 设置45度的视图角度
+ 				const fieldOfView = 45 * Math.PI / 180;
+ 				
+ 				// 设置一个适合实际图像的宽高比
+ 				const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
+
+ 				// 指定摄像机距离0.1 到 100 单位长度的范围内的物体可见
+ 				const zNear = 0.1;
+ 				const zFar = 100;
+
+
+ 				// 加载特定位置
+ 				const projectionMatrix = mat4.create()
+
+ 				mat4.perspective(projectionMatrix, fieldOfView,aspect ,zNear, zFar);
+ 				// 将正方形放在距离摄像机6个单位的位置, 然后绑定正方形的顶点缓冲到上下文, 并配置好, 通过调用drawArrays() 画出对象
+ 				const modelViewMatrix = mat4.create();
+ 				mat4.translate(modelViewMatrix, modelViewMatrix, [-0.0, 0.0, -6.0]);
+
+ 				{
+ 					const numComponents = 2;
+ 					const type = gl.FLOAT;
+ 					const normalize = false;
+ 					const stride = 0;
+
+ 					const offset = 0;
+ 					gl.bindBuffer(gl.ARRAY_BUFFER, buffers.position);
+ 					gl.vertexAttribPointer(programInfo.attribLocations.vertexPosition, numComponents, type, normalize, stride, offset);
+ 					gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
+ 				}
+
+ 				gl.useProgram(programInfo.program);
+
+ 				gl.uniformMatrix4fv(programInfo.uniformLocations.projectionMatrix, false, projectionMatrix);
+
+ 				gl.uniformMatrix4fv(programInfo.uniformLocations.modelViewMatrix, false, modelViewMatrix);
+
+ 				{
+ 					const offset = 0;
+ 					const vertexCount = 4;
+ 					gl.drawArrays(gl.TRIANGLE_STRIP, offset, vertexCount);
+ 				}
+ 			}
+
+ 	</script>
+</body>
+</html>

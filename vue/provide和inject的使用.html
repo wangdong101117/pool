@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>provide和inject的使用</title>
+</head>
+<body>
+<!-- 
+	provide和inject这对选项是一起使用的, 以允许一个祖先组件向其所有的子孙后代注入一个依赖, 无论组件的层次有多深, 会在起上下游关系的时间里始终生效
+
+	也就是说, 如果组件的引入层次过多, 我们的子孙组件想要获取组件组件的资源(data中的数据或者是methods中的方法), 就可使用provide和inject这对选项进行解决
+
+
+	- provide: 是一个对象, 或者是一个返回对象的函数, 里面包含有要给子孙后代的东西
+
+	- inject: 是一个字符串数组, 或者是一个对象
+
+	如:
+		父组件中 methods中定义了一个加载表格的方法: loadTable
+			provide() {
+				return {
+					loadTable: this.loadTable
+				}
+			},
+			data() {
+				return {}
+			},
+			methods: {
+				loadTable() {}
+			}
+
+		后代组件中: 使用inject 接收父组件暴露(传递)的方法/属性
+			inject: ['loadTable'],
+			data() {
+				return {}
+			}	
+ -->
+</body>
+</html>

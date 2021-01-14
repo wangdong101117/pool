@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>自定义指令</title>
+</head>
+<body>
+<!--  由于vue中的系统指令有限, 就需要我们自己去扩展一些指令
+
+	- 全局自定义指令:
+		定义在 vue 实例之前, 使用 Vue.directive() 定义全局自定义指令
+			Vue.directive('指令名', {
+				inserted: function (el) {
+					// el: 将来要使用这个自定义指令的DOM元素
+					el.focus();
+					console.log(el.parentNode); // 存在父节点
+				}
+			})
+
+	- 局部自定义指令: 使用directives 这个属性
+		data() {
+			return {
+	
+			}
+		},
+		directives: {
+			指令名: {
+				bind: function (el) {
+					el.focus();
+					console.log(el.parentNode); // null 
+				}
+			}
+		}
+
+	??? 解释 bind 与 inserted 异同点:
+		= 相同点: 
+			在dom插入时都会调用, bind 会在 inserted 之前调用
+
+		= 不同点: 
+			bind调用时, 父节点为 null
+			inserted调用时, 父节点存在	
+				
+
+
+ -->
+</body>
+</html>

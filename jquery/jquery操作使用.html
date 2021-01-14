@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jquery操作使用</title>
+	<style type="text/css">
+		.bd {
+			background: #ccc;
+		}
+
+		.animate div {
+			display: inline-block;
+			width: 100px;
+			height: 100px;
+			margin: 10px;
+		}
+
+		.hide {
+			background: green;
+			border-radius: 50%;
+		}
+
+		.ani_one {
+			background: #ccc;
+		}
+
+		.ani_two {
+			background: #bbb;
+		}
+
+		.ani_three {
+			background: red;
+		}
+
+		.ani_four {
+			background: blue;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<ul class="list">
+			<li>第1行</li>
+			<li>第2行</li>
+			<li>第3行</li>
+			<li>第4行</li>
+			<li>第5行</li>
+		</ul>
+	</div>
+	<div class="animate">
+		<div class="hide"></div>
+		<div class="ani_one"></div>
+		<div class="ani_two"></div>
+		<div class="ani_three"></div>
+		<div class="ani_four"></div>
+	</div>
+
+	<script type="text/javascript" src="./jquery-1.12.4.min.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			$('.list').on('click', 'li', function () {
+				$(this).addClass('bd').siblings().removeClass('bd');
+				console.log($(this).index());
+			})
+
+			$('.hide').hide(0)
+
+			$('.animate').on('mouseover', 'div', function (e) {
+				console.log($(this));
+				if ($(this).hasClass('ani_one')) {
+					$(this).hide(600, function() {
+						console.log('第一个div隐藏')
+						$('.hide').show(600, function () {})
+					})
+				} else if ($(this).hasClass('ani_two')) {
+					$(this).slideToggle('normal')
+				}
+			})
+
+			$('.ani_')
+
+		})
+	</script>
+</body>
+</html>

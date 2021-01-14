@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>视图层-wxml语法</title>
+</head>
+<body>
+<!--
+	1/ 数据绑定:
+		1. 简单绑定: 双大括号将变量包起来:
+			{{ message }}
+
+		2. 组件属性: 要在双引号之内
+			<view id="item-{{id}}"></view>
+			data: {
+				id: 0
+			}
+		
+		3. 控制属性: 双括号内
+			<view wx:if="{{flag}}"></view>	
+			data: {
+				flag: true
+			}
+
+		4. 关键字: 双括号内
+			true: Boolean类型的 true
+			false: Boolean类型的 false
+			<checkbox checked="{{true}}"></checkbox>
+
+			注: 不要直接写 checked="false", 其计算结果为一个字符串, 转成boolean为真值
+
+		5. 运算:
+			<1> 三元:
+				<view hidden="{{flag? true : false}}">隐藏</view>
+			<2> 算数运算:
+				<view>{{a + b}} + {{c}} + d</view>
+				data({
+					a: 1,
+					b: 2,
+					c: 3
+				})
+				那么view中的内容为: 3 + 3 + d
+			<3> 逻辑判断:
+				<view wx:if="{{length > 5}}"></view> 	
+			<4> 字符串运算:
+				<view>{{"hello" + name}}</view>	
+				data({
+					name: 'ls'
+				})
+
+			<5> 组合:
+					可直接进行组合, 构成新的对象或者数组
+					<view wx:for="{{[zero, 1, 2, 3]">{{item}}</view>	
+					data: {
+						zero: 0
+					}
+
+					最终合成数组: [0, 1, 2, 3]
+	
+	2/ 列表渲染: wx:for
+		在组件上使用wx:for 控制属性绑定一个数组, 即可使用数组中的各项数据重复渲染该组件, 默认数组的当前项的下标为index, 当前项为item
+			<view wx:for="{{arr}}" wx:key="id">	
+				{{index}}: {{item}}
+			</view>	
+
+			wx:for-item: 可改变item的变量名
+			wx:for-index: 可改变下标的变量名
+
+			wx:key: 指定列表唯一标识符
+				1/ 字符串形式, 代表 for 循环的array中 item的某个属性, 该属性需要是唯一的数字或字符串, 且不能改变
+				2/ 保留关键字 *this 代表for循环中的item本身, 这种前提是item本身是为一个字符串或数字
+
+	3/ 条件渲染: wx:if
+		<view wx:if="flag"></view>
+		也可使用 wx:elif 和 wx:else 来添加一个 else 块
+
+		<block wx:if="{{true}}">
+			<view></view>
+			<view></view>
+		</block>	
+			block并不是一个组件, 仅仅是一个包装元素, 不在页面中做任何渲染, 只接受控制属性
+
+		wx:if 与 hidden: 频繁切换时使用hidden
+			wx:if 是惰性的, 如果出事渲染条件为false, 框架什么也不做, 只有在条件第一次变为真时, 才会局部渲染, 有更高的切换消耗
+			hidden: 组件始终会渲染, 只是控制显示与隐藏	
+				
+
+-->		
+
+</body>
+</html>

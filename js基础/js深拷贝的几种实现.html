@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>js深拷贝的几种实现</title>
+</head>
+<body>
+<script type="text/javascript">
+	/** 1. JSON.stringify() 以及 JSON.parse()
+			= 注意点: 使用这种方式不可以拷贝 undefined, function , RegExp等类型的
+	 */
+	var obj = {
+		a: 1,
+		b: 2	
+	} 
+
+	var obj_clone = JSON.parse(JSON.stringify(obj));
+	obj_clone.a = 3;
+	console.log(obj, obj_clone);
+
+	/** Object.assign(target, source)
+			这种方式只能用于一层对象, 多层嵌套时不适合
+	 */
+
+	var obj2 = Object.assign({}, obj);
+	obj2.b = 6;
+	console.log(obj, obj2);
+
+	/** 递归拷贝 */
+		// 定义一个深拷贝函数, 接收目标target参数
+		function deepClone (target) {
+			// 定义一个变量
+			let result;
+			// 如果当前需要深拷贝的是一个对象的话:
+			if (typeof target === 'object') {
+				// 如果是一个数组的话
+				if (Array.isArray(target)) {
+					result = []; // 将result赋值为一个数组, 并且执行遍历
+
+					for(let i in target) {
+						// 递归克隆数组中的每一项
+						result.push(deepClone(target[i]));
+					}
+				} else if (target === null) {
+					// 如果当前值为null: 直接赋值为null
+					result = null;
+				} else if (target.constructor === RegExp) {
+					result = target;		
+				} else {
+					// 说明是普通对象, 直接 for in 循环, 递归赋值对象的所有值
+					result = {};
+					for (let i in target) {
+						result[i] = deepClone(target[i]);
+					}
+				}
+			} else {
+				// 不是对象的话就是基本数据类型, 直接赋值即可
+				result = target;
+			}
+			// 返回最终结果
+			return result;
+		}
+
+		let obj_example = {
+			a: {
+				a_1: /a/,
+				b: null,
+				c: undefined
+			},
+			b: function () {
+				console.log(this.a);
+			},
+			c: [
+				{
+					a: 'c',
+					b: /b/,
+					c: undefined
+				},
+				'a',
+				2
+			]
+		}
+
+		let reg = deepClone(obj_example);
+		console.log(reg);
+	
+</script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>小程序全局配置</title>
+</head>
+<body>
+<!-- 
+小程序根目录下的app.json 文件用来堆小程序进行全局配置; 文件内容为一个json对象, 包括:
+
+	"entryPagePath": 小程序默认启动首页
+		如果不填, 将默认为 pages 列表中的第一项, 不支持带页面路径参数
+		"entryPagePath": "pages/index/index"
+
+	"pages": 页面路径列表
+		用于指定小程序由哪些页面组成, 当未指定 entryPagePath 时, 数组的第一项代表小程序的初始页面(首页)
+
+			= 小程序新增/减少页面时, 都需要对pages数组进行修改
+
+		"pages": [
+			"pages/index/index",
+			"pages/log/logs"
+		]	
+
+	"window": {} 全局的默认窗口表现
+		用于设置小程序的状态栏 导航条 标题 窗口背景色, 包括:
+			"navigationBarBackgroundColor": "#000000" 导航栏背景色
+			"navigationBarTextStyle": "white" 导航栏标题颜色 仅支持: white/black
+			"navigationBarTitleText": "微信小程序" 导航栏标题文字内容
+			"navigationStyle": "default" 导航栏样式, 仅支持以下值:
+				default: 默认样式
+				custom: 自定义导航栏, 只保留右上角胶囊按钮
+
+					= 说明:
+						1/ iOS/Android 7.0以下版本, navigationStyle只在 app.json中生效
+						2/ iOS/Andriod 6.7.2版本开始 navigationStyle: custom 对web-view组件无效
+						3/ 开启custom 后, 低版本客户端要做好兼容
+						4/ windows 客户端 3.0以后, navigationStyle: custom 不再生效
+
+			"backgroundColor": "#ffffff" 窗口背景色
+			"backgroundTextStyle": "dark" 下拉loading的样式 仅支持 dark/light	
+			"backgroundColorTop": "#ffffff" 顶部窗口的背景色 仅iOS支持
+			"enablePullDownRefresh": false 是否开启全局的下拉刷新
+			"onReachBottomDistance": 50 页面上拉触底事件触发时距离页面底部距离, 单位px
+			"pageOrientation": "portrait" 屏幕旋转设置 支持auto/portrait/landscape
+
+				"window": {
+					"navigationBarBackgroundColor": "#ffffff",
+					"navigationBarTextStyle": "black",
+					"navigationBarTitleText": '微信小程序',
+					"backgroundColor": "#eeeeee",
+					"backgroundTextStyle": "light"
+				}
+
+
+
+	"tabBar": {} 底部tab栏的表现
+		如果小程序是一个多 tab 应用, 可通过 tabBar 配置项指定tab 栏的表现, 以及tab切换时显示的对应页面
+		
+		"color": tab上的文字默认颜色, 仅支持十六进制的颜色
+		"selectedColor": tab 上的文字选中时的颜色
+		"backgroundColor": tab 的背景色
+		"borderStyle": "black" tabBar 上边框的颜色 仅支持black/white
+		"list": [{}, {}] tab 的列表, 2-5个, 每个tab 的配置如下
+			{
+				"pathPath": "pages/tabBar/home/home" 页面路径, 需在pages中定义
+				"text": tab上按钮文字
+				iconPath: 图片路径 不支持网络图片, 当position: top时, 不显示icon, icon大小限制为40kb,建议尺寸为81px*81px
+				selectionIconPath: 选中时的图片路径
+			}
+		"position": "bottom" tabBar的位置 仅支持 bottom/top
+		"custom": false 自定义tabBar 
+			自定义tabBar:
+				使用流程:
+					1/ 配置信息:
+						<1> 在app.json 中的 tabBar 指定 custom字段, 同时其余的 tabBar相关配置也补充完整
+						<2> 所有的tab页的 json 里 需要声明 usingComponents 项, 也可在app.json中全局开启
+
+						{
+							"tabBar": {
+								"custom": true,
+								"color": "#000000",
+								"selectedColor": "#00a0e8",
+								"backgroundColor": "#ffffff",
+								"list": [{
+									"pagePath": "page/component/index",
+									"text": "组件"
+								},{
+									"pagePath": "page/news/index",
+									"text": "新闻"
+								}]
+							},
+							"usingComponents": {}
+						}	
+					2/ 根目录下添加:
+						custom-tab-bar文件夹, 下面包括:
+							index.js
+							index.json
+							index.wxml
+							index.wxss
+
+					3/ 编写 tabBar 代码			
+
+	"networkTimeout": {} 网络超时时间
+		"request": 60000 wx.request 的超时时间 毫秒
+		"connectSocket": 60000 wx.connectSocket 的超时时间 毫秒
+		"uploadFile": 60000 wx.uploadFile 的超时时间
+		"downloadFile": 60000 wx.downloadFile 的超时时间
+
+	"debug": boolean 是否开启debug模式, 默认为关闭
+	"functionalPages": boolean 是否启用插件功能页, 默认为关闭
+		插件所有这小程序需要设置这一项来启用插件功能页
+
+	"subpackages": 分包结构配置
+	"workers": worker代码放置的目录
+	"requiredBackgroundModes": 需要在后台使用的能力, 如: 音乐播放
+		申明需要后台运行的能力, 数组类型, 目前支持:
+			audio: 后台音乐播放
+			location: 后台定位
+
+		"requiredBackgroundModes": ["audio", "location"]	
+
+	"plugins": {} 使用到的插件
+		申明小程序需要使用的插件
+
+	"preloadRule": {} 分包预下载规则
+	"resizable": boolean pc小程序是否支持用户任意改变窗口大小, ipad小程序是否支持屏幕旋转, 默认为否
+		ipad上运行的小程序可设置支持屏幕旋转
+		pc上运行的小程序, 用户可按照任意比例拖动窗口大小, 也可在小程序菜单中最大化窗口
+	
+	"usingComponents": {} 全局自定义组件配置
+		在此处声明的自定义组件视为全局自定义组件, 在小程序内的页面或自定义组件中可直接使用, 而不需再声明
+
+	"permission": {} 小程序接口权限相关设置
+		"permisson": {
+			"scope.userLocation": {
+				"desc": "你的位置信息将用于小程序位置接口的效果展示" // 高速公路上行驶持续后台定位
+			}
+		}
+	"style": 指定使用升级后的weui样式
+	"useExtendedLib": {} 指定需要引用的扩展库
+		目前支持以下项目:
+			kbone: 多端开发框架
+			weui: weui组件库
+		指定后, 相当于引入了对应扩展库相关的最新版本的npm报, 同时也不占用小程序的包体积
+
+		"useExtendedLib": {
+			"kbone": true,
+			"weui": true
+		}
+
+	"entranceDeclare": {} 微信消息用小程序打开
+		聊天位置消息用打车类小程序打开
+		"entranceDeclare": {
+			"locationMessage": {
+				"path": "pages/index/index",
+				"query": "foo=bar"
+			}
+		}
+
+	"lazyCodeLoading": 配置自定义组件代码按需注入
+	"singlePage": {} 单页模式相关配置
+ -->
+</body>
+</html>
