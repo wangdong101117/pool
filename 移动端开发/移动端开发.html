@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>移动端开发</title>
+</head>
+<body>
+<!-- 
+    1. viewport: 视觉窗口
+        也称为视口, 是一个虚拟的区域, 用来承载网页, 而浏览器则承载视口
+        - 在移动端才具有视口的概念, 是移动端特有的一个区域
+        - 视口的特点:
+            视口具有默认的宽度: 980px
+            视口可以缩放, 具有默认的缩放比例, 在运行后, 用户可自行使用缩放功能
+
+        - 移动端视口的标准设置:
+            <1> 页面的宽度要和设备的宽度一致: 也就是和当前设备的宽度一致
+                width=device-width
+            <2> 页面的缩放比例要和pc端保持一致: 为1.0
+                initial-scale=1.0    
+            <3> 设置为不允许用户自行缩放:
+                user-scalable=no/0
+                
+            <meta name="viewport" content="widht=device-width, initial-scale=1.0; user-scalable=no; maximum-scale=1.0; minimum-scalable=1.0">    
+ 
+    2. 四种布局方式:
+        1. 流式布局:
+            又叫百分比布局, 非固定像素布局
+            - 特点: 高度固定, 宽度自适应, img默认为等比缩放            
+            - 效果: 
+                当页面尺寸发生变化时, 网页的内容会向两侧自动填充, 从而产生流动的效果
+            - 京东移动端使用的就是流式布局
+
+            - 在移动端使用流式布局时, 设置所有盒子的宽度从边框开始计算, 以防止贺子的宽度溢出屏幕的宽度
+                box-sizing: border-box;
+           
+        2. 响应式布局: 
+            一般: 在进行新网页的开发制作过程中, 既要适配pc端, 又要适配移动端, 这时可采用响应式布局来适配不同类型的终端
+            响应式布局的原理: 利用媒体查询(c3)
+
+            - 媒体查询是c3的新技术, ie8以下不支持, 可使用 resoond.min.js进行兼容处理
+                <script src="assets/respond/respond.min.js"></script>
+            - 解决h5标签语义不兼容: 使用: html5shiv.min.js
+                <script src="assets/html5shiv/html5shiv.min.js">
+                    
+            媒体查询的使用:
+                @media screen and (min-width: 1200px) {
+                    .container {
+                        width: 1170px;
+                    }
+                }        
+                @media screen and (min-width: 992px) and (max-width: 1200px) {
+                    .container {
+                        width: 970px;
+                    }
+                }
+                @media screen and (min-wdith: 768px) and (max-width: 992rpx) {
+                    .container {
+                        width: 750px;
+                    }
+                }
+                @media screen and (max-width: 768px) {
+                    .container {
+                        width: 100%;
+                    }
+                }
+        
+        3. rem布局:
+            - rem:
+                rem是一个相对单位: 相对于根元素字体的大小: HTML标签的字体大小
+                em: 是相对于父容器的字体大小
+                
+            - rem适配原理:
+                让所有的元素都使用rem单位, 通过html字体大小的改变, 可让这些元素达到等比缩放的适配效果, 在通过程序代码进行修改, 适配不同的设备
+              
+            - 当前设备的rem基准值:
+                当前设备的宽度 / psd设计稿的宽度 * 设定的基于设计稿的 rem 基准值
+                
+            - flexible.js插件
+                flexible插件的rem基准值为当前设备宽度的十分之一
+                    如果是750px的设计稿, 要设置一个 100*100px的元素, 那么元素宽度为:
+                        100/75 rem
+
+    3. bootstrap的使用:
+            bootstrap是一个ui框架, 包含: html css js, 可封装一些插件和功能, 是一个对移动设备优先的响应式框架
+
+            <1> bootstrap模板:
+                模板中设置好了 解决h5语义标签不兼容 和 c3 媒体查询不兼容的问题
+            
+            <2> bootstrap布局容器:
+                1/ 响应式布局容器:
+                    在已设置好的基本模板中设置: .container的类名, 响应式布局容器就设置好了
+                    <div class="container"></div>
+                2/ 流式布局容器:
+                    在已设置好的基本模板中设置: .container-fluid 的类名, 流式布局容器就设置好了
+                    <div class="container-fluid"></div>       
+                    
+                bootstrap布局容器默认没有高度, 但是有槽距: 就是左右两侧各有15px的内边距    
+            
+            <3> bootstrap栅格系统:
+                栅格系统: 网格系统, 由行和列组成的网页布局
+                    <div class="row"></div>
+                        - row 的语义就是行
+                        - .row 类名左右: 清除父容器的槽距
+                        
+                bootstrap默认将一行分成了12等份
+                    <div class="col-sm-4"></div>
+                        xs: 表示在超小屏及以上生效 768以下
+                        sm: 小屏及以上生效 768-992
+                        md: 中屏及以上生效 992-1200
+                        lg: 大屏及以上生效 1200以上
+                        
+                例如: 设置大屏 lg: 6等分;  中屏md: 4等分; 小屏sm: 3等分; 超小屏xs: 2等分
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"></div> * 6         
+
+                .hidden-md 含义:
+                    hidden-lg: 大屏设备时隐藏
+                    hidden-md: 中屏设备时隐藏
+                    hidden-sm: 小屏设备时隐藏
+                    hidden-xs: 超小屏设备时隐藏
+                
+                .visible-md 等的作用与 hidden 作用相反        
+        -->
+</body>
+</html>
