@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #country input {
+            padding: 10px;
+            margin: 10px;
+        }
+
+        #country div {
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 创建一个tab切换, 三个按钮为 中 日 韩, 点击按钮, 按钮及切换的内容背景色分别变为红黄蓝 -->
+    <div id="country">
+        <input type="button" value="中国">
+        <input type="button" value="日本">
+        <input type="button" value="韩国">
+        <div>中国</div>
+        <div>日本</div>
+        <div>韩国</div>
+    </div>
+    <div id="news">
+        <input type="button" value="娱乐">
+        <input type="button" value="财经">
+        <input type="button" value="体育">
+        <div>娱乐</div>
+        <div>财经</div>
+        <div>体育</div>
+    </div>
+
+    <script>
+        class Tab {
+            constructor (obj) {
+                // 通过 id 来 获取 当前父元素
+                this.id = document.querySelector(obj.id);
+                // 获取父元素下的 所有的按钮及文中内容区域div
+                this.btns = this.id.querySelectorAll('input');
+                this.divs = this.id.querySelectorAll('div');
+                
+                this.colorArr = obj.colorArr;
+
+                // this.index = 0;
+                this.index = obj.index;
+
+                this.init();
+            }
+            init () {
+                this.hide();
+                this.show();
+
+                for (let i = 0; i < this.btns.length; i++) {
+                    this.btns[i].onclick = function (e) {
+                        this.index = i;
+                        this.hide();
+                        this.show();
+                        // e.cancelBubble = true;
+                    }.bind(this)
+                }
+            }
+            // 隐藏所有的div, 去掉所有按钮的背景色
+            hide () {
+                for (let i = 0; i < this.btns.length; i++) {
+                    this.btns[i].style.background = null;
+                    this.divs[i].style.display = 'none';
+                }
+            }
+            // 显示对应div, 按钮变为对应色
+            show () {
+                this.divs[this.index].style.display = "block";
+                this.divs[this.index].style.background = this.colorArr[this.index];
+                this.btns[this.index].style.background = this.colorArr[this.index];
+            }
+        }
+
+        class autoTab extends Tab {
+            constructor(obj) {
+                super(obj); // 调用父类的constructor
+                this.autoInt();
+            }
+            autoInt() {
+                // bind方法返回的是一个永久改变this指向的函数
+                setInterval(this.change.bind(this), 5000)
+            }
+            change() {
+                this.index += 1;
+                if (this.index >= this.btns.length) {
+                    this.index = 0;
+                }
+
+                this.hide();
+                this.show();
+            }
+        }
+
+        new Tab({
+            id: "#country",
+            index: 1,
+            colorArr: ["red","green","blue"]
+        });
+        new autoTab({
+            id: "#news",
+            index: 1,
+            colorArr: ["black","pink","purple"]
+        });
+    </script>
+</body>
+</html>

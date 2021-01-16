@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>class 类解读</title>
+</head>
+<body>
+    <script type="text/javascript">
+    /*
+        传统的js中只有对象, 没有类的概念, 它是基于原型的面向对象的语言, 原型对象的特点就是将自身的属性共享给新对象;
+        如果要生成一个对象实例, 需要使用构造函数进行创建, 再通过new 操作符 完成调用修改this指向等一系列操作
+    */
+
+        function Student (name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Student.prototype.sayHi = function () {
+            console.log('hello');
+        }
+
+        // - new 构造函数()之后, 会隐式的执行: new Object() 来创建对象
+        var student_wd = new Student('wd', 25);
+
+     /*
+        ES6中引入了 Class(类)这个概念, 通过class关键字可以定义类, 该关键字的出现使得其在对象写法上更加清晰;
+        更像是一种面向对象的语言, 将上面构造函数的代码改为ES6的写法:
+    */
+
+        // - 定义了一个名为: Student 的类
+        class Person {
+            // - constructor: 构造器, 用来接收参数
+            constructor(name, age) {
+                // - this指向的是实例对象
+                this.name = name;
+                this.age = age;
+            }
+            /*
+                sayHi 是类的一个方法, 不能加上 function
+                方法之间不要用逗号分隔, 会报错
+            */ 
+            sayHi() {
+                console.log('hello');    
+            }
+        }    
+
+        var Student_ls = new Person('ls', 30);
+
+        // - 通过下面可看出: 类的实质就是一个函数, 类自身指向的就是构造函数
+        // - 所以: 可以认为: ES6中的类就是构造函数的另外一种写法
+        console.log(typeof Person); // function
+        console.log(Person === Person.prototype.constructor); // true
+
+        /* 
+            实际上: 类的所有方法都定义在类的 prototype属性上
+        */
+        Person.prototype.sayHi = function () {
+            console.log('hi');
+        }
+
+        // 重新赋值 prototype.sayHi, 会将原来的sayHi 覆盖, 调用时 打印的是 hi, 而不是之前设置的 hello
+
+        /*
+            还可通过 Object.assign() 为对象动态的增加新方法
+        */
+
+        Object.assign(Person.prototype, {
+            getName: function () {
+                return this.name;
+            },
+            getAge: function () {
+                return this.age;
+            }
+        })
+
+        var person_zs = new Person('zs', 40);
+        console.log(person_zs.getName(), person_zs.getAge()); // zs 40
+
+        /*
+            1/ constructor方法是类的构造函数的默认方法, 通过new命令生成实例对象时, 会自动调用该方法
+            2/ constructor方法如果没有显示定义, 那么会隐式的生成一个 constructor 方法; 所以即使你没有添加
+            constructor(), 构造函数也是存在的;
+            3/ constructor() 默认返回实例对象: this, 但是也可通过该方法返回一个全新的对象, 以此来让返回的实例对象
+                不是该类的实例
+        */
+        class Desk {
+            constructor() {
+                this.log = '前端小白';
+            }
+        }
+
+        class Box {
+            constructor() {
+                // - 这里返回了一个全新的对象
+                /*
+                    返回了: new Desk() 实例:
+                        Desk: {
+                            log: '前端小白'
+                        } 
+                */
+                return new Desk();
+            }
+        }
+        /*
+            new Box() 调用: 接收 constructor 返回的实例
+                box <=> Desk : {
+                    log: '前端小白'
+                }
+        */
+        var box = new Box();
+        console.log(box, box.log); // 前端小白
+
+        /*
+            ES6 class 不存在变量提升, 所以要先定义在使用
+        */
+
+        /*
+            ES6 class的继承与java的继承大同小异, 都是通过 extends关键字继承, 相较与ES5中通过原型链继承要
+            清晰和方便多了    
+        */
+       class Tree {
+           constructor (name, color) {
+               console.log('父节点');
+               this.name = name;
+               this.color = color;
+           }
+           say () {
+               console.log(this.name + '-' + this.color);
+           }
+       }
+
+       class First extends Tree {
+           /*
+                如果constructor函数中只有 super调用, 则constructor构造函数可省略不写
+                即: 将整个的constructor构造函数注释掉与不注释掉效果一样
+                最后: first_node.say() 的结果都是: 大娃-红色
+           */
+           constructor (name, color) {
+               super(name, color); // 调用父类的constructor(name, color);
+           }
+           say() {
+               console.log('这是子节点');
+               super.say();
+           }
+       }
+
+       var first_node = new First('大娃', '红色');
+       first_node.say(); // 大娃-红色
+
+       /*
+            super关键字的作用: 表示父类的构造函数, 用来新建父类的this对象
+            子类必须在constructor方法中调用 super方法, 之后才能使用 this 关键字, 否则新建实例会报错     
+            这是因为子类没有自己的this对象, 而是继承自父类的this对象, 如果不调用super方法, 子类就得不到this对象
+            而 ES5 中: 先创建自己的this对象, 然后再将父类的属性方法添加到自己的this中
+       */
+
+       /* 总结: super在子类中的三个作用:
+            1/ 作为父类的构造函数调用:
+                super(name, age);
+            2/ 在普通方法中, 作为父类的实例调用
+                say 方法中: super.say()
+            3/ 在静态方法中, 作为父类调用: 下面会讲到       
+       */
+    </script>
+</body>
+</html>
