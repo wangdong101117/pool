@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>rest参数(...args)</title>
+</head>
+<body>
+<script type="text/javascript">
+	/** rest参数: ...args
+			可变参数, 相当于arguments
+				- arguments 是伪数组对象结构, 用于获取函数调用时传入的全部实参
+
+			- 由于箭头函数没有 arguments, 因此 es6 中 箭头函数 推出 rest参数: ...args
+				- 实质: 将函数调用传入的实参值保存在一个 变量 (args) 中, 因此该变量是一个数组结构
+					- 即便没有传入实参, 或者传入了一个实参, args也是一个数组结构
+	 */
+	
+	function rest (...args) {
+		args.forEach((item, index) => {
+			console.log(`第${index}个变量是${item}`)
+		})
+	}
+	rest('java', 'js', 'c++');
+</script>
+</body>
+</html>

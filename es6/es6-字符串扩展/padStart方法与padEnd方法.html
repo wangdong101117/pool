@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>padStart与padEnd</title>
+</head>
+<body>
+<script type="text/javascript">
+	/** str.padStart(length, char) / str.padEnd(length, char)
+			说明: 当声明的字符串(str)的长度不够时, 使用指定的字符串填充到字符串的 前面/后面
+
+			- 参数: 
+				参数1: length, 要设置的字符串长度
+				参数2: char, 当声明的字符串长度小于(参数1)要设置的字符串长度时, 要进行填充的字符串
+
+			- 返回值: 返回填充完毕的字符串
+	 */
+	let str = 'abcdef';
+	let char = 'xyz';
+
+	let new_str1 = str.padStart(10, char); // xyzxabcdef
+	let new_str2 = str.padEnd(10, char); // abcdefxyzx
+
+	console.log(new_str1, new_str2);
+</script>
+</body>
+</html>

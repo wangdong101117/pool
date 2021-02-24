@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>箭头函数</title>
+</head>
+<body>
+<script type="text/javascript">
+	/** 箭头函数
+			定义方式:
+				箭头函数的写法和普通函数的用法几乎一致:
+				写法: 去掉 function 然后 在 () 与 {} 之间增加 =>
+
+			特点: 
+				<1> 箭头函数不能作为构造函数使用
+					- 即不能通过 new 关键字 创建实例对象
+
+				<2> 箭头函数 没有 arguments, 但可使用 rest参数的方式 接收函数调用传入的全部实参值
+					- 即 形参位置为: ...args
+
+				<3> 箭头函数没有 this 对象, 在箭头函数中的this 指向的是函数外层的对象
+				
+				<4> 如果函数体只设置了一行代码, 且设置了返回值, 那么不需要设置 {} 和 return	
+
+				<5> 如果只有一个参数, 不需要设置()
+
+			缺点: 可读性太低	
+	 */
+	
+	/** 箭头函数可使用形参默认值 */
+	let getName = (name = '王东') => {
+		console.log(name);
+	}
+	getName('wd');
+	getName();
+
+	/** 特点2 */
+	let restArgs = (...args) => {
+		for (let arg of args) {
+			console.log('元素为' + arg); // a b c d
+		} 
+	}
+
+	restArgs('a', 'b', 'c', 'd');
+
+	/** 特点4, 特点5 */
+	let noReturn = x => x
+	noReturn(1);
+</script>
+</body>
+</html>
