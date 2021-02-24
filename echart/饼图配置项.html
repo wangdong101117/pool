@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<!-- 
+			option = {
+                legend: {　　　　　　　　　　　　//配置图例
+                    itemWidth: 5,　　　　　　　//图例大小  我这里用的是圆
+                    itemGap: 30,　　　　　　　　//图例之间的间隔
+                    orient: 'horizontal',　　　//布局方式，默认水平布局，另可选vertical
+                    y: '80%',　　　　　　　　　　//垂直放的位置，可以写top，center，bottom，也可以写px或者百分比。x轴方向同理，默认center
+                    icon: "circle",　　　　　　//图例的形状，选择类型有："circle"（圆形）、"rectangle"（长方形）、"triangle"（三角形）、"diamond"（菱形）、"emptyCircle"（空心圆）、
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　"emptyRectangle"（空心长方形）、"emptyTriangle"（空心三角形）、"emptyDiamon"（空心菱形），还可以放自定义图片，格式为"image://path",
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　path为图片路径
+                   
+ 　　　　　　　　　　　selectedMode: false,　　　　//选中哪个图例 false后图例不可点击
+                    textStyle: {　　　　　　　　　
+                        fontSize: 14,
+                        fontFamily: "Microsoft YaHei",
+
+                    },
+                    data: [{name: '达标', textStyle: {color: "#3999dd"}}, {　　　　//name和下面的series中data的name对应显示。后面加textStyle可设置图例后面文字的颜色
+                        name: '未达标',
+                        textStyle: {color: "#a3a6b4"}
+                    }],
+                    /*图例旁边显示数据*/
+                    formatter: function (name) {
+                        var legendIndex = 0;
+                        var clientlabels = [{name: '达标', textStyle: {color: "#3999dd"}}, {
+                            name: '未达标',
+                            textStyle: {color: "#a3a6b4"}
+                        }];
+                        var clientcounts = [result.standardNum, result.noStandardNum];
+                        clientlabels.forEach(function (value, i) {
+                            if (value.name == name) {
+                                legendIndex = i;
+                            }
+                        });
+                        return name + " " + clientcounts[legendIndex];
+                    }
+
+                },
+                color: ["#e3f9ff", "#3999dd"],　　　　//环形图两部分的颜色
+                graphic: [{　　　　　　　　　　　　　　　　//环形图中间添加文字
+                    type: 'text',　　　　　　　　　　　　//通过不同top值可以设置上下显示
+                    left: 'center',　　　　　　　　　　
+                    top: '30%',
+                    style: {　　　　　　　　　　　　　　　　
+                        text: "80%"（自己设置显示内容）,
+                        textAlign: 'center',
+                        fill: '#000',　　　　　　　　//文字的颜色
+                        width: 30,
+                        height: 30,
+                        fontSize: 18,
+                        color: "#4d4f5c",
+                        fontFamily: "Microsoft YaHei"
+                    }
+                }, {
+                    type: 'text',
+                    left: 'center',
+                    top: '45%',
+                    style: {
+                        text: '达标率',
+                        textAlign: 'center',
+                        fill: '#000',
+                        width: 30,
+                        height: 30,
+                        fontSize: 18,
+                    }
+                }],
+                series: [　　　　　　　　　　　　　　//配置数据啥的
+                    {
+                        name: '达标率',　　　　　　
+                        type: 'pie',　　　　　　　　//设为饼图
+                        radius: ['60%', '70%'],　　//设置内半径和外半径，形成环状
+　　　　　　　　　　　　　　 minAngle:15,　　　　　　　　　//设置最小角度
+　　　　　　　　　　　　　　 startAngle:270　　　　　　　//设置起始角度
+　　　　　　　　　　　　　　 clockWise:false,　　　　　　　　//默认逆时针
+                        avoidLabelOverlap: false,　　　//避免标注重叠
+                        hoverAnimation: false,　　　　//移入放大
+                        silent: true,
+                        center: ['50%', '40%'],
+                        label: {
+                            normal: {
+                                show: false,
+                                position: 'center'
+                            },
+                            emphasis: {
+                                show: false,
+                                textStyle: {
+                                    fontSize: '30',
+                                    fontWeight: 'bold'
+                                }
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        },
+                        data: [
+                            {value: 20, name: '未达标'},
+                            {value: 80, name: '达标'},
+                        ]
+                    }
+                ]
+            };
+
+ -->
+</body>
+</html>

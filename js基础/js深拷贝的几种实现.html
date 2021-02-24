@@ -15,7 +15,7 @@
 
 	var obj_clone = JSON.parse(JSON.stringify(obj));
 	obj_clone.a = 3;
-	console.log(obj, obj_clone);
+	console.log(obj, obj_clone, '11111');
 
 	/** Object.assign(target, source)
 			这种方式只能用于一层对象, 多层嵌套时不适合
@@ -23,7 +23,7 @@
 
 	var obj2 = Object.assign({}, obj);
 	obj2.b = 6;
-	console.log(obj, obj2);
+	console.log(obj, obj2, '222222');
 
 	/** 递归拷贝 */
 		// 定义一个深拷贝函数, 接收目标target参数

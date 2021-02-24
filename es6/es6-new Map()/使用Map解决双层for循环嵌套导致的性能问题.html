@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /** 多重for循环运行效率过低, 当你到的数据量过于庞大时就会发现运行效率的问题
+         * 例如: 双重for循环时, 达到数组去重的效果, 相当于运行了 n*n 次运算, 那么可以使用
+         * Map 将其优化成一重for循环
+        */
+
+        // - 双重for循环实现数组去重
+        let arr = [1, 1, 2, 3, 4, 3, 4, 5, 6, 6, 6];
+
+        function arrSet (arr) {
+            let newArr = [];
+            console.time('1');
+            arr.forEach((item, index) => {
+                let flag = true;
+
+                newArr.forEach((itemC, indexC) => {
+                    if (item === itemC) {
+                        flag = false;
+                    }
+                })
+
+                if (flag) {
+                    newArr.push(item)
+                }
+            })
+            console.timeEnd('1');
+
+            return newArr;
+        }
+
+        var newA = arrSet(arr);
+        console.log(newA);
+
+
+        // 使用Map 进行优化
+        function getArr (arr) {
+            let newArr = [];
+            let map = new Map();
+            console.time('3')
+            arr.forEach((item, index) => {
+                if (typeof map.get(item) == 'undefined') {
+                    map.set(item, item);
+                    newArr.push(item);
+                }
+            })
+            console.timeEnd('3');
+            return newArr;
+        }
+
+        var newB = getArr(arr);
+        console.log(newB)
+    </script>
+</body>
+</html>

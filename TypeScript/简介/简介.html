@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TypeScript简介</title>
+</head>
+<body>
+<!-- 
+	1. 什么是TypeScript:
+		官网中的定义为:
+			添加了类型系统的 JavaScript, 适用于任何规模的项目
+
+			即: 强调了 TypeScript 的两个最重要的特性:
+				== 类型系统
+				== 适用于任何规模
+	
+		- TypeScript的特性:
+			类型系统:
+				从TypeScript的名字就可看出来: 类型 是其最核心的特性
+
+				JavaScript是一门非常灵活的编程语言:
+					1. 没有类型约束, 在变量声明的时候并没有确定变量的类型
+					2. 由于隐式类型转换的存在, 有的变量的类型在运行前就确定
+					3. 是基于原型的面向对象编程, 使得原型上的属性或者方法可以在运行时被修改
+					4. js中的函数可以赋值给变量, 也可被作为参数或者返回值使用
+
+				1/ TypeScript是静态类型
+					类型系统按照 类型检查的时机 来分类, 可分为动态类型和静态类型
+
+						- 动态类型是指在运行时才会进行类型检查, 这种语言的类型错误往往会导致运行时错误; JavaScript是解释性脚本语言, 没有编译阶段, 因此它是动态类型
+
+						- 静态类型是指编译阶段就能确定每个变量的类型, 这种语言的类型错误往往会导致语法错误; TypeScript在运行时需要先编译为JavaScript, 而在编译阶段就会进行类型检查, 因此TypeScript是静态类型
+
+				2/ TypeScript是弱类型语言
+					类型系统按照: 是否允许隐式类型转换来分类, 可分为强类型和弱类型
+						- console.log(1 + '1'); // '11'
+						上面这段代码在js和ts中都不会报错, 但是Python是强类型, 在运行时会报错: 
+							print(1 + '1');
+						强类型语言中 需要进行强制类型转换:
+							print(str(1) + '1'); // '11'
+
+			总结:
+				1. TypeScript是添加了类型系统的 JavaScript, 适用于任何规模的项目
+				2. TypeScript是静态类型语言 弱类型语言
+				3. TypeScript是完全兼容js的, 不会修改js运行时的特性
+				4. TypeScript可编译为js, 能运行在浏览器及Node.js等任何能运行 JavaScript的环境中
+				5. TypeScript拥有很多编译选项, 用户可自定义类型检查的严格程度
+				6. TypeScript可以和JavaScript共存, 意味着js项目可以渐进式的迁移到TypeScript中
+
+		- 安装TypeScript:
+			通过命令行工具进行安装: 安装后我们可在任意地方执行 tsc 命令了
+				npm install -g typescript
+			
+			编译一个 TypeScript文件很简单:
+				tsc hello.ts
+
+				约定: TypeScript编写的文件以 .ts 为后缀, 用TypeScript编写React时, 以.tsx为后缀
+
+
+
+ -->
+</body>
+</html>

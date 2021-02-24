@@ -1,0 +1,7 @@
+使用modal弹框组件内嵌 table表格组件时, 表格设置 height / max-height 属性
+当表格行数据多时, 如果使用一下代码:
+	- 定时器
+	- axios请求
+	- this.$set() 
+
+会导致滚动条卡顿	

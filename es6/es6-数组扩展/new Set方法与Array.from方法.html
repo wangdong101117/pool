@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>new Set方法与Array.from方法</title>
+</head>
+<body>
+<script type="text/javascript">
+	/** new Set():
+			Set 类似于数组, 区别在于里面的值都必须唯一, 不能有重复的值; new Set(arr) 得到一个 Set对象, 为类数组对象
+
+			使用场景: 
+				可结合Array.from()进行数组去重
+	 */
+	
+	let arr = [1, 1, 2, 4, 5, 6, 4, 5, 2];
+	let set_arr = new Set(arr);
+	console.log(set_arr); // Set(5) {1, 2, 4, 5, 6}
+
+	/** new Set() 得到的是一个Set 对象, 为类数组对象, 还需使用 Array.from() 将类数组对象转换为 数组 */
+
+	/** Array.from():
+		 	将一个类数组对象或者 iterator对象, 转换为一个真正的数组
+		 		- 类数组对象:
+		 			最基本的要求是 具有 length 竖向的对象
+
+				- iterator对象: Map Set Array
+	 */
+	
+	/** 类数组对象转换为 数组 */
+	let arr_like_obj = {
+		0: 'wangdong',
+		1: 26,
+		2: '男',
+		'length': 3
+	}
+
+	let transform_arr = Array.from(arr_like_obj); 
+	console.log(transform_arr); // => ['wangdong', 26, '男']
+
+	/** 对上面的 arr_like_obj 进行改动:
+			<1> 如果去掉 length属性, 使用 Array.from() 结果会得到一个长度为0 的空数组([]) 
+
+			<2> 如果仍保留length 属性, 但是对象的属性名都不是数字类型的
+				{
+					name: 'wangdong',
+					age: 26,
+					gender: '男'
+				}
+
+				得到的结果为: [undefined, undefined, undefined]
+	 */
+	
+	/** 综上: 如果要将一个了数组对象转换为 数组, 须具备以下条件:
+			1. 该类数组对象必须具有 length 属性, 用于指定数组的长度, 否则, 得到的是一个空数组
+			2. 该类数组对象的属性名 必须是 "数值类型(Number)" 或者 "字符串类型的数字"
+			3. 额外说明: 对于类数组的属性名, 引号可加可不加
+	 */
+	
+	
+	/** Array.from 与 new Set 结合使用 实现数组去重 */
+	let new_arr = Array.from(set_arr);
+	console.log(new_arr, '去重后的数组'); // [1, 2, 4, 5, 6]
+
+
+</script>
+</body>
+</html>

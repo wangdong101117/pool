@@ -1,0 +1,6 @@
+vue 动态绑定class:
+	:class="[{'active': navIndex==4}, 'nav4']" 
+
+
+vue 动态绑定 style:	
+	:style="{disabled: !amendPhoneIsShow? '' : 'disabled', 'color': '#000'}"	

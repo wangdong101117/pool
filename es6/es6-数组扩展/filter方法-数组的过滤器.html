@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>filter方法-数组的过滤器</title>
+</head>
+<body>
+<script type="text/javascript">
+	/** filter():
+			数组的过滤器, 将数组中 满足条件的元素 筛选出来; 方法中的回调函数会对数组进行遍历
+
+			- 返回值: 满足条件的元素组成的新数组
+	 */
+	
+	let arr = [1, 2, 3, 4, 5, 6];
+	let new_arr = arr.filter(item => item > 3);
+	console.log(new_arr); // [4, 5, 6,]
+</script>
+</body>
+</html>

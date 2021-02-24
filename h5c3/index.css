@@ -1,0 +1,7 @@
+.box{
+    transition: 1;
+    -webkit-transition: 1;
+    -moz-transition: 1;
+    -ms-transition: 1;
+    -o-transition: 1;
+}

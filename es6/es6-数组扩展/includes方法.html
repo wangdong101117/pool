@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>es6-数组扩展-includes方法</title>
+</head>
+<body>
+	<script type="text/javascript">
+		/** arr.includes(value); 
+			说明:
+				用于判断某值(value)是否存在于某个数组(arr)中
+				当数组中存在该值, 返回 true, 否则返回 false
+		  */
+		 
+		let arr = ['a', 1, 'b', 3, 5];
+		console.log(arr.includes(1)); // => true
+		console.log(arr.includes('c')); // => false
+
+		/** 误区:
+			针对二维数组检测一维数组并不能用该方法
+		 */
+		
+		let second_floor_arr = [[1], [2], [3]];
+		console.log(second_floor_arr.includes([1])); // => false
+
+		/** 扩展: 自己实现对于二维数组中是否存在某一纬数组的检测
+				参数: 
+					array: 二维数组
+					element: 一维数组
+
+				对于 for of 遍历数组, 可查看-> es6: for ... in 与 for ... of 区别  	
+		 */
+		function arrayHasElement(array, element) {
+            for (var el of array) {
+                if (el.length === element.length) {
+	                for (var index in el) {
+	                    if (el[index] !== element[index]) {
+	                    	break;
+	                    }
+	                    if (index == (el.length - 1)) {    // 到最后一个元素都没有出现不相等，就说明这两个数组相等。
+	                    	return true;
+	                    }
+	                }
+                }
+            }
+            return false;
+        }
+
+        console.log(arrayHasElement([[1], [2], [3]], [1])); // => true
+
+	</script>
+</body>
+</html>

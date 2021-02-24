@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>es6-for...in与for...of的区别</title>
+</head>
+<body>
+	<script type="text/javascript">
+		/** for ... of 是 es6 新增的循环方法 */
+
+		/** 区别1: for of 遍历的是数组的元素(值), for in 遍历的是数组的 key(索引) */
+
+		let arr = ['a', 'b', 'c', 'd'];
+		arr.name = '自定义属性';
+		
+		for (let item of arr) {
+			console.log('for of', item); // => 依次输入 a, b, c, d
+		} 
+
+		for (let key in arr) {
+			console.log('for in 固定结构', key); // => 依次输出: 0, 1, 2, 3, name 
+		}
+
+		/** 区别2: for of 不能循环遍历对象, 会报错 */
+		
+		/** 区别3: for in 会遍历自定义属性 (for in 可遍历原型链上的所有属性), for of 不会 
+				arr.name = '自定义属性', 并不会被 for of 遍历出来, 但可被 for in 遍历 
+
+				== 扩展: 针对数组的自定义属性: 
+					数组Array本身是有一些属性的, 如 length, 这是自有属性
+						添加一个自定义属性: load
+					 		arr.load = false; 
+
+						自定义属性并不是数组的元素, 因此不会被遍历
+
+					- 自定义属性的应用:
+						例如加载一个表格数据, 请求前设置: arr.load = false  可表示加载中, 请求后得到数据 设置 arr.load = true	 表示加载完成	 		
+		 */
+	</script>
+</body>
+</html>

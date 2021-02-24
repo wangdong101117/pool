@@ -1,9 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>find与findIndex</title>
 </head>
 <body>
-<!--  -->
+	<script type="text/javascript">
+		/** find(): 
+				返回数组中, 满足条件的第一个值, 方法里面的回调函数, 会对数组进行遍历
+		 		
+		 		arr.find((item, index) => {})
+		 */
+		
+		let arr = [1, 2, 3, 4, 5, 6];
+		let result = arr.find((item, index) => {
+			return item > 4;
+		})
+
+		console.log(result); // => 5 返回满足条件的一个值
+
+		/** findIndex():
+				返回数组中, 满足条件的第一个值的索引, 用法与 find() 相同
+		 */
+		
+		let result_index = arr.findIndex(item => {
+			return item > 4;
+		})
+
+		console.log(result_index); // => 4 返回满足条件的第一个值: 5 对应的 索引
+		 
+	</script>
 </body>
 </html>

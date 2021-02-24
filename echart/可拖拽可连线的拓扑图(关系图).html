@@ -1,0 +1,400 @@
+    <template> 
+        <div class="graph-ehcarts" style="height: 600px; width: 100%; margin-top: 30px;">
+            <div>
+                <Button size='small' type="info" @click="addCollector">添加采集器</Button>
+                <Button size='small' type="info" @clock="addController">添加控制器</Button>
+            </div>
+
+            <div id="my-ghaph-echarts" style="width: 100%; height: 100%;"></div>
+        </div>    
+    </template>    
+
+    data() {
+        return {
+            position: 0,
+            positionSource: '',
+            positionTarget: '',
+            ok: 1,
+            del: '',
+            xydata: [
+                [0, 1],
+                [0, 2],
+                [0, 3],
+                [4, 5],
+                [4, 6],
+                [4, 7]
+            ],
+            dataArr: [{
+                    name: '采集器01',
+                    value: [-50, 50],
+                    cate: 1,
+                    symbol: 'rect',
+                    "itemStyle":{"normal":{"color":"#040193"}}
+                },
+                {
+                    name: '控制器01-01',
+                    value: [-90, 10],
+                    cate: 2,
+                    symbol: 'circle',
+                    "symbolSize": 100,
+                    "itemStyle":{"normal":{"color":"#073CFE"}}
+                },
+                {
+                    name: '控制器01-02',
+                    value: [-75, -70],
+                    cate: 2,
+                    symbol: 'circle',
+                    "symbolSize": 100,
+                    "itemStyle":{"normal":{"color":"#073CFE"}}
+                },
+                {
+                    name: '控制器01-03',
+                    value: [-40, -40],
+                    cate: 2,
+                    // "symbolSize": 60,
+                    symbol: 'circle',
+                    "symbolSize": 100,
+                    "itemStyle":{"normal":{"color":"#073CFE"}}
+                },
+                {
+                    name: '采集器02',
+                    value: [30, 50],
+                    cate: 1,
+                    symbol: 'rect',
+                    "itemStyle":{"normal":{"color":"#040193"}}
+                },
+                {
+                    name: '控制器02-01',
+                    value: [20, 10],
+                    cate: 2,
+                    symbol: 'circle',
+                    "symbolSize": 100,
+                    "itemStyle":{"normal":{"color":"#073CFE"}}
+                },
+                {
+                    name: '控制器02-02',
+                    value: [45, -70],
+                    cate: 2,
+                    "symbolSize": 100,
+                    symbol: 'circle',
+                    "itemStyle":{"normal":{"color":"#073CFE"}}
+                },
+                {
+                    name: '控制器02-03',
+                    value: [80, -40],
+                    cate: 2,
+                    "symbolSize": 100,
+                    symbol: 'circle',
+                    "itemStyle":{"normal":{"color":"#073CFE"}}
+                },
+            ],
+            option: {
+                title: {
+                    text: '可拖动流程图'
+                },
+                grid: {},
+                //定义X轴 
+                xAxis: {
+                    min: -100,
+                    max: 100,
+                    type: 'value',
+                    axisLine: {
+                        onZero: false
+                    },
+                    show: false
+                },
+                yAxis: {
+                    min: -100,
+                    max: 100,
+                    type: 'value',
+                    axisLine: {
+                        onZero: false
+                    },
+                    show: false
+                },
+                categories: [ //symbol name：用于和 legend 对应以及格式化 tooltip 的内容。 label有效
+                        {
+                            name: '采集器',
+                            symbol: 'rect'
+                        }, 
+                        {
+                            name: '控制器',
+                            symbol: 'circle'
+                        },
+                ],
+                color:['#09022C',
+                    '#040193',
+                    '#073CFE',
+                    '#0065C2'],
+                // legend: { //=========小图标，圖表控件
+                //     show:true,
+                //     data: [
+                //         // {
+                //         //     name: '区域',
+                //         //     icon: 'diamond' //'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow'
+                //         //     //icon:'image://./images/icon1.png'  //如果用图片img，格式为'image://+icon文件地址'，其中image::后的//不能省略
+                //         // },
+                //         {
+                //             name: '采集器',
+                //             icon: 'rect'
+                //         }, {
+                //             name: '控制器',
+                //             icon: 'roundRect'
+                //         }, 
+                //         // {
+                //         //     name: '云主机',
+                //         //     icon: 'circle'
+                //         // }
+                //     ]
+                // },
+                series: [{
+                    //设置id很重要 
+                    id: 'a',
+                    //设置为甘特图
+                    type: 'graph',
+                    layout: 'none',
+                    coordinateSystem: 'cartesian2d',
+                    //设置球的大小
+                    symbolSize: 70,
+
+                    label: {
+                        show: true,
+                        // formatter: function(d, i) {
+                        //     return dataArr[d.dataIndex].name;
+                        // }
+                    },
+                    itemStyle: {
+                        borderColor: '#22faf7',
+                        borderWidth: 3,
+                        color: '#123456',
+                    },
+                    //设置连线形式为箭头
+                    edgeSymbol: ['circle', 'arrow'],
+                    edgeSymbolSize: [4, 10],
+                    //指定数据数组
+                    // data: this.$echarts.util.map(this.dataArr, function(item, di) {
+                    //     return item.value;
+                    // }),
+                    data: this.dataArr,
+                    //指定连线方式
+                    // edges: this.links,
+                    //指定连线颜色
+                    lineStyle: {
+                        normal: {
+                            color: '#e11c38',
+                            width: '2',
+                            type: 'solid', //线的类型 'solid'（实线）'dashed'（虚线）'dotted'（点线）
+                            curveness: 0.2, //线条的曲线程度，从0到1
+                            opacity: 1
+                        }
+                    },
+                }],
+            },
+        }
+    },
+    methods: {
+        echartsResize() {
+            this.my_ghaph_echarts.resize();
+            this.updatePosition()
+        },
+
+        initGraphic() {
+            let that = this
+            this.my_ghaph_echarts.setOption({
+                graphic: that.$echarts.util.map(that.dataArr, (item, dataIndex) => {
+                    return {
+                        //圆形
+                        type: 'circle',
+                        //将坐标转化为像素
+                        position: that.my_ghaph_echarts.convertToPixel('grid', item.value),
+                        shape: {
+                            // 拖动点的大小
+                            r: 50 / 2 - 2
+                        },
+                        style: {
+                            fill: '#3FA7DC50',
+                            borderColor: '#22faf7',
+                            borderWidth: 1,
+                            opacity: .5
+                        },
+                        //指定虚拟圈是否可见  false 可见
+                        invisible: false,
+                        //指定圈被拖拽（可以与不可以）
+                        draggable: true,
+                        //ondrag: echarts.util.curry(onPointDragging, dataIndex),
+                        onclick: that.$echarts.util.curry(that.initLinks, dataIndex),
+                        onmouseup: that.$echarts.util.curry(that.onPointDragging, dataIndex),
+                        ondblclick: that.$echarts.util.curry(that.editCharts, dataIndex),
+                        //层级
+                        z: 100
+                    };
+                })
+            });
+        },
+
+        updatePosition() {
+            let that = this;
+            this.my_ghaph_echarts.setOption({
+                graphic: this.$echarts.util.map(this.dataArr, function(item, dataIndex) {
+                    return {
+                        position: that.my_ghaph_echarts.convertToPixel('grid', item.value),
+                    };
+                })
+            });
+        },
+
+        onPointDragging(dataIndex, dx, dy) {
+            this.dataArr[dataIndex].value = this.my_ghaph_echarts.convertFromPixel('grid', dx.target.position);
+            // Update data
+            this.my_ghaph_echarts.setOption({
+                series: [{
+                    id: 'a',
+                    data: this.dataArr
+                }]
+            });
+        },
+        editCharts(dataIndex) {
+            for (var i = 0; i < this.dataArr.length; i++) {
+                if (i == dataIndex) {
+
+                    console.log('要编辑的是第', i)
+                }
+            }    
+        },
+        arrayHasElement (array, element) {  // 判断二维数组array中是否存在一维数组element
+            for (var el of array) {
+                if (el.length === element.length) {
+                for (var index in el) {
+                    if (el[index] !== element[index]) {
+                    break;
+                    }
+                    if (index == (el.length - 1)) {    // 到最后一个元素都没有出现不相等，就说明这两个数组相等。
+                    return true;
+                    }
+                }
+                }
+            }
+            return false;
+        },
+
+        initLinks(dataIndex){
+            // console.log(dataIndex)
+            for (var i = 0; i < this.dataArr.length; i++) {
+                if (i == dataIndex) {
+                    this.ok = 0;
+                    if (this.position == 0) {
+                        if (this.dataArr[i].cate === 1) {
+                            this.positionSource = i;
+                            this.position = 1;
+                        } else {
+                            this.$Message.warning('起始点只能为采集器');
+                        }
+                        // this.positionSource = i;
+                        // this.position = 1;
+                    } else {
+                        if (this.dataArr[i].cate === 1) {
+                            this.$Message.warning('终止点只能为控制器');
+                            return
+                        }
+                        this.positionTarget = i;
+                        this.position = 0;
+                        if (this.arrayHasElement(this.xydata, [this.positionSource, this.positionTarget])) {
+                            // this.$Message.warning('已存在关系连线, 无重复添加')                
+                            return
+                        }
+
+                        this.xydata.push([this.positionSource, this.positionTarget])
+                        //当xydata值改变时linkss方法需要重新跑一变
+                        var linkss = this.xydata.map((item, i) => {
+                            return {
+                                source: this.xydata[i][0],
+                                target: this.xydata[i][1]
+                            };
+                        });
+                        //重新载入的东西都写在这里
+                        this.my_ghaph_echarts.setOption({
+                            series: [{
+                                edges: linkss,
+                                //指定连线颜色
+                                lineStyle: {
+                                    normal: {
+                                        color: '#e11c38',
+                                        width: '2',
+                                        type: 'solid', //线的类型 'solid'（实线）'dashed'（虚线）'dotted'（点线）
+                                        curveness: 0.2, //线条的曲线程度，从0到1
+                                        opacity: 1
+                                    }
+                                }
+                            }]
+                        });
+                        return true;
+                    }
+                    break;
+                }
+            }
+        }
+    },
+    mounted() {
+        this.my_ghaph_echarts = this.$echarts.init(document.getElementById('my-ghaph-echarts'));
+        this.my_ghaph_echarts.setOption(this.option)
+        var linkss = this.xydata.map((item, i) => {
+            return {
+                source: this.xydata[i][0],
+                target: this.xydata[i][1]
+            };
+        });
+        //重新载入的东西都写在这里
+        this.my_ghaph_echarts.setOption({
+            series: [{
+                edges: linkss,
+                id: 'a',
+                data: this.dataArr,
+                //指定连线颜色
+                lineStyle: {
+                    normal: {
+                        color: '#e11c38',
+                            width: '2',
+                            type: 'solid', //线的类型 'solid'（实线）'dashed'（虚线）'dotted'（点线）
+                            curveness: 0.2, //线条的曲线程度，从0到1
+                            opacity: 1
+                    }
+                }
+            }]
+        });
+
+        setTimeout(() => {
+            this.initGraphic();
+        }, 0)
+        /** 图表自适应 */
+        window.addEventListener('resize', this.echartsResize);
+
+        let that = this
+        this.my_ghaph_echarts.on('click', function(params) {
+            // console.log(params)
+            if (params.componentType != 'series' || params.dataType != "edge") {
+                return;
+            }
+
+            var a = [params.data.source, params.data.target]
+            for (var i = 0; i < that.xydata.length; i++) {
+                if (params.data.source == that.xydata[i][0] && params.data.target == that.xydata[i][1]) {
+                    that.del = i;
+                    that.xydata.splice(that.del, 1);
+                    //当xydata值改变时linkss方法需要重新跑一变
+                    var linkss = that.xydata.map(function (item, i) {
+                        return {
+                            source: that.xydata[i][0],
+                            target: that.xydata[i][1]
+                        };
+                    });
+                    //重新载入的东西都写在这里
+                    that.my_ghaph_echarts.setOption({
+                        series: [{
+                            edges: linkss
+                        }]
+                    });
+                    return true;
+                } 
+            }
+        });
+    }    

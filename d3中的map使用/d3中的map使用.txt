@@ -1,0 +1,15 @@
+在iview-admin中集成了 d3.js
+	d3.map就是d3的映射, key-value键值对, 在形式上与js的map有些区别
+	d3.map(data, d => d.id); 会产生一个映射, value就是data中的每一项, key就是后面的d.id, 也就是每一项的id
+
+	var arr = [
+		{id: 1, name: 'zs'},
+		{id: 2, name: 'ls'},
+		{id: 3, name: 'ww'},
+		{id: 4, name: 'cl'},
+		{id: 5, name: 'sq'}
+	]
+
+	var data = d3.map(arr, d => d.id);
+
+	data.get(1); => 得到的就是 {id: 1, name: 'zs'} 这条数据		

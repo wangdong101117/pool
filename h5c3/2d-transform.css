@@ -1,0 +1,75 @@
+.container {
+    position: absolute;
+    width: 128px;
+    height: 194px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.container div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('./timg.jpg') no-repeat 0 -8px;
+    /*
+        修改转换原点, 默认的转换原点为元素的中心位置
+    */
+    transform-origin: center bottom;
+}
+
+[class="container"] div:first-child {
+    background-position: -136px -7px;
+}
+
+[class="container"] div:nth-child(2) {
+    background-position: -273px -7px;
+}
+
+[class="container"] div:nth-last-child(2) {
+    background-position: -409px -7px;
+}
+
+[class="container"]:hover .first {
+    transform: rotate(-30deg);
+    -webkit-transform: rotate(-30deg);
+    -moz-transform: rotate(-30deg);
+    -ms-transform: rotate(-30deg);
+    -o-transform: rotate(-30deg);
+}
+
+[class="container"]:hover .second {
+     transform: rotate(-10deg);
+     -webkit-transform: rotate(-10deg);
+     -moz-transform: rotate(-10deg);
+     -ms-transform: rotate(-10deg);
+     -o-transform: rotate(-10deg);
+}
+
+[class="container"]:hover .third {
+    transform: rotate(10deg);
+    -webkit-transform: rotate(10deg);
+    -moz-transform: rotate(10deg);
+    -ms-transform: rotate(10deg);
+    -o-transform: rotate(10deg);
+}
+
+[class="container"]:hover .four {
+    transform: rotate(30deg);
+    -webkit-transform: rotate(30deg);
+    -moz-transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    -o-transform: rotate(30deg);
+}
+
+.container:hover div {
+    transition: all 2s;
+    -webkit-transition: all 2s;
+    -moz-transition: all 2s;
+    -ms-transition: all 2s;
+    -o-transition: all 2s;
+}

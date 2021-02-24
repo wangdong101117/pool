@@ -1,0 +1,101 @@
+.container {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    transform-style: preserve-3d;
+    transform: rotateX(-30deg) rotateY(30deg) rotateZ(30deg);
+    -webkit-transform: rotateX(-30deg) rotateY(30deg) rotateZ(30deg);
+    -moz-transform: rotateX(-30deg) rotateY(30deg) rotateZ(30deg);
+    -ms-transform: rotateX(-30deg) rotateY(30deg) rotateZ(30deg);
+    -o-transform: rotateX(-30deg) rotateY(30deg) rotateZ(30deg);
+    animation: animate 4s linear infinite;
+    -webkit-animation: animate 4s linear infinite;
+   
+}
+
+@keyframes animate {
+    from {
+        transform: rotateX(-30deg) rotateY(30deg) rotateZ(30deg);
+        -webkit-transform: rotateX(-30deg) rotateY(30deg) rotateZ(30deg);
+        -moz-transform: rotateX(-30deg) rotateY(30deg) rotateZ(30deg);
+        -ms-transform: rotateX(-30deg) rotateY(30deg) rotateZ(30deg);
+        -o-transform: rotateX(-30deg) rotateY(30deg) rotateZ(30deg);
+    } to {
+        transform: rotateX(330deg) rotateY(390deg) rotateZ(390deg);
+        -webkit-transform: rotateX(330deg) rotateY(390deg) rotateZ(390deg);
+        -moz-transform: rotateX(330deg) rotateY(390deg) rotateZ(390deg);
+        -ms-transform: rotateX(330deg) rotateY(390deg) rotateZ(390deg);
+        -o-transform: rotateX(330deg) rotateY(390deg) rotateZ(390deg);
+    }
+}
+
+.container > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 200px;
+    opacity: .6;
+}
+
+/* 利用3d 转换, 将6个div 组成一个 正方体 */
+.front {
+    background: red;
+    transform: translateZ(100px);
+    -webkit-transform: translateZ(100px);
+    -moz-transform: translateZ(100px);
+    -ms-transform: translateZ(100px);
+    -o-transform: translateZ(100px);
+}
+
+.back {
+    background: blue;
+    transform: translateZ(-100px) rotateY(180deg);
+    -webkit-transform: translateZ(-100px) rotateY(180deg);
+    -moz-transform: translateZ(-100px) rotateY(180deg);
+    -ms-transform: translateZ(-100px) rotateY(180deg);
+    -o-transform: translateZ(-100px) rotateY(180deg);
+}
+
+.top {
+    background: yellow;
+    transform: translateY(-100px) rotateX(90deg);
+    -webkit-transform: translateY(-100px) rotateX(90deg);
+    -moz-transform: translateY(-100px) rotateX(90deg);
+    -ms-transform: translateY(-100px) rotateX(90deg);
+    -o-transform: translateY(-100px) rotateX(90deg);
+}
+
+.bottom {
+    background: green;
+    transform: translateY(100px) rotateX(-90deg);
+    -webkit-transform: translateY(100px) rotateX(-90deg);
+    -moz-transform: translateY(100px) rotateX(-90deg);
+    -ms-transform: translateY(100px) rotateX(-90deg);
+    -o-transform: translateY(100px) rotateX(-90deg);
+}
+
+.left {
+    background: purple;
+    transform: translateX(-100px) rotateY(-90deg);
+    -webkit-transform: translateX(-100px) rotateY(-90deg);
+    -moz-transform: translateX(-100px) rotateY(-90deg);
+    -ms-transform: translateX(-100px) rotateY(-90deg);
+    -o-transform: translateX(-100px) rotateY(-90deg);
+}
+
+.right {
+    background: #bbb;
+    transform: translateX(100px) rotateY(90deg);
+    -webkit-transform: translateX(100px) rotateY(90deg);
+    -moz-transform: translateX(100px) rotateY(90deg);
+    -ms-transform: translateX(100px) rotateY(90deg);
+    -o-transform: translateX(100px) rotateY(90deg);
+}

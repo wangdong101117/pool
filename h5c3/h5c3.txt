@@ -1,0 +1,302 @@
+1. 新增的选择器:
+    1/ 属性选择器:
+        规则: 
+            <1> [attr=value]
+                    找到属性为attr的, 且属性值完全等于value的标签才会被选中
+                        [class="box"] {
+                            color: red;
+                        } 
+                
+            <2> [attr] 
+                    只要属性名为attr的元素就会被选中
+                        // - 表示div标签中只要含有class这个属性, 就会被选中
+                        div[class] {
+                            color: red;
+                        }
+                
+            <3> [attr^=value]
+                    属性名称为attr的元素, 且属性值必须以value开头的标签才会被选中
+            
+            <4> [attr$=value]
+                    属性名称为attr的元素, 且属性值必须以value结束的标签才会被选中
+                
+            <5> [attr*=value]
+                    属性名称为attr的元素, 且属性值包含value的标签就会被选中
+                        // - 表示类名中含有box的div标签被选中
+                        div[class*="box"] {
+                            color: red;
+                        }
+         
+    2/ 结构伪类选择器: (序号伪类选择器)
+        li:nth-child(3) {
+            color: red;
+        }   
+            - () 括号里面的取值范围为: 正整数(> 0)           
+            
+        /*
+            结构伪类选择器的选择步骤:
+                <1> 找到所有的li元素
+                <2> 通过li元素找到他的父元素
+                <3> 通过li的父元素 找到所有的子元素
+                <4> 找到第 3 个子元素 
+                <5> 判断:
+                         如果第 3 个元素类型与 li 一致, 那么选中, 否则该选择器就是无效的选择器               
+        */ 
+
+        扩展用法:
+            nth-child() 括号里面还可设置包含变量 n 的公式:
+                - 变量 n 必须在公式的前面:
+                    可以是 2n+1, 但不能写成1+2n
+                - 所以变量n的取值范围是: 自然数; 当表达式的值为 <= 0 的值时, 不选择任何匹配的元素  
+                
+                - 常用的一些公式:
+                    - 偶数: li:nth-child(2n)    
+                    - 奇数: li:nth-child(2n+1)
+                    - 倒数三个元素: li:nth-child(n+(总个数-3+1))
+                        - 因为n从0开始, 假设有5个li元素, 倒数三个就是 第三个 第四个 第五个
+                            所以 nth-child(n+(5-3+1)) => nth-child(n+3)
+                                n=0时 => 选中第三个
+                                n=1时 => 选中第四个
+                                n=2时 => 选中第五个
+                       
+                    - 最后一个元素: last-child
+                    - 第一个元素: first-child
+                    - 倒着数: nth-last-child(数值)
+                        li:nth-last-child(1) => 倒数第一个li
+                        li:nth-last-child(3) => 倒数第三个li  
+
+    3/ 伪元素选择器:
+        - 伪元素选择器可以实现一个真正的元素能够实现的效果
+        
+        - 包括:
+            - 前伪元素 -> ::before 会在元素内部的最前面位置追加一个伪元素
+            - 后伪元素 -> ::after 会在元素内部的最后面位置追加一个伪元素
+
+        - 伪元素的默认效果与行内元素的效果一致, 伪元素选择器在进行设置时, content属性为必填内容,
+        否则该伪元素不会生成
+            .box::after {
+                content: '';
+            }
+
+2. 过渡 transition
+    过渡: transition 本身可以实现动画的效果
+        - 过渡本身包含有两个状态: 通过起始状态与结束状态来控制一个动画
+        - 过渡属性的组合写法:
+            .box:hover {
+                /* - 代表的意思分别为: 元素参与过渡的属性 过渡的执行时间 运动模式 延迟时间
+                    ease: 变速匀速; linear: 匀速运动;
+                 */
+                transition: all 3s ease 1s;
+            }    
+
+        - 过渡属性的拆分写法:
+            transition-property: all; 元素需要参与过渡的属性, 默认为all, 表示元素所有的属性均参与过渡
+            transition-duration: 3s; 过渡执行的时间
+            transition-timing-function: ease; 运动模式
+            transition-delay: 1s; 延时时间
+
+        .box {
+            position: absolute;
+            width: 100px;
+            height: 200px;
+            left: 0;
+            top: 0;
+            background: #ccc;
+        }    
+
+        .box:hover {
+            background: #00a0e8;
+            transition: background 1s ease 0s;
+        }
+
+        /*
+            在使用过渡时, 可同时单独设置多个属性的过渡效果, 中间使用逗号进行隔开
+        */
+
+        .box:hover {
+            left: 100px;
+            top: 200px;
+            transform: left 1s linear 1s,
+                       top 2s ease 1.5s 
+        }
+
+        /*
+            transitionend事件用于监听 过渡transition 结束时的瞬间
+        */
+
+        $('.box').on('transitionend', function () {})
+
+3. 转换 tranform
+    - 作用: 可以让元素实现更多的变换方式, 转换的本质就是元素的改变, 包括:
+        位移: translate
+        缩放: scale
+        倾斜: skew
+        旋转: rotate
+    
+    - 转换是具有转换原点的, 默认的转换原点是元素的中心位置
+        转换原点可以使用坐标值进行表示, 也可使用特殊值: left right top bottom 进行表示
+
+        transform-origin: 具体的坐标值/特殊值; 可改变转换原点 
+
+    - 2D转换
+        - 偏移: translate(x, y);
+            是根据元素的当前位置来进行的位置偏移(移动)
+            x: 表示x轴上的偏移
+            y: 表示y轴上的偏移
+
+        - 缩放: scale(x, y);
+            当参数传入一个值时: 表示等比例缩放(ratio)
+                scale(2);
+            x: 表示x轴上的缩放
+            y: 表示y轴上的缩放    
+
+        - 旋转: rotate(angle)
+            参数位置传入角度, 单位为 deg
+            - 角度如果为正, 表示顺时针旋转
+            - 角度如果为负, 表示逆时针旋转
+
+        - 倾斜: skew(x, y);        
+            x: x轴方向上的倾斜
+            y: y轴方向上的倾斜
+
+            特殊: 
+                当x或者y轴单方向上倾斜90度, 或者x,y 同时倾斜45度, 元素在浏览器中将会隐藏
+
+
+        2d转换demo: 纸牌旋转成扇形
+
+    - 3D转换
+        - 电脑屏幕是 2D 的平面, 如何将3D 的效果在 2D 的屏幕上进行展现呢, 这就需要通过 "近大远小"
+        的特点来辅助我们观察 3D 的转换效果
+
+        - 透视功能: 实质上是浏览器安排一只眼睛来帮助我们去观察, 可产生近大远小的效果
+            透视的属性: perspective(视觉距离)
+            视觉距离: 眼睛距离电脑屏幕的距离
+
+                - 透视属性加载父元素上:
+                    所有的子元素都会产生近大远小的特点
+                - 子元素单独添加透视属性:
+                    只会对添加了透视属性的元素产生效果
+
+        - 使用透视属性来辅助观察 3D 效果, 实现不了真正意义上的 3D 呈现            
+            - 使用: transform-style: perserve-3d;
+
+        - rotateX(deg) / rotateY(deg) / rotateZ(deg)  
+            - 表示元素绕着 x轴 / y轴 / z轴 进行旋转
+                
+                -- 要注意:
+                    元素在进行旋转时, 坐标轴也会跟着旋转, 因此推荐: 先进行偏移, 在进行旋转
+
+            - 对着轴的正方向看
+            - 使用正角度时: 顺时针转; 负角度时: 逆时针转;
+
+                transform: perspective(200px) rotateX(45deg);
+                transform: perspective(100px) rotateY(-45deg);
+                transform: perspective(300px) rotateZ(45deg);       
+        
+        - translateX() 与 translateY() 与 2d 转换中的translate 使用效果相同
+            
+            - translateZ() 在使用时要添加透视属性才会产生效果   
+
+        
+        - 案例: 
+            旋转立方体的制作             
+            切割轮播图的制作
+
+4. 动画 animation
+    动画效果的实现要进行动画序列的调用, 与函数相类似, 函数也需要调用才生效
+
+        - 首先定义动画序列:
+            @keyframes run(动画名称) {
+                /* 定义动画节点 
+                    - from to: 也可用百分比来表示, 如果有三个节点, 动画的总时长会按节点设置
+                    的百分比去分配;
+                    - 每个动画节点都有自己的动画样式, 也就是设置好: 元素要进行哪些样式的动画
+                */
+                from {
+                    left: 0px;
+                    transform: rotate(0deg);
+                } to {
+                    left: 100px;
+                    transform: rotate(30deg);
+                }
+            }
+
+            .box {
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                // - 动画animation属性连写
+                animation: run 3s linear 1s infinite alternate;
+            }
+
+            - animation拆分写法:
+                animation-name: run; // 动画序列的名称
+                animation-duration: 2s; // 动画的执行时间
+                animation-timing-function: linear; // 动画的运动模式
+                animation-delay: 1s; // 动画的延时时间
+                animation-iteration-count: infinite; // 动画的执行次数: infinite: 无穷次
+                animation-direction: alternate; // alternate: 表示允许动画逆播放, 逆播放也记录在次数中
+                animation-fill-mode: forwards; // 控制动画结束时的保持状态; forwards为保持当前状态, 默认为backwards: 回到初始状态;   
+                animation-play-state: paused; // 控制动画的播放; running为播放, paused为暂停
+    
+    animationend 事件用于监听动画执行完毕时的瞬间
+
+5. 渐变 gradient
+        - 线性渐变: linear-gradient(渐变方向, 起始颜色, 结束颜色);
+            - 三要素
+                - 渐变的方向:
+                    - 可使用角度来设置方向
+                - 起始的颜色:
+                    可以是颜色的名称: red 等
+                    可以是16进制的颜色表示法: #ccc
+                    可以是rgb 颜色表示法 rgb(0, 0, 0, .3)
+
+                - 结束的颜色       
+
+                .box {
+                    width: 200px;
+                    height: 100px;
+                    background: linear-gradient(45deg, red, #ccc);
+                } 
+
+        - 径向渐变: radial-gradient(渐变半径 at 原点位置, 起始颜色, 结束颜色);
+            - 要素:
+                渐变半径 at 原点位置:
+                    可以是具体的坐标值:
+                        100px at 50px 100px
+                    也可为特殊值:
+                        100px at top left
+
+                    颜色同线性渐变: linear-gradient    
+
+                .box {
+                    width: 200px;
+                    height: 100px;
+                    background: radial-gradient(100px at top right, red, #ccc);
+                }        
+
+6. H5的DOM扩展
+    1. 获取元素的 api 扩展
+        document.querySelector('#box');
+        document.querySelectorAll('.box')
+    
+    2. 操作类名的 api 扩展: classList:
+        
+
+    3. 自定义属性: dataSet
+
+    4. 音视频标签
+        video
+
+        audio
+
+    5. 客户端存储
+        localStorage
+
+        sessionStorage
+
+        cookie
+
+
+

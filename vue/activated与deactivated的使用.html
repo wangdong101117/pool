@@ -1,0 +1,15 @@
+如果开启了 keep-alive
+	
+	// 被 keep-alive 缓存的组件激活时调用。
+    activated() {
+        if (this.name) {
+            this.tableHeight = document.body.clientHeight - this.size - this.$refs[this.name].$el.offsetHeight;
+        } else {
+            this.tableHeight = document.body.clientHeight - this.size ;
+        }
+        window.addEventListener('resize', this.addOnResize);
+    },
+    // 被 keep-alive 缓存的组件停用时调用。
+    deactivated() {
+        window.removeEventListener('resize', this.addOnResize);
+    }
