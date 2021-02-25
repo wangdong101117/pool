@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>try...catch...语法</title>
+</head>
+<body>
+<script type="text/javascript">
+	/** try{}catch(){} 语法解读:
+			- 场景: 在兼容问题的代码加上try catch, 前端来讲, 很少用到
+
+			缺点:
+				- 耗性能
+				- 捕获不到异步错误
+				- 可能导致报错点更为模糊
+
+
+			例如: 这样一段代码
+				console.log(i);
+				var a = 6;
+				console.log(a);
+
+			因为 i 未声明(定义), js就卡在这里, a也就无法进行输出执行 
+	 */
+	
+	/** 如果使用了 try{}catch(){} */
+	try {
+		console.log(i)
+	} catch(err) {
+		console.log(err)
+	}
+
+	var a = 5;
+	console.log(a);
+
+	/** 运行上面代码后, 会发现, i未定义的错误被捕获了, 程序可继续执行, 输出a */
+
+</script>
+</body>
+</html>

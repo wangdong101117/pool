@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Promise.all()与Promise.race()</title>
+</head>
+<body>
+<script type="text/javascript">
+	/** Promise.all([p1, p2, ...]): 批量执行
+			场景: a, b两个请求都完成后, 发送 c 请求
+			Promise.all([p1, p2]); 用于将多个 promise 实例, 包装 成一个新的 promise 实例, 返回的实例就是普通的 promise 实例, 该方法接收一个数组作为参数, 当数组的元素是 promise 实例时会等待状态的改变, 当所有的 子promise 实例(数组元素 => 每个promise实例) 完成, 该 promise 完成, 返回值是所有值的数组; 任何一个 子 promise 失败, 该promise失败, 返回值为 第一个失败的 子promise 结果
+	 */
+	var p1 = new Promise((resolve, reject) => {
+		setTimeout(() => {
+			console.log('a请求');
+			resolve('a');
+		}, 500)
+	})
+
+	var p2 = new Promise((resolve, reject) => {
+		setTimeout(() => {
+			console.log('b请求');
+			resolve('b');
+		}, 1000)
+	})
+
+	Promise.all([p1, p2]).then(res => {
+		console.log('a, b请求都发送成功');
+		console.log(res);
+		// 此时可发送 c 请求
+	})
+
+
+	/** Promise.race([p1, p2])
+			场景: 当 a, b两个请求中 有一个请求完成, 就可 发送 c请求
+	 */
+	Promise.race([p1, p2]).then(res => {
+		// 此时可发送c请求
+	})
+</script>
+</body>
+</html>

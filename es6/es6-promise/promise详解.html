@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>promise详解</title>
+</head>
+<body>
+<script type="text/javascript">
+	/** .then() 嵌套包含 .then()
+			.then() 返回的还是 Promise 对象
+	 */
+	new Promise((resolve) => {
+		console.log('步骤一');
+		setTimeout(() => {
+			resolve('1');
+		}, 1500)
+	}).then(res => {
+		return new Promise(resolve => {
+			console.log('步骤1-1', res);
+			setTimeout(() => {
+				resolve('1-1');
+			}, 500)
+		}).then(res => {
+			console.log('步骤1-2', res);
+			return res // 1-1
+		}).then(res => {
+			console.log('步骤1-3', res);
+			return res // 1-1
+		})
+	}).then(res => {
+		console.log('步骤2', res);
+	})
+
+	/** 上面的 .then() 包含 .then() 写法可展开改写为: 
+
+		new Promise(resolve => {
+			console.log('步骤一');
+			setTimeout(() => {
+				resolve('1');
+			}, 1500)
+		}).then(res => {
+			return new Promise(resolve => {
+				console.log(步骤1-1, res);
+				setTimeout(() => {
+					resolve('1-1')
+				}, 500)
+			})
+		}).then(res => {
+			console.log('步骤1-2', res);
+			return res
+		}).then(res => {
+			console.log('步骤1-3', res);
+			return res
+		}).then(res => {
+			console.log('步骤2', res);
+		})
+	*/
+
+	/** Promise 错误处理: 有问题,,,,,
+		第一种: 通过 new Error() 实现; 通过 .catch() 接收; catch() 也会返回一个 promise 实例, 并且是 resolved状态
+	 */
+	
+	new Promise((resolve, reject) => {
+		setTimeout(() => {
+			reject(new Error('bye')); 
+		}, 3000)
+	}).then(res => {
+		console.log('第一次执行');
+	}).catch(err => {
+		console.log(err);
+	}).then(res => {
+		console.log('第二次执行', res)
+		throw new Error('一个错误')
+	}).catch(err => {
+		console.log('第三次执行', err)
+	})
+	
+	/** promise 错误处理: 
+		第二种: 通过 reject() 实现
+	 */
+	new Promise((resolve, reject) => {
+		setTimeout(() => {
+			reject('通过reject 实现 错误处理')
+		}, 3500)
+	}).then(res => {}, err => {
+		console.log(err)
+	})
+
+	//
+	new Promise(resolve => {
+		setTimeout(() => {
+			resolve('resolve执行');
+		}, 5000)
+	}).then(res => {
+		console.log('1', res);
+		throw new Error('抛出一个错误')
+	}).then(res => {
+		// 不执行; 当 new Error() 抛出错误后, 会找到最近的 .catch() 执行
+		console.log('2')
+	}).catch(err => {
+		console.log('3', err);
+	}).then(() => {
+		console.log('4')
+	}).then(() => {
+		console.log('5')
+	}).catch(() => {
+		// 不会执行
+		console.log('6')
+	}).then(() => {
+		// 会执行
+		console.log('7')
+	})
+</script>
+</body>
+</html>
