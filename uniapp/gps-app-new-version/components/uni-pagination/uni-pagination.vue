@@ -1,0 +1,235 @@
+<!-- 说明: 在依据插件作者的基础上, 根据自己项目进行了部分修改, 原项目可自行下载, 与该文件对比, 查看具体修改的部分 -->
+<template>
+	<view class="uni-pagination">
+		<view class="uni-pagination__btns">
+			<view class="uni-pagination__btn" :class="currentIndex === 1 ? 'uni-pagination--disabled' : 'uni-pagination--enabled'"
+			 :hover-class="currentIndex === 1 ? '' : 'uni-pagination--hover'" :hover-start-time="20" :hover-stay-time="70"
+			 @click="clickLeft">
+				<template v-if="showIcon===true || showIcon === 'true'">
+					<uni-icons color="#fff" size="20" type="arrowleft" />
+				</template>
+				<template v-else><text class="uni-pagination__child-btn">{{ prevText }}</text></template>
+			</view>
+			<view class="uni-pagination__btn" :class="currentIndex === maxPage ? 'uni-pagination--disabled' : 'uni-pagination--enabled'"
+			 :hover-class="currentIndex === maxPage ? '' : 'uni-pagination--hover'" :hover-start-time="20" :hover-stay-time="70"
+			 @click="clickRight">
+				<template v-if="showIcon===true || showIcon === 'true'">
+					<uni-icons color="#fff" size="20" type="arrowright" />
+				</template>
+				<template v-else><text class="uni-pagination__child-btn">{{ nextText }}</text></template>
+			</view>
+		</view>
+		<view class="uni-pagination__num">
+			<view class="uni-pagination__num-current">
+				<text class="uni-pagination__num-current-text" style="color:#e95b58">{{ currentIndex }}</text>
+                <text class="uni-pagination__num-current-text">/</text>
+                <text class="uni-pagination__num-current-text">{{ maxPage || 0 }}</text>
+			</view>
+		</view>
+	</view>
+</template>
+
+<script>
+	import uniIcons from '../uni-icons/uni-icons.vue'
+	export default {
+		name: 'UniPagination',
+		components: {
+			uniIcons
+		},
+		props: {
+			prevText: {
+				type: String,
+				default: '上一页'
+			},
+			nextText: {
+				type: String,
+				default: '下一页'
+			},
+			current: {
+				type: [Number, String],
+				default: 1
+			},
+			total: { // 数据总量
+				type: [Number, String],
+				default: 0
+			},
+			pageSize: { // 每页数据量
+				type: [Number, String],
+				default: 10
+			},
+			showIcon: { // 是否以 icon 形式展示按钮
+				type: [Boolean, String],
+				default: false
+			}
+		},
+		data() {
+			return {
+				currentIndex: 1,
+                maxPage: 1
+			}
+		},
+		computed: {
+			// maxPage() {
+   //              console.log('数据总数', this.total)
+			// 	let maxPage = 1
+			// 	let total = Number(this.total)
+			// 	let pageSize = Number(this.pageSize)
+			// 	if (total && pageSize) {
+			// 		maxPage = Math.ceil(total / pageSize)
+			// 	}
+			// 	return maxPage
+			// }
+		},
+		watch: {
+			current(val) {
+				this.currentIndex = +val
+			},
+            total (newVal) {
+                console.log(newVal)
+                this.currentIndex = 1
+                let total = Number(this.total)
+                let pageSize = Number(this.pageSize)
+                if (total && pageSize) {
+                	this.maxPage = Math.ceil(total / pageSize)
+                } else {
+                    this.maxPage = 1
+                }
+            }
+		},
+		created() {
+			this.currentIndex = +this.current
+		},
+		methods: {
+			clickLeft() {
+				if (Number(this.currentIndex) === 1) {
+					return
+				}
+				this.currentIndex -= 1
+				this.change('prev')
+			},
+			clickRight() {
+				if (Number(this.currentIndex) === this.maxPage) {
+					return
+				}
+				this.currentIndex += 1
+				this.change('next')
+			},
+			change(e) {
+				this.$emit('change', {
+					type: e,
+					current: this.currentIndex
+				})
+			}
+		}
+	}
+</script>
+
+<style lang="scss" scoped>
+	.uni-pagination {
+		/* #ifndef APP-NVUE */
+		display: flex;
+		/* #endif */
+		/* #ifdef APP-NVUE */
+		padding: 0 20px;
+		/* #endif */
+		width: 350px;
+		position: relative;
+		overflow: hidden;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.uni-pagination__btns {
+		/* #ifndef APP-NVUE */
+		display: flex;
+		/* #endif */
+		flex: 1;
+		justify-content: space-between;
+		align-items: center;
+		flex-direction: row;
+	}
+
+	.uni-pagination__btn {
+		/* #ifndef APP-NVUE */
+		display: flex;
+		/* #endif */
+		width: 30px;
+		height: 30px;
+		line-height: 30px;
+		font-size: $uni-font-size-base;
+		position: relative;
+		background-color: $uni-bg-color-grey;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+        border-radius: 50%;
+		border-width: 1px;
+		border-style: solid;
+		border-color: $uni-border-color;
+	}
+
+	.uni-pagination__child-btn {
+		/* #ifndef APP-NVUE */
+		display: flex;
+		/* #endif */
+		font-size: $uni-font-size-base;
+		position: relative;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+	}
+
+	.uni-pagination__num {
+		/* #ifndef APP-NVUE */
+		display: flex;
+		/* #endif */
+		position: absolute;
+		left: 0;
+        right: 0;
+		top: 0;
+        bottom: 0;
+        margin: auto;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		width: 50px;
+		height: 30px;
+		line-height: 30px;
+		font-size: $uni-font-size-base;
+		color: $uni-text-color;
+	}
+
+	.uni-pagination__num-current {
+		/* #ifndef APP-NVUE */
+		display: flex;
+		/* #endif */
+		flex-direction: row;
+	}
+
+	.uni-pagination__num-current-text {
+		font-size: 15px;
+        padding: 4rpx;
+	}
+
+	.uni-pagination--enabled {
+		color: #00a0e8;
+        background: #e95b58;
+		opacity: 1;
+	}
+
+	.uni-pagination--disabled {
+		opacity: 0.3;
+        color: #333;
+        background: #aaa;
+	}
+
+	.uni-pagination--hover {
+		color: rgba(0, 0, 0, .6);
+		// background-color: $uni-bg-color-hover;
+		// background-color: $uni-bg-color-hover;
+        opacity: 0.5;
+	}
+</style>

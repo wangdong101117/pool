@@ -1,0 +1,246 @@
+{
+    "pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+        // {
+        //     "path": "pages/tabBar/gps/globe",
+        //     "style": {
+        //         "navigationBarTitleText": "车辆监控"
+        //     }
+        // },
+        // {
+        //     "path": "pages/tabBar/vehicle/vehicle",
+        //     "style": {
+        //         "navigationBarTitleText": "车辆管理",
+        //         "enablePullDownRefresh": true,
+        //         "app-plus": {
+        //             "titleNView": {
+        //                 // "searchInput": {
+        //                 //     "align": "center",
+        //                 //     "backgroundColor": "#eee",
+        //                 //     "borderRadius": "5px", // 只能用px作单位
+        //                 //     "placeholder": "请输入内容",
+        //                 //     "placeholderColor": "#ccc"
+        //                 // },
+        //                 "buttons": [{
+        //                     "color": "#dc1110",
+        //                     "colorPressed": "#eee",
+        //                     "float": "right",
+        //                     "fontSize": "22px",
+        //                     "fontSrc": "/static/iconfont/iconfont.ttf", // 字体文件
+        //                     "text": "\ue623" // 字体图标\u 开头，加上字体图标unicode后面四位
+        //                 }]
+        //             }
+        //         }
+        //     }
+        // },
+        {
+            "path": "pages/index/index",
+            "style": {
+                "navigationBarTitleText": "首页"
+            },
+            // 通过禁用原生导航栏的方式, 来取消 某些页面 导航栏左上角的 返回按钮
+            "app-plus": {
+                "titleNView": false
+            }
+        },
+        {
+            "path": "pages/login/login",
+            "style": {
+                "navigationBarTitleText": "登录",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/tabBar/gps/globe",
+            "style": {
+                "navigationBarTitleText": "车辆监控",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        // {
+        //     "path": "pages/offline/offline",
+        //     "style": {
+        //         "navigationBarTitleText": "离线操作",
+        //         "app-plus": {
+        //             "titleNView": {
+        //                 "titleAlign": "center",
+        //                 "buttons": [{
+        //                     "color": "#23a234",
+        //                     "colorPressed": "#eee",
+        //                     "fontSize": "14px",
+        //                     "width": "68px",
+        //                     "float": "right",
+        //                     "text": "刷新" // 字体图标\u 开头，加上字体图标unicode后面四位
+        //                 }]
+        //             }
+        //         }
+        //     }
+        // },
+        {
+            "path": "pages/forgetPassWord/forgetPassWord",
+            "style": {
+                "navigationBarTitleText": "找回密码"
+            }
+        },
+		{
+		    "path": "pages/component/personal_center/pravice",
+		    "style": {
+		        "navigationBarTitleText": "隐私政策"
+		    }
+		},
+        {
+            "path": "pages/component/personal_center/editPassword",
+            "style": {
+                "navigationBarTitleText": "修改密码"
+            }
+        },
+        {
+            "path": "pages/component/personal_center/resetPassword",
+            "style": {
+                "navigationBarTitleText": "重置密码"
+            }
+        },
+       
+        {
+            "path": "pages/tabBar/vehicle/vehicle",
+            "style": {
+                "navigationBarTitleText": "车辆管理",
+                "enablePullDownRefresh": true,
+                "app-plus": {
+                    "titleNView": {
+                        // "searchInput": {
+                        //     "align": "center",
+                        //     "backgroundColor": "#eee",
+                        //     "borderRadius": "5px", // 只能用px作单位
+                        //     "placeholder": "请输入内容",
+                        //     "placeholderColor": "#ccc"
+                        // },
+                        "buttons": [{
+                            "color": "#dc1110",
+                            "colorPressed": "#eee",
+                            "float": "right",
+                            "fontSize": "22px",
+                            "fontSrc": "/static/iconfont/iconfont.ttf", // 字体文件
+                            "text": "\ue623" // 字体图标\u 开头，加上字体图标unicode后面四位
+                        }]
+                    }
+                }
+            }
+        },
+        // {
+        //     "path": "pages/tabBar/bluetooth/bluetooth",
+        //     "style": {
+        //         "navigationBarTitleText": "蓝牙",
+        //         "app-plus": {
+        //             "titleNView": {
+        //                 "titleAlign": "center",
+        //                 "buttons": [{
+        //                     "color": "#23a234",
+        //                     "colorPressed": "#eee",
+        //                     "fontSize": "14px",
+        //                     "width": "68px",
+        //                     "float": "right",
+        //                     "text": "刷新" // 字体图标\u 开头，加上字体图标unicode后面四位
+        //                 }]
+        //             }
+        //         }
+        //     }
+        // },
+        {
+            "path": "pages/tabBar/tstati/tstati",
+            "style": {
+                "navigationBarTitleText": "车辆查询"
+            }
+        },
+        {
+            "path": "pages/tabBar/personal_center/personal_center",
+            "style": {
+                "navigationBarTitleText": "个人中心"
+            }
+        },
+        {
+            "path": "pages/component/vehicle/addVehicle",
+            "style": {
+                "navigationBarTitleText": "添加车辆"
+            }
+        },
+        {
+            "path": "pages/component/vehicle/preparateVehicle",
+            "style": {
+                "navigationBarTitleText": "筛选车辆"
+            }
+        },
+        {
+            "path": "pages/component/vehicle/vehicleDetail",
+            "style": {
+                "navigationBarTitleText": "车辆详情"
+            }
+        },
+        {
+            "path": "pages/component/vehicle/editVehicle",
+            "style": {
+                "navigationBarTitleText": "编辑车辆"
+            }
+        },
+        {
+            "path": "pages/component/tstati/tstati",
+            "style": {
+                "navigationBarTitleText": "工作状况查询",
+                "onReachBottomDistance": 20
+            }
+        },
+        {
+            "path": "pages/component/tstati/cchart",
+            "style": {
+                "navigationBarTitleText": "车辆分析"
+            }
+        },
+        {
+            "path": "pages/component/tstati/cquery",
+            "style": {
+                "navigationBarTitleText": "消息查询"
+            }
+        }
+    ],
+    "globalStyle": {
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "uni-app",
+        "navigationBarBackgroundColor": "#fff",
+        "backgroundColor": "#eee"
+    },
+    "tabBar": {
+        "color": "#0a0a0a",
+        "selectedColor": "#dc1110",
+        "borderStyle": "black",
+        "backgroundColor": "#fff",
+        "height": "60px",
+        "spacing": "5px",
+        "list": [{
+                "pagePath": "pages/tabBar/gps/globe",
+                "iconPath": "static/tabBar/tag_dingwei.png",
+                "selectedIconPath": "static/tabBar/tag_dingwei1.png",
+                "text": "车辆监控"
+            }, {
+                "pagePath": "pages/tabBar/vehicle/vehicle",
+                "iconPath": "static/tabBar/tag_guanli.png",
+                "selectedIconPath": "static/tabBar/tag_guanli1.png",
+                "text": "车辆管理"
+            },
+            {
+                "pagePath": "pages/tabBar/tstati/tstati",
+                "iconPath": "static/tabBar/tag_chaxun.png",
+                "selectedIconPath": "static/tabBar/tag_chaxun1.png",
+                "text": "车辆查询"
+            },
+            {
+                "pagePath": "pages/tabBar/personal_center/personal_center",
+                "iconPath": "static/tabBar/tag_geren.png",
+                "selectedIconPath": "static/tabBar/tag_geren1.png",
+                "text": "个人中心"
+            }
+        ]
+    }
+}
