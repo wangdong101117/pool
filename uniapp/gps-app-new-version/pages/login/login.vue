@@ -29,7 +29,7 @@
             <view class="login-btn">
                 <button type="warn" @click="submitLogin">登&nbsp;&nbsp;&nbsp;录</button>
                 <view class="btn-navigator">
-                    <navigator :url="offlinerUrl" v-if="show_btn_offline" open-type="navigate" class="btn-offline">离线操作</navigator>
+                    <!-- <navigator :url="offlinerUrl" v-if="show_btn_offline" open-type="navigate" class="btn-offline">离线操作</navigator> -->
                     <navigator :url="forgetUrl" open-type="navigate" class="btn-forget">忘记密码?</navigator>
                 </view>
             </view>
