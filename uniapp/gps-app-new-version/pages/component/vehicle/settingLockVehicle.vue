@@ -7,14 +7,10 @@
                     <view>{{popup_title}}</view>
                 </view>
                 <view class="uni-tip-content">
-                    <view style="padding: 0 0 20rpx 0;">
-                        <text style="color: #bbb; font-weight: bold;">{{vehicle_id}}锁车状态：</text>
-                        <text style="color: #bd0202; font-weight: bold;">{{!action? '锁车' : '未锁车'}}</text>
-                    </view>
-                    <view class="uni-list" v-if="action">
+                    <view class="uni-list">
                         <radio-group @change="radioChange" v-if="current_value === null">
                             <view>
-                                <label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in vehicle_unlock_items" :key="item.value">
+                                <label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in vehicle_setting_items" :key="item.value">
                                     <view>
                                         <view>
                                             <radio :value="item.value" :checked="item.value === current_value" style="transform:scale(0.7); vertical-align: middle;" />
@@ -24,23 +20,21 @@
                                 </label>
                             </view>
                         </radio-group>
-                        
                         <view class="lock-vehicle-date" v-if="current_value === 1">
                             <view class="label-text">延期日期：</view>
                             <view class="select-date" @tap="onShowTimePicker">
-                                <view>{{select_lock_date? select_lock_date : '请选择延期锁车时间'}}</view>
+                                <view>{{select_lock_date? select_lock_date : '请选择延期时间'}}</view>
                             </view>
                         </view>
-                        
                         <view style="padding: 30rpx 0 20rpx 0;" v-if="current_value === 0">
-                            您确定要对该车辆进行锁车操作吗?
+                            <text v-if="action">
+                                您确定要对该车辆进行锁车操作吗?
+                            </text>
+                            <text v-else>
+                                您确定要对该车辆进行解锁操作吗
+                            </text>
                         </view>
                     </view>
-                    
-                    <view style="padding: 30rpx 0 20rpx 0;" v-if="!action">
-                        您确定要对该车辆进行解锁操作吗?
-                    </view>
-                   
                     <mx-date-picker :show="show_time_picker" type="date" :value="select_lock_date" :show-tips="true" :showSeconds="false"
                         :timeTittle="time_tittle" @confirm="onTimeSelected" @cancel="onTimeSelected" />
                 </view>
@@ -87,36 +81,49 @@
                 setting_lock_vehicle_show: false,
                 select_lock_date: '',
                 action: null,
-                lock_active: true,
                 tip_text: '锁车成功',
-                vehicle_unlock_items: [{
-                    value: 0,
-                    name: '锁车'
-                }, {
-                    value: 1,
-                    name: '延期锁车'
-                }],
-                current_value: null,
+                vehicle_setting_items: [],
+                current_value: null
             }
         },
         methods: {
             radioChange(e) {
                 this.current_value = e.target.value;
                 if (this.current_value == 0) {
-                    this.popup_title = '锁车'
+                    if (this.action) {
+                        this.popup_title = '锁车'
+                    } else {
+                        this.popup_title = '解锁'
+                    }
                 }
                 
                 if (this.current_value == 1) {
-                    this.popup_title = '延期锁车'
+                    this.popup_title = '延期'
                 }
             },
-            showPopup(uid ,lock_status, vehicle_id) {
+            /**
+                延期 跟 锁车状态无关
+             */
+            showPopup(uid, vehicle_id, lock_status) {
                 this.setting_lock_vehicle_show = true;
                 this.vehicle_id = vehicle_id;
-                Number(lock_status)? this.action = 0 : this.action = 1;
+                Number(lock_status)? this.action = 0 : this.action = 1; // 已锁车 => action: 0, 执行解锁操作; 否则未锁车 action: 1, 执行锁车操作
                 this.action? this.tip_text = '锁车成功' : this.tip_text = '解锁成功',
-                this.action? this.popup_title = '锁车/延期锁车' : this.popup_title = '解锁'
-                // this.action = ;
+                this.action? this.popup_title = '锁车/延期' : this.popup_title = '解锁/延期'
+                this.action? this.vehicle_setting_items = [{
+                    value: 0,
+                    name: '锁车'
+                }, {
+                    value: 1,
+                    name: '延期'
+                }] : this.vehicle_setting_items = [{
+                    value: 0,
+                    name: '解锁'
+                }, {
+                    value: 1,
+                    name: '延期'
+                }]
+
                 this.uid = uid;
             },
             onShowTimePicker(e) {
@@ -135,6 +142,7 @@
                 this.select_lock_date = '';
                 this.show_time_picker = false;
                 this.current_value = null;
+                this.vehicle_setting_items = [];
                 this.action = null;
                 this.popup_title = '';
                 // this.showToast(`已取消锁车设置操作`);
@@ -147,20 +155,20 @@
                 if (this.current_value === 1) {
                     if (!this.select_lock_date) {
                         uni.showToast({
-                            title: '请选择延迟锁车日期',
+                            title: '请选择延迟日期',
                             icon: 'none'
                         })
                         return
                     }
                     if (+new Date(this.select_lock_date) < +new Date()) {
                         uni.showToast({
-                            title: '提示：延期的日期不能小于当前日期！',
+                            title: '提示：延期日期不能小于当前日期！',
                             icon: 'none'
                         })
                         return
                     }
                     let myDate = this.select_lock_date.split('/');
-                    this.tip_text = '延期锁车成功';
+                    this.tip_text = '延期成功';
                     url = `${this.api}txnsvrv01.ajson`;
                     record = {
                         uid: this.uid,
@@ -191,14 +199,13 @@
                         console.log('锁车/解锁', res);
                         uni.hideLoading()
                         if (res.data.error_code === '000000') {
-                            uni.showToast({
-                                title: `${this.tip_text}`
-                            })
+                            this.showToast(this.tip_text)
                             // 重新获取车辆列表数据
-                            // setTimeout(() => {
+                            let timer = setTimeout(() => {
                                 this.cancelSetting();
                                 this.getVehicleList(this.$parent.attribute_node);
-                            // }, 1500)
+                                clearTimeout(timer);
+                            }, 1500)
                         } else {
                             uni.hideLoading();
                             this.toastRequestErr(res.data);

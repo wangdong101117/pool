@@ -9,24 +9,19 @@
                 <uni-combox label="选择国家:" :placeholder="select_country_name? select_country_name : '请选择国家'" :value="select_country_name"
                     @sendValue="selectedCountry" v-model="select_country_name" codeType="tlt_have_truck_country"
                     :s_id="refs[0]" :ref="refs[0]"></uni-combox>
-                <!-- <view style="position: static; overflow: hidden; padding: 0; height: 112rpx;" @click.prevent="isClick" -->
-                <!-- :class="is_can_use ? 'canUse' : 'uCanUse'"> -->
                 <view style="position: static; overflow: hidden; padding: 0;" @click.prevent="isClick" v-show="is_can_use">
                     <uni-combox label="选择地区:" :placeholder="selected_dist" style="float: left; z-index: 0; width: 100%; padding: 30rpx 0;"
-                        :disabled="disabled" v-model="selected_dist">
+                        v-model="selected_dist">
                     </uni-combox>
                 </view>
-            
                 <uni-combox label="所属组织:" :placeholder="select_oganization_name? select_oganization_name : '请选择所属组织'"
                     :s_id="refs[1]" :value="select_oganization_name" @sendValue="selectedOganization"
-                    v-model="select_oganization_name" codeType="tlt_organization" :ref="refs[1]"></uni-combox>
-            
+                    v-model="select_oganization_name" codeType="tlt_organization" :ref="refs[1]"></uni-combox>            
                 <uni-combox label="整车编号:" :placeholder="select_vehicle_id_name? select_vehicle_id_name : '请选择整车编号'"
                     :s_id="refs[2]" :value="select_vehicle_id_name" :region_code="region_code"
                     @sendValue="selectedVehicleID" v-model="select_vehicle_id_name" codeType="tlt_vehicle_in_region"
                     :uid="select_oganization_value" :ref="refs[2]"></uni-combox>
-            </view>
-            
+            </view>            
             <view class="uni-tip-group-button" style="margin-top: 30px;">
                 <view class="uni-tip-button" @click="cancelButton()">
                     <view class="btn-cancel">
@@ -39,7 +34,6 @@
                     </view>
                 </view>
             </view>
-            
             <uni-popup :show="is_show" type="bottom" mode="fixed" msg="选择收货地址" @hidePopup="togglePopup('')">
                 <semp-city @confirmSelect="onCityClick" @cancelSelect="cancelselected_dist"></semp-city>
             </uni-popup>
@@ -63,25 +57,19 @@
             return {
                 show_condition: false,
                 is_can_use: false,
-                disabled: true,
                 // 下拉框绑定 ref属性
                 refs: ['combox1', 'combox2', 'combox3'],
-
                 /** 选择国家 选中的代码集name / value */
                 select_country_name: '',
                 select_country_value: '',
-
                 /** 选择所属组织 选中的代码集的name / value */
                 select_oganization_name: '',
                 select_oganization_value: '',
-
                 /** 选择整车编号 选中的代码集的name / value */
                 select_vehicle_id_name: '',
                 select_vehicle_id_value: '',
-
                 /** 选择地区 */
                 selected_dist: '请选择地区',
-
                 /** 选择地区 */
                 region_code: '',
                 province_name: '',
@@ -90,17 +78,28 @@
                 city_value: '',
                 county_name: '',
                 county_value: '',
-                
                 is_show: false // 控制选择地区 popup 弹框的显示 / 隐藏
             }
         },
         methods: {
             showPreparatePopup() {
                 this.show_condition = true;
+                /** 监听 下拉框组件 注册的全局自定义事件 */
+                this.$nextTick(() => {
+                    uni.$on('comBoxToggle', this.callBack)
+                })    
+            },
+            callBack(data) {
+                for(let k in this.$refs) {
+                    if (k != data.data) {
+                        console.log(this.$refs[k].showSelector)
+                        this.$refs[k].showSelector = false
+                    }
+                }
             },
             isClick(e) {
                 if (this.select_country_value && this.select_country_value == '156') {
-                    this.is_show = true
+                    this.is_show = true;
                     uni.hideKeyboard()
                 }
             },
@@ -157,11 +156,9 @@
                 this.select_vehicle_id_name = '';
                 this.select_vehicle_id_value = '';
                 if (this.select_country_value && this.select_country_value == '156') {
-                    this.is_can_use = true
-                    this.disabled = false
+                    this.is_can_use = true;
                 } else {
-                    this.is_can_use = false
-                    this.disabled = true
+                    this.is_can_use = false;
                 }
             },
             /** 选中的 组织 value */
@@ -190,6 +187,8 @@
             /** 取消按钮 */
             cancelButton() {
                 this.show_condition = false;
+                /** 移除监听 下拉框组件 注册的全局自定义事件 */
+                uni.$off('comBoxToggle', this.callBack)
             },
             reset() {
                 this.selected_dist = ''
@@ -203,36 +202,21 @@
                 /** 清空 选择车辆编号依赖的数据 */
                 this.select_vehicle_id_name = '';
                 this.select_vehicle_id_value = '';
-                
+                /** 组织机构 */
                 this.select_oganization_value = '';
                 this.select_oganization_name = '';
-                
+                /** 国家地区 */
                 this.select_country_name = '',
                 this.select_country_value = '',
                 
                 this.is_can_use = false;
-                this.disabled = true;
-                
                 this.show_condition = false;
             }
-        },
-        /** 监听 下拉框组件 注册的全局自定义事件 */
-        onShow() {
-            this.$nextTick(() => {
-                uni.$on('comBoxToggle',(data) => {
-                    for(let k in this.$refs) {
-                        if (k != data.data) {
-                            this.$refs[k].showSelector = false
-                        }
-                    }
-                })
-            })
         }
     }
 </script>
 
 <style lang="less">
-    
     .uni-tip {
         width: 660rpx;
         padding: 40rpx 30rpx 60rpx 30rpx;

@@ -1,5 +1,5 @@
 <template>
-    <view class="vehicle-detail-container" @tap="clickContainer" ref="vehDetail" :style="{background: background}">
+    <view class="vehicle-detail-container" ref="vehDetail">
         <view class="content">
             <view class="list-item">
                 <text>整车编号：</text>
@@ -62,19 +62,11 @@
         data() {
             return {
                 vehicleData: '',
-                background: '',
                 distCodeDatas: '',
                 positionDist: ''
             }
         },
         methods: {
-            /** 该页面信息不允许修改 */
-            clickContainer(e) {
-                this.background = '#eee center center no-repeat'
-                setTimeout(() => {
-                    this.background = ''
-                }, 1500)
-            },
             /** - 获取省市县数据: */
             getData() {
                 uni.request({

@@ -3,7 +3,6 @@
     <uni-popup :show="logout" type="center" :custom="true" :mask-click="false">
     	<view class="uni-tip">
     		<view class="uni-tip-title">
-                <!-- <image src="../../../static/images/logout.png" style="width: 24px; height: 24px;"></image> -->
                 <view>退出登录</view>
              </view>
     		<view class="uni-tip-content">您确定要退出登录吗？</view>

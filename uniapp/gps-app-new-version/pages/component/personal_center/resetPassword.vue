@@ -7,12 +7,12 @@
         <view class="form-container">
             <view>
                 <text>新密码：</text>
-                <input placeholder="请输入6-16位新密码" v-model="newPassword1" password confirm-type="go"
+                <input placeholder="请输入6-16位新密码" v-model="new_password" password confirm-type="go"
                     maxlength="16" />
             </view>
             <view>
                 <text>确认密码：</text>
-                <input class="uni-input" maxlength="16" password confirm-type="go" placeholder="请再次输入新密码" v-model="newPassword2" />
+                <input class="uni-input" maxlength="16" password confirm-type="go" placeholder="请再次输入新密码" v-model="new_password_again" />
             </view>
             <view class="button-container">
                 <view class="btn-cancel" hover-class="hoverStyle" @tap="resetButton" >重置</view>
@@ -30,27 +30,27 @@
         mixins: [mixin],
         data() {
             return {
-                newPassword1: '',
-                newPassword2: '',
+                new_password: '',
+                new_password_again: '',
                 username: '',
                 addcode: ''
             }
         },
         methods: {
             resetButton() {
-                this.newPassword1 = '';
-                this.newPassword2 = '';
+                this.new_password = '';
+                this.new_password_again = '';
             },
             confirmButton() {
-                if (!this.newPassword1 || this.newPassword1.trim().length > 16 || this.newPassword1.trim().length < 6) {
+                if (!this.new_password || this.new_password.trim().length > 16 || this.new_password.trim().length < 6) {
                     this.showToast('请输入6-16位新密码');
                     return
                 }
-                if (!this.newPassword2 || this.newPassword2.trim().length > 16 || this.newPassword2.trim().length < 6) {
+                if (!this.new_password_again || this.new_password_again.trim().length > 16 || this.new_password_again.trim().length < 6) {
                     this.showToast('请再次输入6-16位新密码');
                     return
                 }
-                if (this.newPassword1 !== this.newPassword2) {
+                if (this.new_password !== this.new_password_again) {
                     this.showtost('两次密码设置的不同');
                     return
                 }
@@ -59,8 +59,8 @@
                     url: `${this.api}txnsau00y.ajson`,
                     data: {
                         record: {
-                            new_passwd: this.newPassword1, // 新密码
-                            passwords: this.newPassword2, // 再次输入新密码
+                            new_passwd: this.new_password, // 新密码
+                            passwords: this.new_password_again, // 再次输入新密码
                             user_no: this.username, // 用户
                             verfication_code: this.addcode // 验证码
                         }
@@ -82,11 +82,11 @@
                             }, 1000);
                             clearInterval(timer);
                         } else {
-                            this.toastRequestErr(res.data)
+                            this.toastRequestErr(res.data);
                         }
                     },
                     fail: () => {
-                        this.toastErr()
+                        this.toastErr();
                     }
                 })
             }

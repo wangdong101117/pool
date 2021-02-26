@@ -6,15 +6,10 @@
                  <view>{{popup_title}}</view>
             </view>
     		<view class="uni-tip-content">
-                <view style="padding: 0 0 20rpx 0;">
-                    <text style="color: #bbb; font-weight: bold;">{{vehicle_id}}的GPS状态：</text>
-                    <text style="color: #bd0202; font-weight: bold;">{{!action? '关闭' : '启用'}}</text>
-                </view>
-
-                <view class="uni-list" v-if="action">
-                    <radio-group @change="radioChange" v-if="current_value === null">
+                <view class="uni-list">
+                    <radio-group @change="radioChange" v-if="current_value === null && gps_setting_item.length">
                         <view>
-                            <label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in gps_open_items" :key="item.value">
+                            <label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in gps_setting_item" :key="item.value">
                                 <view>
                                     <view>
                                         <radio :value="item.value" :checked="item.value === current_value" style="transform:scale(0.7); vertical-align: middle;" />
@@ -25,20 +20,20 @@
                         </view>
                     </radio-group>
                     <view class="change-gps" v-if="current_value == 1">
-                        <uni-combox label="更换GPS:" placeholder="请选择GPS设备" :value="selected_gps_value" @sendValue="selectedGPS"
-                                v-model="selected_gps_value" codeType="tlt_gps_unused"></uni-combox> 
+                        <uni-combox label="更换GPS:" placeholder="请选择未装车的GPS设备" :value="selected_gps_value" @sendValue="selectedGPS"
+                            :s_id="refs[0]" :ref="refs[0]" v-model="selected_gps_value" codeType="tlt_gps_unused"></uni-combox> 
                     </view>
                     
                     <view style="padding: 30rpx 0 20rpx 0;" v-if="current_value == 0">
-                        您确定要关闭GPS?
+                        <text v-if="action">
+                            您确定要关闭GPS?
+                        </text>
+                        <text v-else>
+                            您确定要启用GPS?
+                        </text>
                     </view>
                 </view>
-         
-                <view v-if="!action" style="padding: 30rpx 0 20rpx 0;">
-                    您确定要开启GPS?        
-                </view>
             </view>
-           
     		<view class="uni-tip-group-button" >
     			<view class="uni-tip-button" hover-class="hoverStyle" @click="cancelSettingGPS()">
                     <view class="btn-cancel">
@@ -67,6 +62,7 @@
         inject: ['getVehicleList'],
         data () {
             return {
+                refs: ['combox1'],
                 popup_title: '',
                 uid: '',
                 vehicle_id: '',
@@ -76,23 +72,19 @@
                 tip_text: '',
                 selected_gps_name: '', // 更换GPS时 选择的GPS设备Name
                 selected_gps_value: '', // 更换GPS时 选择的GPS设备Value
-                
-                gps_open_items: [{
-                    value: 0,
-                    name: '关闭GPS'
-                }, {
-                    value: 1,
-                    name: '更换GPS'
-                }],
+                gps_setting_item: [],
                 current_value: null
-                
             }
-        },
+        },     
         methods: {
             radioChange(e) {
                 this.current_value = e.target.value;
                 if (this.current_value == 0) {
-                    this.popup_title = '关闭GPS'
+                    if (this.action) {
+                        this.popup_title = '关闭GPS'
+                    } else {
+                        this.popup_title = '启用GPS'
+                    }
                 }
                 
                 if (this.current_value == 1) {
@@ -100,20 +92,45 @@
                 }
             },
             /** 显示popup */
-            showPopup(uid, vehicle_id, gps_status) {
+            showPopup(uid, vehicle_id, gps_status, lock_status) {
+                console.log(gps_status)
                 this.gps_setting_show = true;
-                this.action = Number(gps_status);
-                if (Number(gps_status)) {
+                if (lock_status == '1') {
+                    this.tip_text = '启用GPS成功';
+                    this.popup_title = '启用GPS';
+                    this.gps_setting_item = [];
                     this.action = 0;
                     this.postpone_date = 20991231;
-                    this.tip_text = '启用GPS成功';
-                    this.popup_title = '启用GPS'
+                    
+                    this.current_value = 0; //  仍然 认为 从单选框选中的, 手动设置选中, 赋值current_value 为0,
                 } else {
-                    this.action = 1;
-                    this.postpone_date = 20000000;
-                    this.tip_text = '关闭GPS成功';
-                    this.popup_title = '关闭/更换GPS'
+                    if (Number(gps_status)) {
+                        this.action = 0;
+                        this.postpone_date = 20991231;
+                        this.tip_text = '启用GPS成功';
+                        this.popup_title = '启用/更换GPS';
+                        this.gps_setting_item = [{
+                            value: 0,
+                            name: '启用GPS'
+                        }, {
+                            value: 1,
+                            name: '更换GPS'
+                        }]
+                    } else {
+                        this.action = 1;
+                        this.postpone_date = 20000000;
+                        this.tip_text = '关闭GPS成功';
+                        this.popup_title = '关闭/更换GPS';
+                        this.gps_setting_item = [{
+                            value: 0,
+                            name: '关闭GPS'
+                        }, {
+                            value: 1,
+                            name: '更换GPS'
+                        }]
+                    }
                 }
+                
                 this.uid = uid;
                 this.vehicle_id = vehicle_id;
             },
@@ -127,6 +144,7 @@
                 this.current_value = null;
                 this.tip_text = '';
                 this.action = null;
+                this.gps_setting_item = [];
                 this.postpone_date = '';
                 this.popup_title = '';
                 // this.showToast(`已取消设置GPS`);
@@ -144,8 +162,7 @@
                         })
                         
                         return
-                    }
-                    
+                    }             
                     url = `${this.api}txnsvrv03.ajson`;
                     record = {
                         uid: this.uid,
@@ -175,12 +192,13 @@
                     success: (res) => {
                         uni.hideLoading()
                         if (res.data.error_code === '000000') {
-                            this.showToast(`${this.tip_text}`);
+                            this.showToast(this.tip_text);
                             // 重新调用获取列表数据的方法 
-                            // setTimeout(() => {
+                            let timer = setTimeout(() => {
                                 this.cancelSettingGPS();
                                 this.getVehicleList(this.attribute_node);
-                            // }, 2000)
+                                clearTimeout(timer);
+                            }, 1500)
                         } else {
                             this.toastRequestErr(res.data);
                         }
@@ -191,6 +209,8 @@
                     }
                 })
             }
+        },
+        mounted() {
         }
     }
 </script>
@@ -244,7 +264,7 @@
             .change-gps {
                 
                 &>view {
-                    padding: 40rpx 0 20rpx 0;
+                    padding: 40rpx 0 30rpx 0;
                 }
                
             }

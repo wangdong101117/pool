@@ -2,11 +2,12 @@
     <view calss="uni-container tstati-container">
         <view class="thead">
             <view style="width: 80rpx; text-align: center;"></view>
-            <view style="flex: 2; text-align: center;">日期</view>
+            <!-- 月/年 不显示日期 -->
+            <view style="flex: 2; text-align: center;" v-if="current_value === 0 || current_value === 1">日期</view>
             <view style="flex: 3; text-align: center;">整车编号</view>
             <view style="flex: 2; text-align: center;">打火时长/h</view>
             <view style="flex: 2; text-align: center;">总里程/km</view>
-            <view style="width: 100rpx; text-align: center;">#</view>
+            <view style="width: 80rpx; text-align: center;">#</view>
         </view>
         <view class="tbody">
             <view v-for="(item, index) in list" :key="index" @tap="table_item_tap(item, index)" :class="selected_index === index? 'selectItem' : ''">
@@ -14,16 +15,15 @@
                     <view style="width: 80rpx; text-align: center;">
                         <uni-icons :size="14" class="uni-icon-wrapper" hover-class="hoverStyle" color="#333" v-if="selected_index !== index"
                             type="arrowright" />
-                        <uni-icons :size="14" class="uni-icon-wrapper" hover-class="hoverStyle" color="#333" v-else
-                            type="arrowdown" />
+                        <uni-icons :size="14" class="uni-icon-wrapper" hover-class="hoverStyle" color="#333" v-else type="arrowdown" />
                     </view>
-                    <view style="flex: 2; text-align: center;">{{item.m_date}}</view>
+                    <view style="flex: 2; text-align: center;" v-if="current_value === 0 || current_value === 1">{{item.m_date}}</view>
                     <view style="flex: 3; text-align: center;">
                         {{item.vehicle_id}}
                     </view>
                     <view style="flex: 2; text-align: center;">{{item.engine_hours}}</view>
                     <view style="flex: 2; text-align: center;">{{item.run_km}}</view>
-                    <view style="width: 100rpx; text-align: center;">{{index + 1}}</view>
+                    <view style="width: 80rpx; text-align: center;">{{index + 1}}</view>
                 </view>
                 <view style="background: #fceee8; color: #333" v-if="selected_index === index">
                     <view style="flex: 2; text-align: center;">行车时长 {{item.run_hours}} h</view>
@@ -41,16 +41,13 @@
                 <view class="uni-tip-title">
                     <view>查询选项</view>
                 </view>
-                <!-- <view class="uni-tip-content"></view> -->
                 <view style="padding: 20rpx; text-align: center;" class="content">
                     <uni-combox label="选择国家:" :placeholder="select_country_name? select_country_name : '请选择国家'" :value="select_country_name"
                         @sendValue="selectedCountry" v-model="select_country_name" codeType="tlt_have_truck_country"
                         :s_id="refs[0]" :ref="refs[0]"></uni-combox>
-                    <!-- <view style="position: static; overflow: hidden; padding: 0; height: 112rpx;" @click.prevent="isClick" -->
-                    <!-- :class="isCanUse ? 'canUse' : 'uCanUse'"> -->
                     <view style="position: static; overflow: hidden; padding: 0;" @click.prevent="isClick" v-show="isCanUse">
                         <uni-combox label="选择地区:" :placeholder="selected_dist" style="float: left; z-index: 0; width: 100%; padding: 30rpx 0;"
-                            :disabled="disabled" v-model="selected_dist">
+                            v-model="selected_dist">
                         </uni-combox>
                     </view>
 
@@ -92,24 +89,20 @@
                         </view>
                     </view>
                 </view>
-
                 <mx-date-picker :show="show_date_modal" :type="type" :show-tips="true" :show-seconds="true" @confirm="onSelected"
                     @cancel="show_date_modal = false" v-if="current_value === 0 || current_value === 1" />
-
                 <uni-popup :show="isShow" type="bottom" mode="fixed" msg="选择收货地址" @hidePopup="togglePopup('')">
                     <semp-city @confirmSelect="onCityClick" @cancelSelect="cancelselected_dist"></semp-city>
                 </uni-popup>
             </view>
         </uni-popup>
-
-        <view class="review" @tap="show_condition=true" v-if="!show_condition">查询选项</view>
+        <view class="review" @tap="showCondition" v-if="!show_condition">查询选项</view>
     </view>
 </template>
 
 <script>
     // 图标
     import uniIcons from '@/components/uni-icons/uni-icons.vue'
-
     // popup 弹出层
     import uniPopup from "@/components/uni-popup/uni-popup.vue"
     // 类似于下拉框
@@ -142,12 +135,10 @@
                 sumi: 0, // 用于标识: 触发上拉加载更多的执行次数, 以便用来设置加载更多组件的 提示描述等
                 lock: true, // 在上拉加载更多程序中: 用来控制上拉加载更多, 避免短时间内持续上拉, 导致加载过多数据, 效果不好, 
                 load_more_status: 'noMore', // 上拉加载更多组件的文字提示描述; noMore: 没有更多数据, more: 加载更多 loading: 加载更多
-
                 show_condition: false,
                 current_value: null,
                 // == 以下为选择地区依赖的数据
-                isCanUse: false, // 控制选择地区样式背景: 灰色(禁用) / 白色(启用)
-                disabled: true, // 控制选择地区禁用/启用
+                isCanUse: false, // 控制选择地区显示/隐藏
                 refs: ['combox1', 'combox2', 'combox3'],
                 /** 选择国家 选中的代码集name / value */
                 select_country_name: '',
@@ -180,7 +171,7 @@
                 select_date: '',
                 start_date: '',
                 stop_date: '',
-                value: '',
+                // value: '',
                 type: '',
                 date: '2019/01/01',
                 range: ['2019/01/01', '2019/01/06']
@@ -320,11 +311,9 @@
                 // 选择的是中国, 设置地区选择可用
                 if (this.select_country_value && this.select_country_value == '156') {
                     this.isCanUse = true;
-                    this.disabled = false
                 } else {
                     // 选择的不是中国, 设置地区选择不可用
                     this.isCanUse = false;
-                    this.disabled = true
                     this.province_name = '';
                     this.province_value = '';
                     this.city_name = '';
@@ -360,7 +349,7 @@
                         this.type = 'date';
                     }
 
-                    this.value = this[this.type];
+                    // this.value = this[this.type];
                     this.show_date_modal = true;
                     let timer = setTimeout(() => {
                         uni.hideLoading();
@@ -409,34 +398,14 @@
             getYear(value) {
                 this.year = value.replace(/-+|\s|:+/g, '');
             },
+            showCondition() {
+                this.show_condition = true;
+                this.addEventListenerComBoxToggle();
+            },
             /* 条件选择弹框 取消按钮 */
             cancelCondition() {
                 this.show_condition = false;
-                // this.m_date = '';
-                // this.select_date = '';
-                // this.start_date = '';
-                // this.stop_date = '';
-                // // 设置地区选择禁用
-                // this.isCanUse = false;
-                // this.disabled = true;
-                // this.select_dist = '请选择地区';
-                // /** 以下: 清空重置选择地区 属性值 */
-                // this.region_code = '';
-                // this.select_country_value = '';
-                // this.select_country_name = '';
-                // this.province_name = '';
-                // this.province_value = '';
-                // this.city_name = '';
-                // this.city_value = '';
-                // this.county_name = '';
-                // this.county_value = '';
-                               
-                // /** 清空 选择车辆编号依赖的数据 */
-                // this.select_vehicle_id_name = '';
-                // this.select_vehicle_id_value = '';
-                
-                // this.select_oganization_name = '';
-                // this.select_oganization_value = '';
+                this.removeEventListenerComBoxToggle();
             },
             /* 条件选择弹框 确定按钮 */
             confirmCondition() {
@@ -524,6 +493,7 @@
 
                 this.getListData(url, select_key);
                 this.show_condition = false;
+                this.removeEventListenerComBoxToggle();
             }
         },
         onLoad(option) {
@@ -548,19 +518,8 @@
                 })
             }
         },
-        onShow() {
-            this.$nextTick(() => {
-                uni.$on('comBoxToggle',(data) => {
-                    for(let k in this.$refs) {
-                        if (k != data.data) {
-                            this.$refs[k].showSelector = false
-                        }
-                    }
-                })
-            })
-        },
         mounted() {
-            this.show_condition = true;
+            this.showCondition();
         },
         // 上拉加载更多
         onReachBottom() {
@@ -581,6 +540,12 @@
                     clearTimeout(timer);
                 }, 1500)
             }
+        },
+        onBackPress() {
+            if (this.show_condition) {
+                this.cancelCondition();
+                return true
+            } 
         }
     }
 </script>
@@ -671,7 +636,7 @@
     }
 
     .tbody {
-        padding-top: 60rpx;
+        padding-top: 64rpx;
         box-sizing: border-box;
     }
 

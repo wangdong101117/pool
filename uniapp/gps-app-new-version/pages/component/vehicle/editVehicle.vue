@@ -100,6 +100,7 @@
             },
             /** 取消按钮 */
             cancelButton() {
+                this.removeEventListenerComBoxToggle();
                 // 返回到车辆列表页面
                 uni.switchTab({
                     url: '/pages/tabBar/vehicle/vehicle'
@@ -155,6 +156,7 @@
                             uni.showToast({
                                 title: '修改车辆成功',
                             })
+                            this.removeEventListenerComBoxToggle();
                             // 返回到车辆列表页面
                             setTimeout(() => {
                                 // 返回到车辆列表页面
@@ -180,19 +182,14 @@
         },
         /** 监听 下拉框组件 注册的全局自定义事件 */
         onShow() {
-            this.$nextTick(() => {
-                uni.$on('comBoxToggle',(data) => {
-                    for(let k in this.$refs) {
-                        if (k != data.data) {
-                            this.$refs[k].showSelector = false
-                        }
-                    }
-                })
-            })
+            this.addEventListenerComBoxToggle();
+        },
+        onBackPress() {
+            this.removeEventListenerComBoxToggle();
         },
         onLoad(option) {
-            this.uid = option.uid
-            this.getEditVehicleInfo()
+            this.uid = option.uid;
+            this.getEditVehicleInfo();
         }
     }
 </script>

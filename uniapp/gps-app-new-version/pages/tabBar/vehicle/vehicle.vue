@@ -14,10 +14,21 @@
                         </p>
                         <view class="seat"></view>
                         <!-- <view :class="[{'vehicle-status-error': item.network_status === '1'}, 'vehicle-status']"> -->
+                        <!-- 
+                            已锁车 且 关闭  => 启用GPS
+                            已锁车 且 激活 => 解锁 / 延期
+                            
+                            未锁车 / 关闭 => 启用GPS/更换GPS
+                            未锁车 且 激活 => 锁车 / 延期 / 关闭 / 更换
+                            
+                                - 启用GPS 是独立的
+                                = 锁车后 不能进行除开启GPS之外的 gps其他操作
+                                - GPS关闭后, 不能进行 锁车/解锁/延期操作
+                         -->
                         <view class="vehicle-status">
                             <text>
+                                <text style="display: block; line-height: 25rpx;">{{item.gps_status == '0'? 'GPS激活' : 'GPS关闭'}}</text>
                                 <text style="display: block; line-height: 25rpx;">{{item.lock_status == '0'? '未锁车' : '已锁车'}}</text>
-                                <text style="display: block; line-height: 25rpx;">{{item.gps_status == '0'? 'GPS启用' : 'GPS关闭'}}</text>
                             </text>
                             <!-- <text v-else style="line-height: 50rpx;">联网异常</text> -->
                             <text class="shape"></text>
@@ -55,15 +66,18 @@
                     </view>
                     <view style="height: 2rpx; background-color: #ccc; width: 100%; margin: 0 28rpx;"></view>
                     <view class="list-item-action">
-                        <view @tap="settingLockVehicle(index, item)">
+                        <view @tap="settingLockVehicle(index, item)" v-if="item.gps_status == '0'">
                             <image src="@/static/vehicle/suoche.png" alt="" mode="aspectFit" />
-                            <text v-if="item.lock_status == '0'">锁车/延期锁车</text>
-                            <text v-if="item.lock_status == '1'">解锁</text>
+                            <text v-if="item.lock_status == '0'">锁车/延期</text>
+                            <text v-if="item.lock_status == '1'">解锁/延期</text>
                         </view>
-                        <view @tap="settingGPS(index, item)">
-                            <image src="@/static/vehicle/GPS.png" alt="" mode="aspectFit" />
-                            <text v-if="item.gps_status == '0'">关闭/更换GPS</text>
-                            <text v-else>启用GPS</text>
+                        <view @tap="settingGPS(index, item)" v-if="!(item.lock_status == '1' && item.gps_status == '0')">
+                                <image src="@/static/vehicle/GPS.png" alt="" mode="aspectFit" />
+                                <!-- 锁车后 不显示除了 启用GPS的 其他 gps操作 -->
+                                <text v-if="item.lock_status == '0' && item.gps_status == '0'">关闭/更换GPS</text>
+                                <text v-if="item.lock_status == '0' && item.gps_status == '1'">启用/更换GPS</text>
+                                <text v-if="item.lock_status == '1' && item.gps_status == '1'">启用GPS</text>
+                            <!-- 还有个启用 -->
                         </view>
                         <view @tap="goVehicleDetail(index, item.uid)">
                             <image src="@/static/vehicle/xiangqing-3.png" alt="" mode="aspectFit" />
@@ -266,11 +280,11 @@
             },
             /** 锁车设置 按钮 */
             settingLockVehicle(index, item) {
-                this.$refs.settingLockVehicle.showPopup(item.uid, item.lock_status, item.vehicle_id);
+                this.$refs.settingLockVehicle.showPopup(item.uid, item.vehicle_id, item.lock_status);
             },
             /** gps设置按钮 */
             settingGPS(index, item) {
-                this.$refs.settingGPS.showPopup(item.uid, item.vehicle_id, item.gps_status);
+                this.$refs.settingGPS.showPopup(item.uid, item.vehicle_id, item.gps_status, item.lock_status);
             }
         },
         /** 初次加载 */

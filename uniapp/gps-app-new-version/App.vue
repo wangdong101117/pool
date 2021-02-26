@@ -7,9 +7,7 @@
             addcode_get_count: 0
         },
         data() {
-            return {
-                addcode_get_flag: false
-            }
+            return {}
         },
         mixins: [mixin],
         methods: {
@@ -54,6 +52,7 @@
                         }
                     })
                     
+                    console.log('-----------------', not_notify_info_list)
                     if (not_notify_info_list.length) {
                         not_notify_info_list.forEach((item, index) => {
                             // 向服务端发送蓝牙指令执行成功
@@ -147,16 +146,5 @@
     
     uni-button:after {
         border: none;
-    }
-    
-    .redIcon {
-        display: inline-block;
-        width: 6px !important;
-        height: 6px !important;
-        padding: 0 !important;
-        margin-top: 30rpx;
-        margin-right: 30rpx;
-        border-radius: 50%;
-        background: #dc1110;
     }
 </style>

@@ -13,14 +13,3 @@
 uni-button:after {
     border: none;
 }
-
-.redIcon {
-    display: inline-block;
-    width: 6px !important;
-    height: 6px !important;
-    margin-top: 30rpx;
-    margin-right: 30rpx;
-    border-radius: 50%;
-    background: #dc1110;
-    padding: 0 !important;
-}

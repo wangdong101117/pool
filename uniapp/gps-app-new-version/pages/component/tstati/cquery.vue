@@ -78,13 +78,13 @@
                     <view style="position: static; overflow: hidden; padding: 0; height: 112rpx;" @click.prevent="isClick"
                         v-show="isCanUse">
                         <uni-combox label="选择地区:" :placeholder="select_dist" style="float: left; z-index: 0; width: 100%; padding: 30rpx 0;"
-                            :disabled="disabled" v-model="select_dist">
+                            v-model="select_dist">
                         </uni-combox>
                     </view>
 
-                    <uni-combox label="整车编号:" placeholder="请选择整车编号" :s_id="refs[2]" :value="select_vehicle_id_name"
+                    <uni-combox label="整车编号:" placeholder="请选择整车编号" :s_id="refs[1]" :value="select_vehicle_id_name"
                         :region_code="region_code" @sendValue="selectedVehicleID" v-model="select_vehicle_id_name"
-                        codeType="tlt_vehicle_in_region" uid="" :ref="refs[2]"></uni-combox>
+                        codeType="tlt_vehicle_in_region" uid="" :ref="refs[1]"></uni-combox>
 
                     <view style="border-bottom: 1px solid #ccc; display: flex; font-size: 28rpx; padding: 30rpx 0;">
                         <text style="margin: auto;">选择日期:</text>
@@ -115,7 +115,7 @@
             </view>
         </uni-popup>
         
-        <view class="review" @tap="show_condition=true" v-if="!show_condition">查询选项</view>
+        <view class="review" @tap="showCondition" v-show="!show_condition">查询选项</view>
     </view>
 </template>
 
@@ -155,9 +155,8 @@
                 
                 current_value: null, 
                 // == 以下为选择地区依赖的数据
-                isCanUse: false, // 控制选择地区样式背景: 灰色(禁用) / 白色(启用)
-                disabled: true, // 控制选择地区禁用/启用
-                refs: ['combox1', 'combox2', 'combox3'],
+                isCanUse: false, // 控制选择地区显示/隐藏
+                refs: ['combox1', 'combox2'],
                 /** 选择国家 选中的代码集name / value */
                 select_country_name: '',
                 select_country_value: '',
@@ -184,7 +183,7 @@
                 start_date: '',
                 stop_date: '',
                 m_date: '',
-                value: '',
+                // value: '',
                 type: '',
                 date: '2019/01/01',
                 rangetime: ['2019/01/08 14:00', '2019/01/16 13:59'],
@@ -204,18 +203,7 @@
             }
         },
         mounted() {
-            this.show_condition = true
-        },
-        onShow() {
-            this.$nextTick(() => {
-                uni.$on('comBoxToggle',(data) => {
-                    for(let k in this.$refs) {
-                        if (k != data.data) {
-                            this.$refs[k].showSelector = false
-                        }
-                    }
-                })
-            })
+            this.showCondition();
         },
         methods: {
             table_item_tap(item, index) {
@@ -225,31 +213,13 @@
                     this.selected_index = index
                 }
             },
+            showCondition() {
+                this.show_condition = true;  
+                this.addEventListenerComBoxToggle();
+            },
             cancelCondition() {
-                this.show_condition = false
-
-               //  this.m_date = '';
-               //  this.select_date = '';
-               //  this.start_date = '';
-               //  this.stop_date = '';
-               //  // 设置地区选择禁用
-               //  this.isCanUse = false;
-               //  this.disabled = true;
-               //  this.select_dist = '请选择地区';
-               //  /** 以下: 清空重置选择地区 属性值 */
-               //  this.region_code = '';
-               //  this.select_country_value = '';
-               //  this.select_country_name = '';
-               //  this.province_name = '';
-               //  this.province_value = '';
-               //  this.city_name = '';
-               //  this.city_value = '';
-               //  this.county_name = '';
-               //  this.county_value = '';
-               
-               //  /** 清空 选择车辆编号依赖的数据 */
-               //  this.select_vehicle_id_name = '';
-               //  this.select_vehicle_id_value = '';
+                this.show_condition = false  
+                this.removeEventListenerComBoxToggle();
             },
             confirmCondition() {                
                 this.search()
@@ -263,7 +233,7 @@
                     this.type = 'rangetime';
                 }
 
-                this.value = this[this.type];
+                // this.value = this[this.type];
                 this.show_date_modal = true;
                 let timer = setTimeout(() => {
                     uni.hideLoading();
@@ -303,7 +273,6 @@
                     }
                 }
             },
-            // 搜索按钮
             search() {
                 this.list = [];
                 this.sumi = 0;
@@ -336,9 +305,9 @@
                     return
                 }
                 this.show_condition = false;
+                this.removeEventListenerComBoxToggle();
                 this.getListData(this.attribute_nodeR);
             },
-            
             /** 选择地区 */
             isClick(e) {
                 if (this.select_country_value && this.select_country_value == '156') {
@@ -407,11 +376,9 @@
                 // 选择的是中国, 设置地区选择可用
                 if (this.select_country_value && this.select_country_value == '156') {
                     this.isCanUse = true;
-                    this.disabled = false;
                 } else {
                     // 选择的不是中国, 设置地区选择不可用
                     this.isCanUse = false;
-                    this.disabled = true;
                 }
             },
 
@@ -473,7 +440,6 @@
                     timeout: 120000,
                     dataType: 'json',
                     success: (res) => {
-                        // this.btn_disable = false
                         if (res.data.error_code === '000000') {
                             console.log(res.data)
                             let {
@@ -484,9 +450,7 @@
 
                             if (record && record.length) {
                                 this.record = record;
-                                // this.record.forEach(item => {
-                                //     item.date_time = item.date_time.slice(8);
-                                // })
+                               
                                 this.attribute_node.record_record_number = attribute_node.record_record_number;
                                 let list = this.list
                                 /** 需求: 一次会返回所有的数据, 但是每次展示20条数据, 
@@ -522,7 +486,6 @@
                     fail: () => {
                         // 同上
                         this.sumi -= 1;
-                        // this.btn_disable = false;
                         uni.hideLoading();
                         this.toastErr();
                     }
@@ -568,6 +531,12 @@
                     clearTimeout(timer);
                 }, 1500)
             }
+        },
+        onBackPress() {
+            if (this.show_condition) {
+                this.cancelCondition();
+                return true
+            } 
         }
     }
 </script>
@@ -640,7 +609,6 @@
         display: flex;
         flex-direction: row;
         position: fixed;
-        // top: 100rpx;
         left: 0;
         width: 100%;
         height: 64rpx;
@@ -652,7 +620,7 @@
 
     .tbody,
     .tbody_lock {
-        padding-top: 60rpx;
+        padding-top: 64rpx;
         box-sizing: border-box;
     }
 

@@ -96,15 +96,11 @@
 <script>
     // 退出登录模板
     import logout from '@/pages/component/logout/logout.vue'
-    import uniList from '@/components/uni-list/uni-list.vue'
-    import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
-    import uniIcons from "@/components/uni-icon/uni-icon.vue"
+    import uniIcons from "@/components/uni-icons/uni-icons.vue"
 
     export default {
         components: {
             logout,
-            uniList,
-            uniListItem,
             uniIcons
         },
         data() {

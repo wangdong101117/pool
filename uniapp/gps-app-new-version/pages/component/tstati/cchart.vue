@@ -21,7 +21,7 @@
                     <view style="position: static; overflow: hidden; padding: 0; height: 112rpx;" @click.prevent="isClick"
                         v-show="is_can_use">
                         <uni-combox label="选择地区：" :placeholder="selected_dist" style="float: left; z-index: 0; width: 100%; padding: 30rpx 0;"
-                            :disabled="disabled" v-model="selected_dist">
+                            v-model="selected_dist">
                         </uni-combox>
                     </view>
                     <uni-combox label="整车编号：" placeholder="请选择整车编号" :s_id="refs[2]" :value="select_vehicle_id_name"
@@ -49,7 +49,7 @@
                     </view>
                 </view>
                 <!-- 选择日期期间弹框 -->
-                <mx-date-picker :show="show_date_modal" type="rangetime" :value="value" :show-tips="true" :show-seconds="true"
+                <mx-date-picker :show="show_date_modal" type="rangetime" :show-tips="true" :show-seconds="true"
                     @confirm="onSelected" @cancel="show_date_modal = false" />
 
                 <uni-popup :show="is_show" type="bottom" mode="fixed" msg="选择收货地址" @hidePopup="togglePopup('')">
@@ -95,8 +95,7 @@
                 btn_disable: false, // 控制搜索按钮禁用/启用, 避免短时间内多次操作点击搜索按钮
                 current_value: null, 
                 // == 以下为选择地区依赖的数据
-                is_can_use: false, // 控制选择地区样式背景: 灰色(禁用) / 白色(启用)
-                disabled: true, // 控制选择地区禁用/启用
+                is_can_use: false, // 控制选择地区显示/隐藏
                 refs: ['combox1', 'combox2', 'combox3'],
                 /** 选择国家 选中的代码集name / value */
                 select_country_name: '',
@@ -122,12 +121,12 @@
                 select_date: '',
                 start_date: '',
                 stop_date: '',
-                value: '',
                 rangetime: ['2019/01/08 14:00', '2019/01/16 13:59'],
             }
         },
         mounted() {
             this.show_condition = true;
+            this.addEventListenerComBoxToggle();
             _self = this;
             uni.getSystemInfo({
                 success: (res) => {
@@ -144,37 +143,18 @@
         methods: {
             /** 选择条件弹框 取消按钮 */
             cancelCondition() {
-                this.show_condition = false
-
-                // this.select_date = '';
-                // this.start_date = '';
-                // this.stop_date = '';
-                // // 设置地区选择禁用
-                // this.is_can_use = false;
-                // this.disabled = true;
-                // this.selected_dist = '请选择地区';
-                // /** 以下: 清空重置选择地区 属性值 */
-                // this.region_code = '';
-                // this.select_country_value = '';
-                // this.select_country_name = '';
-                // this.province_name = '';
-                // this.province_value = '';
-                // this.city_name = '';
-                // this.city_value = '';
-                // this.county_name = '';
-                // this.county_value = '';
-                
-                // /** 清空 选择车辆编号依赖的数据 */
-                // this.select_vehicle_id_name = '';
-                // this.select_vehicle_id_value = '';
+                this.show_condition = false;            
+                this.removeEventListenerComBoxToggle();
             },
             confirmCondition() {
+                this.removeEventListenerComBoxToggle();
                 this.search();
             },
             // 关闭图标上绑定的点击事件
             emptyCchart() {
                 // 显示条件选择; 并且隐藏关闭图标; 清空 绘制的图表数据
                 this.show_condition = true;
+                this.addEventListenerComBoxToggle();
             },
             // 折线图/曲线图配置
             showLineB(canvasId, chartData, markLine, max) {
@@ -268,9 +248,9 @@
             // 确认选择
             onSelected(e) {
                 if (e) {
-                    console.log(e.value)
-                    this.select_date = e.value
-                    let time = e.value + ''
+                    console.log(e.value);
+                    this.select_date = e.value;
+                    let time = e.value + '';
                     let start_time = new Date(this.select_date[0]).getTime();
                     let end_time = new Date(this.select_date[1]).getTime();
                     if (start_time && end_time) {
@@ -392,11 +372,9 @@
                 // 选择的是中国, 设置地区选择可用
                 if (this.select_country_value && this.select_country_value == '156') {
                     this.is_can_use = true;
-                    this.disabled = false;
                 } else {
                     // 选择的不是中国, 设置地区选择不可用
                     this.is_can_use = false;
-                    this.disabled = true;
                 }
             },
             /** 选中的整车编号 value */
@@ -610,6 +588,12 @@
                 })
             }
         },
+        onBackPress() {
+            if (this.show_condition) {
+                this.cancelCondition();
+                return true
+            }
+        },
         onLoad(option) {
             this.current_value = Number(option.current_value);
             if (this.current_value === 10) {
@@ -634,17 +618,6 @@
                 })
             }
         },
-        onShow() {
-            this.$nextTick(() => {
-                uni.$on('comBoxToggle',(data) => {
-                    for(let k in this.$refs) {
-                        if (k != data.data) {
-                            this.$refs[k].showSelector = false
-                        }
-                    }
-                })
-            })
-        }
     }
 </script>
 

@@ -20,7 +20,6 @@
             return {
                 /* 手机机型的标识 */
                 operator_position: '',
-                /* 定位信息 */
                 w_version: '',
                 /* 保存检测代码集版本时, 返回的代码集版本 */
             }
@@ -67,13 +66,6 @@
                 });
             },
             
-            /* 个推推送: uni-app 提供了 uni push服务, 是一个包括客户端和服务端的统一服务, 
-             * uni.subscribePush(obj): 开启推送
-             */
-            // getClient () {
-            //     
-            // },
-
             // 检查 代码集 是否需要更新:
             // checkDMJ() {
             //     let that = this

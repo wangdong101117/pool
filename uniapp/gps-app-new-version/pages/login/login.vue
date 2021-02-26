@@ -12,42 +12,41 @@
                 <view class="form-username form-list-item">
 					<image src="../../static/login/yonghu.png"></image>
 					<text></text>
-                    <input type="text" v-model="formData.username" @blur="userIptBlur" placeholder-style="color:#ccc;font-size:38rpx;" placeholder="请输入用户名">
+                    <input type="text" v-model="form_data.username" @blur="userIptBlur" placeholder-style="color:#ccc;font-size:38rpx;" placeholder="请输入用户名">
                 </view>
                 <view class="form-password form-list-item">
 					<image src="../../static/login/mima.png"></image>
 					<text></text>
-                    <input type="text" password v-model="formData.password" @blur="wordIptBlur" placeholder-style="color:#ccc;font-size:38rpx;" placeholder="请输入密码">
+                    <input type="text" password v-model="form_data.password" @blur="wordIptBlur" placeholder-style="color:#ccc;font-size:38rpx;" placeholder="请输入密码">
                 </view>
                 <view class="form-addcode form-list-item">
                     <image src="../../static/login/yanzhengma.png" style="width: 56rpx;"></image>
 					<text></text>
-                    <input type="number" v-model="formData.addcode" @blur="codeIptBlur" placeholder-style="color:#ccc;font-size:38rpx;" placeholder="请输入验证码">
-                    <image @tap="prepareRamdonImage()" :src="addcodeSrc" style="width: 70px; height: 30px;">
+                    <input type="number" v-model="form_data.addcode" @blur="codeIptBlur" placeholder-style="color:#ccc;font-size:38rpx;" placeholder="请输入验证码">
+                    <image @tap="prepareRamdonImage()" :src="addcode_src" style="width: 70px; height: 30px;">
                 </view>
             </view>
             <view class="login-btn">
                 <button type="warn" @click="submitLogin">登&nbsp;&nbsp;&nbsp;录</button>
                 <view class="btn-navigator">
-                    <!-- <navigator :url="offlinerUrl" v-if="show_btn_offline" open-type="navigate" class="btn-offline">离线操作</navigator> -->
-                    <navigator :url="forgetUrl" open-type="navigate" class="btn-forget">忘记密码?</navigator>
+                    <!-- <navigator :url="offline_page_url" v-if="show_btn_offline" open-type="navigate" class="btn-offline">离线操作</navigator> -->
+                    <navigator :url="forget_page_url" open-type="navigate" class="btn-forget">忘记密码?</navigator>
                 </view>
             </view>
         </view>
-        <uni-popup :show="logout" type="center" :custom="true" :mask-click="false">
+        <uni-popup :show="logout_popup" type="center" :custom="true" :mask-click="false">
         	<view class="uni-tip">
         		<view class="uni-tip-title">
                     <view>退出应用</view>
                  </view>
         		<view class="uni-tip-content">您确定要退出应用吗？</view>
         		<view class="uni-tip-group-button">
-        			<view class="uni-tip-button" @click="cancelLogout()">
+        			<view class="uni-tip-button" @click="cancelQuitApp()">
                         <view class="btn-cancel">
                             取消
                         </view>    
-                        
                      </view>
-        			<view class="uni-tip-button" @click="confirmLogout()">
+        			<view class="uni-tip-button" @click="confirmQuitApp()">
                         <view class="btn-confirm">
                             确定
                         </view>
@@ -57,19 +56,19 @@
         </uni-popup>
         
         <!-- 设置网络连接弹框 -->
-        <uni-popup :show="setNetwork" type="center" :custom="true" :mask-click="false">
+        <uni-popup :show="set_network_popup" type="center" :custom="true" :mask-click="false">
         	<view class="uni-tip">
         		<view class="uni-tip-title">
                     <view>温馨提示</view>
                  </view>
         		<view class="uni-tip-content">网络出错, 请检查网络配置</view>
         		<view class="uni-tip-group-button">
-                    <view class="uni-tip-button" @click="cancelSet()">
+                    <view class="uni-tip-button" @click="cancelSetNetwork()">
                         <view class="btn-cancel">
                             关闭
                         </view>    
                       </view>
-        			<view class="uni-tip-button" @click="confirmSet()">
+        			<view class="uni-tip-button" @click="confirmSetNetwork()">
                         <view class="btn-confirm">
                             设置网络
                         </view>
@@ -78,14 +77,14 @@
         	</view>
         </uni-popup>
         <!-- 更新app版本弹框 -->
-        <uni-popup :show="updateApp" type="center" :custom="true" :mask-click="false">
+        <uni-popup :show="app_update_popup" type="center" :custom="true" :mask-click="false">
         	<view class="uni-tip">
         		<view class="uni-tip-title">
                     <view>版本更新</view>
                  </view>
         		<view class="uni-tip-content">有新版本发布，是否进行新版本下载？</view>
         		<view class="uni-tip-group-button">
-                    <view class="uni-tip-button" @click="confirmLogout()">
+                    <view class="uni-tip-button" @click="confirmQuitApp()">
                         <view class="btn-cancel">
                             退出应用
                         </view>
@@ -99,7 +98,7 @@
         	</view>
         </uni-popup>
         <!-- app下载 进度 弹框 -->
-        <uni-popup :show="updateAppProgress" type="center" :custom="true" :mask-click="false">
+        <uni-popup :show="update_progress_popup" type="center" :custom="true" :mask-click="false">
         	<view class="uni-tip">
         		<view class="uni-tip-title">
                     <view>升级APP</view>
@@ -107,8 +106,8 @@
         		<view class="uni-tip-content">
                     <view>正在进行下载更新，请耐心等待。。。</view> 
                     <view style="margin-top: 5px;">
-                        <view style="padding: 8px; color: #dc1110;">已下载：{{downloadProgress}}%</view>
-                        <progress :percent="downloadProgress" activeColor="#dc1110" border-radius="5" active active-mode="forwards" stroke-width="10" />
+                        <view style="padding: 8px; color: #dc1110;">已下载：{{download_progress}}%</view>
+                        <progress :percent="download_progress" activeColor="#dc1110" border-radius="5" active active-mode="forwards" stroke-width="10" />
                     </view>
                 </view>
         	</view>
@@ -129,42 +128,39 @@
         data() {
             return {
                 show_btn_offline: false,
-                logoSrc: '../../static/icon/logo.png',
-                offlinerUrl: '/pages/offline/offline', // 离线操作页面路径
-                forgetUrl: '/pages/forgetPassWord/forgetPassWord', // 忘记密码页面路径
+                logo_url: '../../static/icon/logo.png',
+                offline_page_url: '/pages/offline/offline', // 离线操作页面路径
+                forget_page_url: '/pages/forgetPassWord/forgetPassWord', // 忘记密码页面路径
                 // 用户名 密码 验证码 数据
-                formData: {
+                form_data: {
                     username: '',
                     password: '',
                     addcode: ''
                 },
                 array: [],
-                provData: [],
-                cityData: [],
-                areaData: [],
-                addcodeSrc: '',
-                logout: false,
-                
-                
-                updateApp: false, // 显示 / 隐藏 更新app 弹框
-                downLoadUrl: '', // 新版本app下载地址
-                setNetwork: false, // 显示 / 隐藏 设置网络 弹框
-                myPlatform: '',
-                updateAppProgress: false, // 显示 / 隐藏 下载进度弹框
-                downloadProgress: 0, // 已下载的百分比
+                province_date: [],
+                city_data: [],
+                county_data: [],
+                addcode_src: '',
+                logout_popup: false,
+                app_update_popup: false, // 显示 / 隐藏 更新app 弹框
+                download_url: '', // 新版本app下载地址
+                set_network_popup: false, // 显示 / 隐藏 设置网络 弹框
+                update_progress_popup: false, // 显示 / 隐藏 下载进度弹框
+                download_progress: 0, // 已下载的百分比
             }
         },
         methods: {
             /** 设置网络modal框: 关闭按钮 */
-            cancelSet() {
-                this.setNetwork = false
+            cancelSetNetwork() {
+                this.set_network_popup = false;
             },
             /** 设置网络modal框: 设置网络方法*/
-            confirmSet() {
+            confirmSetNetwork() {
                 // 隐藏之前显示的弹框
-                this.setNetwork = false
+                this.set_network_popup = false;
                 // 如果是ios机型, 操作 ios 机型的 wifi信息
-                if (this.myPlatform == 'ios') {
+                if (this.my_platform == 'ios') {
                     let UIApplication = plus.ios.import("UIApplication");
                     let NSURL = plus.ios.import("NSURL");
                     let setting = NSURL.URLWithString("app-settings:");
@@ -182,15 +178,15 @@
                     // importClass() 导入 java类对象, 这里导入的是 android.content.Intenet类对象
                     let Intent = plus.android.importClass('android.content.Intent')
                     // 当上面的对象 导入后 可以使用 new() 创建类的 实例对象
-                    let myIntent = new Intent('android.settings.WIFI_SETTINGS')
+                    let my_Intent = new Intent('android.settings.WIFI_SETTINGS')
                     // 打开 创建的实例对象: 设置 wifi页面
-                    main.startActivity(myIntent)
+                    main.startActivity(my_Intent)
                     // #endif    
                 }
             },
             /** 验证app应用 是否需要更新 */
             isUpdate() {
-                let updateAppServer = `${this.api}txnsysb06.ajson`;
+                let update_app_server = `${this.api}txnsysb06.ajson`;
                 /** runtime模块: getProperty(): 获取指定AppId对应的应用信息
                  * 参数1: appid: 
                  * 参数2: 回调函数: 
@@ -207,7 +203,7 @@
                 // #ifdef APP-PLUS
                 plus.runtime.getProperty(plus.runtime.appid, (inf) => {
                     uni.request({
-                        url: updateAppServer,
+                        url: update_app_server,
                         data: {
                             "input:app_type": 0,
                             "input:version": inf.version
@@ -215,23 +211,22 @@
                         type: 'GET',
                         dataType: 'json',
                         success: (res) => {
-                            console.log('检测更新' ,res)
-                            let {error_code, record} = res.data
-                            // console.log('检测更新', jsonObj)
+                            console.log('检测更新', res);
+                            let {error_code, record} = res.data;
                             if (error_code === '000000') {
                                 if (record[0].update_flag == '1') {
-                                    let note = record[0].note
+                                    let note = record[0].note;
                                     // 显示更新提示弹框
-                                    this.updateApp = true; 
+                                    this.app_update_popup = true; 
                                     // 保存下载地址
-                                    this.downLoadUrl = record[0].url;
+                                    this.download_url = record[0].url;
                                 }
                             } else {
-                                this.toastRequestErr(res.data)
+                                this.toastRequestErr(res.data);
                             }
                         },
                         fail: (err) => {
-                            this.toastErr()
+                            this.toastErr();
                         }
                     })
                 })
@@ -241,31 +236,31 @@
                 // #ifdef APP-PLUS
                 // console.log(download)
 				if(download.totalSize == 0){
-					this.downloadProgress = 0
+					this.download_progress = 0;
 				}else{
-					 this.downloadProgress = parseInt((download.downloadedSize / download.totalSize) * 100)
+					 this.download_progress = parseInt((download.downloadedSize / download.totalSize) * 100);
 				}
-                // this.downloadProgress = Number(download.downloadedSize) / Number(download.totalSize) * 100
+                // this.download_progress = Number(download.downloadedSize) / Number(download.totalSize) * 100
                 // #endif
             },
             /** 更新app应用: 创建下载任务  */
             confirmUpdate() {
-				if(this.downLoadUrl.length == 0 || this.downLoadUrl.indexOf("http") == -1 || this.downLoadUrl.indexOf(".apk") == -1){
+				if(this.download_url.length == 0 || this.download_url.indexOf("http") == -1 || this.download_url.indexOf(".apk") == -1){
 					uni.showToast({
-					    title: '软件下载地址有误:'+this.downLoadUrl,
+					    title: '软件下载地址有误:'+this.download_url,
 					    icon: 'none'
 					})
 					return
 				}
                 // 隐藏之前显示的更新提示弹框
-                this.updateApp = false;
+                this.app_update_popup = false;
                 let filename = '_doc/download/';
             
                 // 显示下载进度弹框
-                this.updateAppProgress = true
+                this.update_progress_popup = true
                 
                 // #ifdef APP-PLUS
-                let dtask = plus.downloader.createDownload(this.downLoadUrl, {
+                let dtask = plus.downloader.createDownload(this.download_url, {
                     filename: filename
                 },(d, status) => {
                     // 回调函数参数:
@@ -283,13 +278,13 @@
                                     * errorCb: 可选 安装失败的回调
                                 */
                         this.showToast('下载完成, 即将进行安装')
-                        this.updateAppProgress = false
+                        this.update_progress_popup = false
                         plus.runtime.install(d.filename, {}, () => {
                         }, (DOMException) => {
                             console.log(JSON.stringify(DOMException));
                         });
                     } else {
-                        this.updateAppProgress = false
+                        this.update_progress_popup = false
                         this.toastRequestErr("下载失败: " + status);
                         }
                     }
@@ -300,15 +295,15 @@
                 // #endif
             },
             /** 退出登录 */
-            confirmLogout() {
+            confirmQuitApp() {
                 // 隐藏之前显示的弹框
-                this.setNetwork = false;
-                this.updateApp = false;
+                this.set_network_popup = false;
+                this.app_update_popup = false;
                 // #ifdef APP-PLUS
                 plus.runtime.quit()
                 // #endif
             },
-            /** 登录后, 获取该用户下的所有 设备 蓝牙信息, 保存在客户端本地, 以便在没网时 蓝牙解锁/锁车/延期时 使用 */
+            /** 蓝牙操作: 登录后, 获取该用户下的所有 设备 蓝牙信息, 保存在客户端本地, 以便在没网时 蓝牙解锁/锁车/延期时 使用 */
             getBleInfo() {
                 uni.request({
                     url: `${this.api}txndab101.ajson`,
@@ -316,9 +311,9 @@
                     dataType: 'json',
                     success: (res) => {
                         if (res.data.error_code === '000000') {
-                            console.log('获取蓝牙信息', res.data)
+                            console.log('获取蓝牙信息', res.data);
                         }else {
-                            this.toastRequestErr(res.data)
+                            this.toastRequestErr(res.data);
                         }
                     },
                     fail:() => {
@@ -330,17 +325,16 @@
                 })
             },
             /** 取消退出 */
-            cancelLogout() {
-                this.logout = false;
+            cancelQuitApp() {
+                this.logout_popup = false;
                 this.showToast('已取消退出')
             },
             /** 生成验证码 */
             prepareRamdonImage() {
-                var dd = new Date();
-                
+                let dd = new Date();
                 let url = this.api + "/eteral.main?txn-code=random&code-name=add-code=" + dd.getTime() + "&image-type=jpg";
                 // 直接设置给src属性, src属性会进行发送请求, 原理跟jsonp跨域相似
-                this.addcodeSrc = url;
+                this.addcode_src = url;
             },
             /*  用户名输入框 @blur绑定的失去焦点事件
                     参数event: 事件对象, event.target: 触发事件的对象, 
@@ -348,18 +342,18 @@
             */
             userIptBlur(event) {
                 /* 验证用户名 输入的 合法性 */
-                this.formData.username = event.target.value
+                this.form_data.username = event.target.value
             },
             wordIptBlur(event) {
                 /* 验证密码输入的合法性 */
-                this.formData.password = event.target.value
+                this.form_data.password = event.target.value
             },
             codeIptBlur(event) {
                 /* */
-                this.formData.addcode = event.target.value
+                this.form_data.addcode = event.target.value
                 console.log
             },
-            /* 登录成功, 跳转到 车辆管理 列表页面 */
+            /* 登录成功, 跳转到 地图页面 */
             toMain() {
                 uni.switchTab({
                     url: '/pages/tabBar/gps/globe'
@@ -376,9 +370,9 @@
 
             /* 登录按钮绑定的点击事件 处理程序 */
             submitLogin() {
-                let username = this.formData.username.trim();
-                let password = this.formData.password.trim();
-                let addcode = this.formData.addcode.trim();
+                let username = this.form_data.username.trim();
+                let password = this.form_data.password.trim();
+                let addcode = this.form_data.addcode.trim();
                 console.log('输入的验证码'+addcode);
                 if (!username) {
                     this.showToast('请输入用户名');
@@ -510,11 +504,11 @@
             //                 this.array = JSON.parse(dq_json)
             //                 this.array.forEach((item, index) => {
             //                     /** 省 */
-            //                     this.provData.push({
+            //                     this.province_date.push({
             //                         label: item.text,
             //                         value: item.value
             //                     })
-            //                     this.areaData.push([])
+            //                     this.county_data.push([])
             //                     item.children.forEach((item1, index1) => {
             //                         /** 市 */
             //                         item1.label = item1.text
@@ -524,28 +518,28 @@
             //                             item2.label = item2.text
             //                             delete item2.text
             //                         })
-            //                         this.areaData[index].push(item1.children)
+            //                         this.county_data[index].push(item1.children)
             //                         delete item1.children
             //                     })
-            //                     this.cityData.push(item.children)
+            //                     this.city_data.push(item.children)
             //                 })
-            //                 console.log(this.provData, this.cityData, this.areaData)
-            //                 uni.setStorageSync("ZD:DQ:provData", JSON.stringify(this.provData))
-            //                 uni.setStorageSync("ZD:DQ:cityData", JSON.stringify(this.cityData))
-            //                 uni.setStorageSync("ZD:DQ:areaData", JSON.stringify(this.areaData))
+            //                 console.log(this.province_date, this.city_data, this.county_data)
+            //                 uni.setStorageSync("ZD:DQ:province_date", JSON.stringify(this.province_date))
+            //                 uni.setStorageSync("ZD:DQ:city_data", JSON.stringify(this.city_data))
+            //                 uni.setStorageSync("ZD:DQ:county_data", JSON.stringify(this.county_data))
             //             }
             //         }
             //     })
             // },
         },
         onShow() {
-            this.formData.username = uni.getStorageSync('username')
-            this.formData.password = uni.getStorageSync('password')
+            this.form_data.username = uni.getStorageSync('username')
+            this.form_data.password = uni.getStorageSync('password')
         },
         mounted() {
             this.prepareRamdonImage()
-            this.formData.username = uni.getStorageSync('username')
-            this.formData.password = uni.getStorageSync('password')
+            this.form_data.username = uni.getStorageSync('username')
+            this.form_data.password = uni.getStorageSync('password')
             uni.getNetworkType({
                 success:(res) => {
                     /** 如果当前网络状态为 无网络: 
@@ -567,15 +561,13 @@
                             icon: 'none'
                         })
                         // 显示网络设置提示弹框
-                        this.setNetwork = true;
+                        this.set_network_popup = true;
                         this.show_btn_offline = true
                         console.log('无网络连接')
-                        // return
                     } else {
                         this.show_btn_offline = false
                         // 检测应用是否需要更新
                         // this.isUpdate()
-                        
                         // this.prepareRamdonImage()
                     }
                 }
@@ -593,7 +585,7 @@
                         icon: 'none'
                     })
                     // 显示网络设置提示弹框
-                    this.setNetwork = true;
+                    this.set_network_popup = true;
                     this.show_btn_offline = true
                     return
                 } else {
@@ -616,7 +608,7 @@
                 7. downloader模块: 管理网络文件的下载任务
             */
             // this.getDistricts()
-            // if (this.myPlatform == 'ios') {
+            // if (this.my_platform == 'ios') {
             //     // #ifdef APP-PLUS
             //     plus.navigator.setFullscreen(true)
             //     plus.screen.lockOrientation('portrait-primary')
@@ -638,7 +630,7 @@
                 4. 暂不支持直接在自定义组件中配置该函数, 目前只能是在页面中进行处理        
          */
         onBackPress() {
-            this.logout = true;
+            this.logout_popup = true;
             return true
         }
     }

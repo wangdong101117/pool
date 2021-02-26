@@ -1,10 +1,14 @@
 const mixin = {
     data() {
         return {
+            // api: "http://pengxiang.tlsk.com.cn/",
             api: "http://test.gps.tlsk.com.cn/",
+            // api: "http://192.168.114.136:7082/",
+            // api: "/api/",
             /* 经纬度 */
             // currentLon: '',
             // currentLat: ''
+            my_platform: '', // 平台: ios还是android
             distCodeDatas: [], // 保存 含有车辆的 省市县
             /** 分页参数 */
             attribute_node: {
@@ -56,6 +60,22 @@ const mixin = {
                 position: 'bottom'
             })
         },
+        callBack(data) {
+            for(let k in this.$refs) {
+                if (k != data.data) {
+                    console.log(this.$refs[k].showSelector)
+                    this.$refs[k].showSelector = false
+                }
+            }
+        },
+        addEventListenerComBoxToggle() {
+            this.$nextTick(() => {
+                uni.$on('comBoxToggle', this.callBack)
+            })
+        },
+        removeEventListenerComBoxToggle() {
+            uni.$off('comBoxToggle', this.callBack);
+        }
     }
 }
 export default mixin

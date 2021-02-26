@@ -66,7 +66,6 @@
                 <text>退出登录</text>
             </view>
         </view>
-        
         <!-- 放置退出登录 popup -->
         <logout ref="logoutModal"></logout>
     </view>
@@ -76,15 +75,11 @@
     // 退出登录模板
     import logout from '@/pages/component/logout/logout.vue'
     import MyTagTranslate from '@/components/myTagtranslate/myTagtranslate.vue'
-    import uniList from '@/components/uni-list/uni-list.vue'
-    import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
-    import uniIcons from "@/components/uni-icon/uni-icon.vue"
+    import uniIcons from "@/components/uni-icons/uni-icons.vue"
     import mixin from '@/common/mixin.js'
     export default {
         components: {
             logout,
-            uniList,
-            uniListItem,
             uniIcons,
             MyTagTranslate
         },

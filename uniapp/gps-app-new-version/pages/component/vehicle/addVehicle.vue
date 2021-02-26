@@ -20,7 +20,6 @@
                 <input type="text" placeholder="请输入发动机编号" v-model="engine_id">
             </view>
             <view>
-                <!-- <text class="redIcon"></text> -->
                 <text>车架号：</text>
                 <input type="text" placeholder="请输入车架号" v-model="frame_id">
             </view>
@@ -64,17 +63,10 @@
         },
         /** 监听 下拉框组件 注册的全局自定义事件 */
         onShow() {
-            this.$nextTick(() => {
-                uni.$on('comBoxToggle',(data) => {
-                    for(let k in this.$refs) {
-                        if (k != data.data) {
-                            console.log(this.$refs[k].showSelector, '1111111111111111111111111')
-                            
-                            this.$refs[k].showSelector = false
-                        }
-                    }
-                })
-            })
+            this.addEventListenerComBoxToggle();
+        },
+        onBackPress() {
+            this.removeEventListenerComBoxToggle();
         },
         methods: {
             /** 选择发动机型号 注册的自定义事件给父组件传递参数 */

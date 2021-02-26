@@ -8,12 +8,12 @@
             </view>
             <view>
                 <text>新密码：</text>
-                <input placeholder="请输入新密码" v-model="newPassword1" password confirm-type="go"
+                <input placeholder="请输入新密码" v-model="new_password" password confirm-type="go"
                     maxlength="16" />
             </view>
             <view>
                 <text>确定新密码：</text>
-                <input placeholder="请再次输入新密码" v-model="newPassword2" password confirm-type="go"
+                <input placeholder="请再次输入新密码" v-model="new_password_again" password confirm-type="go"
                     maxlength="16" />
             </view>
             
@@ -34,8 +34,8 @@
         data() {
             return {
                 password: '',
-                newPassword1: '',
-                newPassword2: ''
+                new_password: '',
+                new_password_again: ''
             }
         },
         methods: {
@@ -45,12 +45,12 @@
                     this.showToast('请输入原密码')
                     return
                 }
-                if (!this.newPassword1) {
+                if (!this.new_password) {
                     this.showToast('请输入新密码')
                     return
                 }
 
-                if (!this.newPassword2) {
+                if (!this.new_password_again) {
                     this.showToast('请再次输入新密码')
                     return
                 }
@@ -65,12 +65,12 @@
                     return
                 }
 
-                if (this.newPassword1 === password) {
+                if (this.new_password === password) {
                     this.showToast('新密码与原密码相同')
                     return
                 }
 
-                if (this.newPassword1 !== this.newPassword2) {
+                if (this.new_password !== this.new_password_again) {
                     this.showToast('两次密码不一致')
                     return
                 }
@@ -83,7 +83,7 @@
                     data: {
                         record: {
                             'old_passwd': this.password,
-                            'new_passwd': this.newPassword1
+                            'new_passwd': this.new_password
                         }
                     },
                     dataType: 'json',
@@ -113,9 +113,9 @@
                 })
             },
             resetButton() {
-                this.password = ''
-                this.newPassword1 = ''
-                this.newPassword2 = ''
+                this.password = '';
+                this.new_password = '';
+                this.new_password_again = '';
             }
         },
     }
