@@ -1,0 +1,184 @@
+
+page {
+    min-height: 100%;
+    /* height: auto; */
+    height: 100%;
+}
+
+/* 解决头条小程序字体图标不显示问题，因为头条运行时自动插入了span标签，且有全局字体 */
+.uni-icon {
+    font-family: uniicons;
+    font-weight: normal;
+}
+.uni-container {
+    padding: 15px;
+}
+.uni-header-logo {
+    padding: 15px 15px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+    margin-top: 10rpx;
+}
+.uni-header-image {
+    width: 80px;
+    height: 80px;
+}
+.uni-hello-text {
+    margin-bottom: 20px;
+}
+.hello-text {
+    color: #7A7E83;
+    font-size: 14px;
+    line-height: 20px;
+}
+.hello-link {
+    color: #7A7E83;
+    font-size: 14px;
+    line-height: 20px;
+}
+.uni-panel {
+    margin-bottom: 12px;
+}
+.uni-panel-h {
+    background-color: #ffffff;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+    padding: 12px;
+}
+/*
+.uni-panel-h:active {
+    background-color: #f8f8f8;
+}
+ */
+.uni-panel-h-on {
+    background-color: #f0f0f0;
+}
+.uni-panel-text {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+            flex: 1;
+    color: #000000;
+    font-size: 14px;
+    font-weight: normal;
+}
+.uni-panel-icon {
+    margin-left: 15px;
+    color: #999999;
+    font-size: 14px;
+    font-weight: normal;
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+    -webkit-transition-duration: 0s;
+            transition-duration: 0s;
+    -webkit-transition-property: -webkit-transform;
+    transition-property: -webkit-transform;
+    transition-property: transform;
+    transition-property: transform, -webkit-transform;
+}
+.uni-panel-icon-on {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+}
+.uni-navigate-item {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+    background-color: #FFFFFF;
+    border-top-style: solid;
+    border-top-color: #f0f0f0;
+    border-top-width: 1px;
+    padding: 12px;
+}
+.uni-navigate-item:active {
+    background-color: #f8f8f8;
+}
+.uni-navigate-text {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+            flex: 1;
+    color: #000000;
+    font-size: 14px;
+    font-weight: normal;
+}
+.uni-navigate-icon {
+    margin-left: 15px;
+    color: #999999;
+    font-size: 14px;
+    font-weight: normal;
+}
+.edit-vehicle-container {
+  padding: 64rpx 50rpx;
+  min-height: 100%;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  color: #333;
+}
+.edit-vehicle-container .content {
+  padding: 12rpx 86rpx;
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 16rpx;
+  box-shadow: 0px 2rpx 8rpx -2rpx rgba(0, 0, 0, 0.12);
+}
+.edit-vehicle-container .content > view {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  border-bottom: 1px solid #e2e2e2;
+  padding: 48rpx 0rpx 32rpx 0rpx;
+}
+.edit-vehicle-container .content > view text {
+  white-space: nowrap;
+  font-size: 28rpx;
+}
+.edit-vehicle-container .content > view input {
+  text-align: left;
+  font-size: 28rpx;
+}
+.edit-vehicle-container .content .button-container {
+  border: none;
+  padding: 64rpx 38rpx 48rpx 38rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+.edit-vehicle-container .content .button-container .btn-cancel {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  color: #bdbdbd;
+  padding: 18rpx 0;
+}
+.edit-vehicle-container .content .button-container .btn-confirm {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+}
+.edit-vehicle-container .content .button-container .btn-confirm view {
+  float: right;
+  width: 168rpx;
+  padding: 18rpx 0rpx;
+  text-align: center;
+  background: #bd0202;
+  color: #fff;
+  border-radius: 32rpx;
+  box-shadow: 0rpx 10rpx 10rpx 0rpx #d54048;
+}
+

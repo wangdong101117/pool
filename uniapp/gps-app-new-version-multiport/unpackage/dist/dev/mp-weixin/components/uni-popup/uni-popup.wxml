@@ -1,0 +1,1 @@
+<view hidden="{{!(showPopup)}}" class="uni-popup"><view class="{{['uni-popup__mask',ani,animation?'ani':'',!custom?'uni-custom':'']}}"></view><view class="{{['uni-popup__wrapper',type,ani,animation?'ani':'',!custom?'uni-custom':'']}}"><view data-event-opts="{{[['tap',[['clear',['$event']]]]]}}" class="uni-popup__wrapper-box" catchtap="__e"><slot></slot></view></view></view>

@@ -1,0 +1,1 @@
+<view class="content"><view class="loading-container"><view class="loading-text">{{'正在玩命加载中。。。\n            '+operator_position+''}}</view></view></view>

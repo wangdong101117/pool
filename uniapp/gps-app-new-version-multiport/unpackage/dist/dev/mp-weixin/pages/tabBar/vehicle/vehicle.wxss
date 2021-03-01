@@ -1,0 +1,363 @@
+.uni-tip {
+  width: 660rpx;
+  padding: 40rpx 30rpx 60rpx 30rpx;
+  background: #fff;
+  box-sizing: border-box;
+  border-radius: 20rpx;
+}
+.uni-tip .uni-tip-title {
+  color: #333;
+  text-align: center;
+  font-weight: bold;
+  font-size: 32rpx;
+}
+.uni-tip .uni-tip-content {
+  padding: 30rpx;
+  color: #666;
+  font-size: 28rpx;
+  text-align: center;
+}
+.uni-tip .content > view {
+  padding: 30rpx 0;
+}
+.uni-tip .uni-tip-group-button {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  padding: 0 8rpx;
+}
+.uni-tip .uni-tip-group-button .uni-tip-button {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  font-size: 26rpx;
+  color: #3b4144;
+  font-weight: 600;
+}
+.uni-tip .uni-tip-group-button .uni-tip-button view {
+  height: 64rpx;
+  line-height: 64rpx;
+  width: 168rpx;
+  margin: auto;
+  text-align: center;
+  letter-spacing: 0;
+}
+.uni-tip .uni-tip-group-button .uni-tip-button .btn-confirm {
+  color: #fff;
+  background: #bd0202;
+  border-radius: 32rpx;
+  box-shadow: 0rpx 10rpx 10rpx 0rpx #d54048;
+}
+.uni-tip .uni-tip-group-button .uni-tip-button .btn-cancel {
+  color: #bdbdbd;
+}
+
+
+page {
+    min-height: 100%;
+    /* height: auto; */
+    height: 100%;
+}
+
+/* 解决头条小程序字体图标不显示问题，因为头条运行时自动插入了span标签，且有全局字体 */
+.uni-icon {
+    font-family: uniicons;
+    font-weight: normal;
+}
+.uni-container {
+    padding: 15px;
+}
+.uni-header-logo {
+    padding: 15px 15px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+    margin-top: 10rpx;
+}
+.uni-header-image {
+    width: 80px;
+    height: 80px;
+}
+.uni-hello-text {
+    margin-bottom: 20px;
+}
+.hello-text {
+    color: #7A7E83;
+    font-size: 14px;
+    line-height: 20px;
+}
+.hello-link {
+    color: #7A7E83;
+    font-size: 14px;
+    line-height: 20px;
+}
+.uni-panel {
+    margin-bottom: 12px;
+}
+.uni-panel-h {
+    background-color: #ffffff;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+    padding: 12px;
+}
+/*
+.uni-panel-h:active {
+    background-color: #f8f8f8;
+}
+ */
+.uni-panel-h-on {
+    background-color: #f0f0f0;
+}
+.uni-panel-text {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+            flex: 1;
+    color: #000000;
+    font-size: 14px;
+    font-weight: normal;
+}
+.uni-panel-icon {
+    margin-left: 15px;
+    color: #999999;
+    font-size: 14px;
+    font-weight: normal;
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+    -webkit-transition-duration: 0s;
+            transition-duration: 0s;
+    -webkit-transition-property: -webkit-transform;
+    transition-property: -webkit-transform;
+    transition-property: transform;
+    transition-property: transform, -webkit-transform;
+}
+.uni-panel-icon-on {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+}
+.uni-navigate-item {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+    background-color: #FFFFFF;
+    border-top-style: solid;
+    border-top-color: #f0f0f0;
+    border-top-width: 1px;
+    padding: 12px;
+}
+.uni-navigate-item:active {
+    background-color: #f8f8f8;
+}
+.uni-navigate-text {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+            flex: 1;
+    color: #000000;
+    font-size: 14px;
+    font-weight: normal;
+}
+.uni-navigate-icon {
+    margin-left: 15px;
+    color: #999999;
+    font-size: 14px;
+    font-weight: normal;
+}
+.vehicle-list {
+  padding: 20rpx 30rpx !important;
+  background: #f7f7f7;
+  position: relative;
+  box-sizing: border-box;
+  min-height: 100%;
+}
+/* 列表 部分 */
+.list-content {
+  margin-bottom: 120rpx;
+  border-radius: 32rpx;
+}
+.list-content .container-of-slide {
+  width: 100%;
+  margin-top: 24rpx;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.list-content .container-of-slide .item-list {
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+}
+.list-content .container-of-slide .item-list .vehicleID {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  overflow: hidden;
+  font-size: 22rpx;
+}
+.list-content .container-of-slide .item-list .vehicleID .name {
+  -webkit-box-flex: 5;
+  -webkit-flex: 5;
+          flex: 5;
+  position: relative;
+  line-height: 60rpx;
+  color: #fff;
+  font-weight: 600;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 0 0 0 20rpx;
+  background: #0c316e;
+  border-radius: 16rpx 8rpx 0 0;
+}
+.list-content .container-of-slide .item-list .vehicleID .name .shape {
+  position: absolute;
+  z-index: 1;
+  right: -30rpx;
+  top: -54rpx;
+  height: 0;
+  width: 0;
+  border-bottom: 54rpx solid #0c316e;
+  border-top: 60rpx solid transparent;
+  border-left: 30rpx solid transparent;
+  border-right: 30rpx solid transparent;
+}
+.list-content .container-of-slide .item-list .vehicleID .seat {
+  -webkit-box-flex: 2;
+  -webkit-flex: 2;
+          flex: 2;
+}
+.list-content .container-of-slide .item-list .vehicleID .vehicle-status {
+  -webkit-box-flex: 2;
+  -webkit-flex: 2;
+          flex: 2;
+  position: relative;
+  height: 50rpx;
+  margin-top: 10rpx;
+  background: #ccc;
+  color: #fff;
+  text-align: center;
+  border-radius: 8rpx 12rpx 0 0;
+  font-size: 20rpx;
+}
+.list-content .container-of-slide .item-list .vehicleID .vehicle-status .shape {
+  position: absolute;
+  z-index: 1;
+  left: -20rpx;
+  top: -46rpx;
+  height: 0;
+  width: 0;
+  border-bottom: 46rpx solid #ccc;
+  border-top: 50rpx solid transparent;
+  border-left: 20rpx solid transparent;
+  border-right: 20rpx solid transparent;
+}
+.list-content .container-of-slide .item-list .vehicleID .vehicle-status-error {
+  background: #bd0202;
+}
+.list-content .container-of-slide .item-list .list-item-content {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  font-size: 22rpx;
+  padding: 34rpx 30rpx;
+  color: #999;
+  background-color: #fff;
+}
+.list-content .container-of-slide .item-list .list-item-content .list-item-content-left {
+  -webkit-box-flex: 3;
+  -webkit-flex: 3;
+          flex: 3;
+}
+.list-content .container-of-slide .item-list .list-item-content .list-item-content-left > view {
+  margin-top: 20rpx;
+}
+.list-content .container-of-slide .item-list .list-item-content .list-item-content-left > view:first-child {
+  margin-top: 0;
+}
+.list-content .container-of-slide .item-list .list-item-content .list-item-content-right {
+  -webkit-box-flex: 4;
+  -webkit-flex: 4;
+          flex: 4;
+}
+.list-content .container-of-slide .item-list .list-item-content .list-item-content-right > view {
+  margin-top: 20rpx;
+}
+.list-content .container-of-slide .item-list .list-item-content .list-item-content-right > view:first-child {
+  margin-top: 0;
+}
+.list-content .container-of-slide .item-list .list-item-action {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  padding: 32rpx 0;
+  font-size: 24rpx;
+  background: #fff;
+}
+.list-content .container-of-slide .item-list .list-item-action > view {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  text-align: center;
+  line-height: 36rpx;
+}
+.list-content .container-of-slide .item-list .list-item-action > view image {
+  height: 32rpx;
+  width: 32rpx;
+  vertical-align: middle;
+}
+.list-content .container-of-slide .item-list .list-item-action > view text {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 15rpx;
+}
+.my-pagination {
+  position: fixed;
+  box-sizing: border-box;
+  width: calc(100% - 60rpx) !important;
+  text-align: center;
+  bottom: 20rpx;
+  padding: 0 20rpx;
+  border-radius: 70rpx;
+  z-index: 2;
+}
+.my-pagination .uni-pagination {
+  padding: 4rpx 10rpx;
+  border: 1px dashed #aaa;
+  border-radius: 64rpx;
+  background: #fff;
+  box-shadow: #ddd 0rpx 0rpx 6rpx 6rpx;
+  width: calc(100% - 240rpx) !important;
+}
+.my-pagination .add {
+  position: absolute;
+  top: 6rpx;
+  right: 20rpx;
+  margin-right: 10rpx;
+  margin-bottom: 18rpx;
+  width: 176rpx;
+  height: 64rpx;
+  background-color: #bd0202;
+  line-height: 64rpx;
+  font-size: 28rpx;
+  color: #fff;
+  box-shadow: 0 0rpx 6rpx 2rpx #d54048;
+  border-radius: 32rpx;
+  z-index: 99;
+}
+

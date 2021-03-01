@@ -1,0 +1,86 @@
+/* 自己添加的样式 */
+.semp-city.data-v-67318680 {
+  font-size: 26rpx;
+}
+.semp-city .flex-row.data-v-67318680 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+}
+.semp-city .pad-left.data-v-67318680 {
+  padding-left: 15px;
+}
+.semp-city .cityBox.data-v-67318680 {
+  height: 400rpx;
+  overflow: auto;
+}
+.semp-city .has-choose-box.data-v-67318680 {
+  position: relative;
+  height: 36px;
+  line-height: 36px;
+  box-shadow: 0 5px 5px #ccc;
+  margin-bottom: 20px;
+}
+.semp-city .has-choose-box .has-choose.active.data-v-67318680 {
+  color: #0faeff;
+  border-color: #0faeff;
+}
+.semp-city .backButton.data-v-67318680 {
+  position: absolute;
+  right: 0;
+  top: 2px;
+  height: 30px !important;
+  width: 100rpx;
+  text-align: center;
+}
+.semp-city #city-item-box .city-item view.data-v-67318680 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+}
+.semp-city #city-item-box .city-item.active.data-v-67318680 {
+  color: #0faeff;
+}
+.semp-city .button-container.data-v-67318680 {
+  width: 100%;
+  border: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  padding: 52rpx 86rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+}
+.semp-city .button-container .hoverStyle.data-v-67318680 {
+  opacity: 0.5;
+}
+.semp-city .button-container .btn-cancel.data-v-67318680 {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  height: 64rpx;
+  color: #bdbdbd;
+  line-height: 64rpx;
+  text-align: center;
+}
+.semp-city .button-container .btn-confirm.data-v-67318680 {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+}
+.semp-city .button-container .btn-confirm view.data-v-67318680 {
+  float: right;
+  height: 64rpx;
+  width: 168rpx;
+  line-height: 64rpx;
+  color: #fff;
+  text-align: center;
+  background: #bd0202;
+  border-radius: 32rpx;
+  box-shadow: 0rpx 8rpx 10rpx 0rpx #d54048;
+}
+

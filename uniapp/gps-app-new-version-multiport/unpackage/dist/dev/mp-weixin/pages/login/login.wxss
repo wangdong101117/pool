@@ -1,0 +1,267 @@
+
+page {
+    min-height: 100%;
+    /* height: auto; */
+    height: 100%;
+}
+
+/* 解决头条小程序字体图标不显示问题，因为头条运行时自动插入了span标签，且有全局字体 */
+.uni-icon {
+    font-family: uniicons;
+    font-weight: normal;
+}
+.uni-container {
+    padding: 15px;
+}
+.uni-header-logo {
+    padding: 15px 15px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+    margin-top: 10rpx;
+}
+.uni-header-image {
+    width: 80px;
+    height: 80px;
+}
+.uni-hello-text {
+    margin-bottom: 20px;
+}
+.hello-text {
+    color: #7A7E83;
+    font-size: 14px;
+    line-height: 20px;
+}
+.hello-link {
+    color: #7A7E83;
+    font-size: 14px;
+    line-height: 20px;
+}
+.uni-panel {
+    margin-bottom: 12px;
+}
+.uni-panel-h {
+    background-color: #ffffff;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+    padding: 12px;
+}
+/*
+.uni-panel-h:active {
+    background-color: #f8f8f8;
+}
+ */
+.uni-panel-h-on {
+    background-color: #f0f0f0;
+}
+.uni-panel-text {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+            flex: 1;
+    color: #000000;
+    font-size: 14px;
+    font-weight: normal;
+}
+.uni-panel-icon {
+    margin-left: 15px;
+    color: #999999;
+    font-size: 14px;
+    font-weight: normal;
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+    -webkit-transition-duration: 0s;
+            transition-duration: 0s;
+    -webkit-transition-property: -webkit-transform;
+    transition-property: -webkit-transform;
+    transition-property: transform;
+    transition-property: transform, -webkit-transform;
+}
+.uni-panel-icon-on {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+}
+.uni-navigate-item {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+    background-color: #FFFFFF;
+    border-top-style: solid;
+    border-top-color: #f0f0f0;
+    border-top-width: 1px;
+    padding: 12px;
+}
+.uni-navigate-item:active {
+    background-color: #f8f8f8;
+}
+.uni-navigate-text {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+            flex: 1;
+    color: #000000;
+    font-size: 14px;
+    font-weight: normal;
+}
+.uni-navigate-icon {
+    margin-left: 15px;
+    color: #999999;
+    font-size: 14px;
+    font-weight: normal;
+}
+.uni-container {
+    min-height: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+.hoverStyle {
+    opacity: 0.5;
+}
+uni-button:after {
+    border: none;
+}
+.login-box {
+  padding: 0;
+  box-sizing: border-box;
+  height: 100%;
+  /* 提示窗口 */
+}
+.login-box .login-content {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  /* 表单部分 */
+  /* 按钮部分 */
+}
+.login-box .login-content .login-content-form {
+  width: 80%;
+  margin-left: 10%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  font-size: 16px;
+}
+.login-box .login-content .login-content-form .form-list-item {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+  margin-bottom: 50rpx;
+  padding-bottom: 18rpx;
+  border-bottom: 1px solid #ccc;
+}
+.login-box .login-content .login-content-form .form-list-item > image {
+  width: 50rpx;
+  height: 50rpx;
+}
+.login-box .login-content .login-content-form .form-list-item text {
+  height: 26rpx;
+  border: 2rpx solid #ccc;
+  border-radius: 4rpx;
+  margin: 16rpx 20rpx 0 16rpx;
+}
+.login-box .login-content .login-content-form input {
+  width: 70%;
+  font-size: 38rpx;
+}
+.login-box .login-content .login-content-form .form-addcode {
+  padding-bottom: 0;
+}
+.login-box .login-content .login-btn {
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 30rpx;
+  /* 注册 忘记密码按钮 */
+}
+.login-box .login-content .login-btn button {
+  font-size: 36rpx;
+}
+.login-box .login-content .login-btn .btn-navigator {
+  margin-top: 42rpx;
+  font-size: 14px;
+  color: #666;
+}
+.login-box .login-content .login-btn .btn-navigator .btn-offline {
+  float: left;
+  font-size: 16px;
+}
+.login-box .login-content .login-btn .btn-navigator .btn-forget {
+  float: right;
+  font-size: 16px;
+  color: #a1a1a1;
+}
+.login-box .uni-tip {
+  padding: 40rpx 40rpx 60rpx 40rpx;
+  width: 600rpx;
+  background: #fff;
+  box-sizing: border-box;
+  border-radius: 20rpx;
+}
+.login-box .uni-tip .uni-tip-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 32rpx;
+  color: #333;
+}
+.login-box .uni-tip .uni-tip-content {
+  padding: 34rpx 0 80rpx 0;
+  font-size: 28rpx;
+  font-weight: bold;
+  text-align: center;
+}
+.login-box .uni-tip .uni-tip-group-button {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  padding: 0 8rpx;
+}
+.login-box .uni-tip .uni-tip-group-button .uni-tip-button {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  font-size: 26rpx;
+  color: #3b4144;
+  font-weight: 600;
+}
+.login-box .uni-tip .uni-tip-group-button .uni-tip-button view {
+  height: 64rpx;
+  line-height: 64rpx;
+  width: 168rpx;
+  margin: auto;
+  text-align: center;
+  letter-spacing: 0;
+}
+.login-box .uni-tip .uni-tip-group-button .uni-tip-button .btn-confirm {
+  color: #fff;
+  background: #bd0202;
+  border-radius: 32rpx;
+  box-shadow: 0rpx 10rpx 10rpx 0rpx #d54048;
+}
+.login-box .uni-tip .uni-tip-group-button .uni-tip-button .btn-cancel {
+  color: #bdbdbd;
+}
+

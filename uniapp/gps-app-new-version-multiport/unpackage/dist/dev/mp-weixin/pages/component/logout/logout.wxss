@@ -1,0 +1,57 @@
+/* 提示窗口 */
+.uni-tip {
+  padding: 40rpx 40rpx 60rpx 40rpx;
+  width: 656rpx;
+  background: #fff;
+  box-sizing: border-box;
+  border-radius: 16rpx;
+  color: #333;
+}
+.uni-tip .uni-tip-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 34rpx;
+  color: #333;
+}
+.uni-tip .uni-tip-content {
+  padding: 30rpx;
+  font-size: 28rpx;
+  color: #666;
+  text-align: center;
+}
+.uni-tip .uni-tip-group-button {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  padding: 0 8rpx;
+  margin-top: 20rpx;
+}
+.uni-tip .uni-tip-group-button .uni-tip-button {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  font-size: 26rpx;
+  color: #3b4144;
+  font-weight: 600;
+}
+.uni-tip .uni-tip-group-button .uni-tip-button view {
+  height: 64rpx;
+  line-height: 64rpx;
+  width: 168rpx;
+  margin: auto;
+  text-align: center;
+  letter-spacing: 0;
+}
+.uni-tip .uni-tip-group-button .uni-tip-button .btn-confirm {
+  color: #fff;
+  background: #bd0202;
+  border-radius: 32rpx;
+  box-shadow: 0rpx 10rpx 10rpx 0rpx #d54048;
+}
+.uni-tip .uni-tip-group-button .uni-tip-button .btn-cancel {
+  color: #bdbdbd;
+}
+

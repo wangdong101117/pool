@@ -1,0 +1,64 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/login/login",
+    "pages/tabBar/gps/globe",
+    "pages/forgetPassWord/forgetPassWord",
+    "pages/component/personal_center/pravice",
+    "pages/component/personal_center/editPassword",
+    "pages/component/personal_center/resetPassword",
+    "pages/tabBar/vehicle/vehicle",
+    "pages/tabBar/tstati/tstati",
+    "pages/tabBar/personal_center/personal_center",
+    "pages/component/vehicle/addVehicle",
+    "pages/component/vehicle/preparateVehicle",
+    "pages/component/vehicle/vehicleDetail",
+    "pages/component/vehicle/editVehicle",
+    "pages/component/tstati/tstati",
+    "pages/component/tstati/cchart",
+    "pages/component/tstati/cquery"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#fff",
+    "backgroundColor": "#eee"
+  },
+  "tabBar": {
+    "color": "#0a0a0a",
+    "selectedColor": "#dc1110",
+    "borderStyle": "black",
+    "backgroundColor": "#fff",
+    "height": "60px",
+    "spacing": "5px",
+    "list": [
+      {
+        "pagePath": "pages/tabBar/gps/globe",
+        "iconPath": "static/tabBar/tag_dingwei.png",
+        "selectedIconPath": "static/tabBar/tag_dingwei1.png",
+        "text": "车辆监控"
+      },
+      {
+        "pagePath": "pages/tabBar/vehicle/vehicle",
+        "iconPath": "static/tabBar/tag_guanli.png",
+        "selectedIconPath": "static/tabBar/tag_guanli1.png",
+        "text": "车辆管理"
+      },
+      {
+        "pagePath": "pages/tabBar/tstati/tstati",
+        "iconPath": "static/tabBar/tag_chaxun.png",
+        "selectedIconPath": "static/tabBar/tag_chaxun1.png",
+        "text": "车辆查询"
+      },
+      {
+        "pagePath": "pages/tabBar/personal_center/personal_center",
+        "iconPath": "static/tabBar/tag_geren.png",
+        "selectedIconPath": "static/tabBar/tag_geren1.png",
+        "text": "个人中心"
+      }
+    ]
+  },
+  "usingComponents": {},
+  "sitemapLocation": "sitemap21.json"
+}

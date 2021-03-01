@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "车辆管理",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "uni-pagination": "/components/uni-pagination/uni-pagination",
+    "logout": "/pages/component/logout/logout",
+    "my-tag-translate": "/components/myTagtranslate/myTagtranslate",
+    "setting-g-p-s": "/pages/component/vehicle/settingGPS",
+    "setting-lock-vehicle": "/pages/component/vehicle/settingLockVehicle",
+    "perparate-vehicle": "/pages/component/vehicle/preparateVehicle"
+  }
+}

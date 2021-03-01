@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "车辆详情",
+  "usingComponents": {
+    "uni-combox": "/components/uni-combox/uni-combox"
+  }
+}

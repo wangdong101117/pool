@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>跨端开发注意</title>
+</head>
+<body>
+<!-- 
+	1. 非H5平台, 不支持 * 选择器, 且并未开启 scoped属性
+	2. vue页面再 App端, 默认是被系统的 webview渲染的(不是手机自带的浏览器, 而是rom的webview)
+
+	3. 非H5端的js 运行在 js core 或 v8下, 而不是浏览器里, 没有浏览器专用的 js 对象, 如: document xmlhttp cookie window location indexdb webgl localstorage navigator等
+
+	4. App端的 renderjs 是一种运行在视图层的 js, vue页面通过renderjs可操作浏览器对象, 从而可让基于浏览器的库直接在 uniapp的 App端运行, 诸如 echart threejs
+ -->
+</body>
+</html>

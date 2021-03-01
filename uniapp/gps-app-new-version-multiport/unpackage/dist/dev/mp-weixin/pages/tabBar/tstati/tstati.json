@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "车辆查询",
+  "usingComponents": {
+    "uni-collapse": "/components/uni-collapse/uni-collapse",
+    "uni-collapse-item": "/components/uni-collapse-item/uni-collapse-item",
+    "logout": "/pages/component/logout/logout",
+    "uni-icons": "/components/uni-icons/uni-icons"
+  }
+}

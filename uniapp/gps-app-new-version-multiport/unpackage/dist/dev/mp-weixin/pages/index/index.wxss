@@ -1,0 +1,66 @@
+/* 提示窗口 */
+.uni-tip {
+  padding: 30rpx;
+  width: 600rpx;
+  background: #fff;
+  box-sizing: border-box;
+  border-radius: 20rpx;
+}
+.uni-tip .uni-tip-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 32rpx;
+  color: #333;
+}
+.uni-tip .uni-tip-content {
+  padding: 30rpx;
+  font-size: 28rpx;
+  color: #666;
+  text-align: center;
+}
+.uni-tip .uni-tip-group-button {
+  margin-top: 20rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+.uni-tip .uni-tip-group-button .uni-tip-button {
+  width: 100%;
+  text-align: center;
+  font-size: 28rpx;
+  color: #3b4144;
+  font-weight: 600;
+}
+.uni-tip .uni-tip-group-button view:nth-child(2) {
+  color: #dc1110;
+}
+.content {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+}
+.loading-container {
+  margin-top: 50%;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.loading-gif {
+  width: 120px;
+  height: 90px;
+  margin-left: 20px;
+}
+.loading-text {
+  font-size: 16px;
+}
+

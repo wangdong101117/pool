@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "添加车辆",
+  "usingComponents": {
+    "uni-combox": "/components/uni-combox/uni-combox"
+  }
+}

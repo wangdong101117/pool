@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>小程序端设置cookie保持会话一致的问题</title>
+</head>
+<body>
+<script type="text/javascript">
+	/** 请求接口时, 服务端会返回 set-cookie 设置浏览器端的cookie值, 但小程序是没有 cookie 机制的, 这就导致需要自己获取到 set-cookie的值, 并设置在每次请求的请求头里面 */
+
+	/** 如果有 后端返回的 二进制流的 图形验证码, 那么怎么获取到 set-cookie呢, 以 uniapp 开发小程序为例:
+		利用: uni.downloadFile({
+			url: ,
+			success: (res) => {
+				// App.vue 里面设置一个 全局的 globalData
+				getApp().globalData.heaer.Cookie = res.header["Set-Cookie"]
+				// 设置验证码的 图片路径
+				this.addcodeSrc = res.tempFilePath
+			}
+		})
+
+
+		然后在其余的请求时: 请求头加上Cookie
+		uni.request({
+			url: '',
+			header: {
+				'content-type': 'application/x-www-form-urlencoded', // 依据个人项目来判断 是否设置请求参数为 urlencoded形式
+				Cookie: getApp().globalData.header.Cookie,
+			}
+		})
+
+	 */
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+.pravice-container {
+  padding: 20rpx 40rpx;
+  font-size: 32rpx;
+  text-align: justify;
+}
+.pravice-container .pravice-container-preface {
+  text-indent: 60rpx;
+  line-height: 50rpx;
+}
+.pravice-container .container-number-title {
+  font-size: 34rpx;
+  padding: 20rpx 0;
+  font-weight: 700;
+}
+.pravice-container .container-number-list {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  text-indent: 60rpx;
+  line-height: 50rpx;
+}
+
