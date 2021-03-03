@@ -13,7 +13,9 @@
     </view>
     <!-- #endif -->
     <!-- #ifdef MP-WEIXIN -->
-    <web-view :src='`http://localhost:8080/home/?Cookie=${Cookie}`'></web-view>
+    <web-view :src='`http://localhost:8082/#/pages/index/index?Cookie=${Cookie}`'></web-view>
+    <!-- <map style="width: 100%; height: 100%;" :latitude="latitude" :scale="map_level" :longitude="longitude">
+    </map> -->
     <!-- #endif -->
 </template>
 
@@ -22,9 +24,12 @@
         data() {
             return {
                 // #ifdef MP-WEIXIN
-                Cookie: getApp().globalData.header.Cookie
+                Cookie: getApp().globalData.header.Cookie,
                 // #endif
             }
+        },
+        mounted() {
+            console.log(this.Cookie, '------------2')
         }
     }
 </script>

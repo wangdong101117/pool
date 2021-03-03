@@ -1,7 +1,8 @@
 const mixin = {
     data() {
         return {
-            api: "http://test.gps.tlsk.com.cn/",
+            api: "http://pengxiang.tlsk.com.cn/",
+            // api: "http://test.gps.tlsk.com.cn/",
             my_platform: '', // 平台: ios还是android
             distCodeDatas: [], // 保存 含有车辆的 省市县
             /** 分页参数 */

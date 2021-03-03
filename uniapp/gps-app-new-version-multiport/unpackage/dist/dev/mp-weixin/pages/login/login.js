@@ -1,9 +1,9 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["pages/login/login"],{
 
 /***/ 20:
-/*!***********************************************************************************************************!*\
-  !*** C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version/main.js?{"page":"pages%2Flogin%2Flogin"} ***!
-  \***********************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version-multiport/main.js?{"page":"pages%2Flogin%2Flogin"} ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17,9 +17,9 @@ createPage(_login.default);
 /***/ }),
 
 /***/ 21:
-/*!****************************************************************************************!*\
-  !*** C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version/pages/login/login.vue ***!
-  \****************************************************************************************/
+/*!**************************************************************************************************!*\
+  !*** C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version-multiport/pages/login/login.vue ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -58,9 +58,9 @@ component.options.__file = "pages/login/login.vue"
 /***/ }),
 
 /***/ 22:
-/*!***********************************************************************************************************************!*\
-  !*** C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version/pages/login/login.vue?vue&type=template&id=b237504c& ***!
-  \***********************************************************************************************************************/
+/*!*********************************************************************************************************************************!*\
+  !*** C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version-multiport/pages/login/login.vue?vue&type=template&id=b237504c& ***!
+  \*********************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -80,9 +80,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 23:
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version/pages/login/login.vue?vue&type=template&id=b237504c& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version-multiport/pages/login/login.vue?vue&type=template&id=b237504c& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -130,9 +130,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ 24:
-/*!*****************************************************************************************************************!*\
-  !*** C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version/pages/login/login.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version-multiport/pages/login/login.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -146,9 +146,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 25:
-/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version/pages/login/login.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version-multiport/pages/login/login.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -487,7 +487,6 @@ var _md5Min = _interopRequireDefault(__webpack_require__(/*! @/common/md5.min.js
     /** 生成验证码 */
     prepareRamdonImage: function prepareRamdonImage() {var _this2 = this;
       var dd = new Date();
-      // let url = this.api + "/eteral.main?txn-code=random&code-name=add-code=" + dd.getTime() + "&image-type=jpg";
 
       uni.downloadFile({
         url: this.api + "/eteral.main?txn-code=random&code-name=add-code=" + dd.getTime() + "&image-type=jpg", //仅为示例，并非真实的资源
@@ -589,7 +588,6 @@ var _md5Min = _interopRequireDefault(__webpack_require__(/*! @/common/md5.min.js
           console.log('登录', res, res.data['error_code']);
 
           getApp().globalData.header.Cookie += "; ".concat(res.header["Set-Cookie"]);
-          console.log(getApp().globalData.header.Cookie, '1555555');
 
           var data = res.data;
           uni.hideLoading();
@@ -742,8 +740,10 @@ var _md5Min = _interopRequireDefault(__webpack_require__(/*! @/common/md5.min.js
           console.log('无网络连接');
         } else {
           _this4.show_btn_offline = false;
-          // 检测应用是否需要更新
-          // this.isUpdate()
+
+
+
+
           // this.prepareRamdonImage()
         }
       } });
@@ -766,8 +766,10 @@ var _md5Min = _interopRequireDefault(__webpack_require__(/*! @/common/md5.min.js
         return;
       } else {
         _this4.show_btn_offline = false;
-        // 检测应用是否需要更新
-        // this.isUpdate()
+
+
+
+
         _this4.prepareRamdonImage();
       }
     });
@@ -814,9 +816,9 @@ var _md5Min = _interopRequireDefault(__webpack_require__(/*! @/common/md5.min.js
 /***/ }),
 
 /***/ 27:
-/*!**************************************************************************************************************************!*\
-  !*** C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version/pages/login/login.vue?vue&type=style&index=0&lang=less& ***!
-  \**************************************************************************************************************************/
+/*!************************************************************************************************************************************!*\
+  !*** C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version-multiport/pages/login/login.vue?vue&type=style&index=0&lang=less& ***!
+  \************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -830,9 +832,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 28:
-/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--10-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--10-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--10-oneOf-1-2!./node_modules/postcss-loader/src??ref--10-oneOf-1-3!./node_modules/less-loader/dist/cjs.js??ref--10-oneOf-1-4!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--10-oneOf-1-5!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version/pages/login/login.vue?vue&type=style&index=0&lang=less& ***!
-  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--10-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--10-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--10-oneOf-1-2!./node_modules/postcss-loader/src??ref--10-oneOf-1-3!./node_modules/less-loader/dist/cjs.js??ref--10-oneOf-1-4!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--10-oneOf-1-5!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version-multiport/pages/login/login.vue?vue&type=style&index=0&lang=less& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

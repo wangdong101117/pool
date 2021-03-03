@@ -1,9 +1,9 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["pages/component/vehicle/vehicleDetail"],{
 
 /***/ 109:
-/*!*********************************************************************************************************************************!*\
-  !*** C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version/main.js?{"page":"pages%2Fcomponent%2Fvehicle%2FvehicleDetail"} ***!
-  \*********************************************************************************************************************************/
+/*!*******************************************************************************************************************************************!*\
+  !*** C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version-multiport/main.js?{"page":"pages%2Fcomponent%2Fvehicle%2FvehicleDetail"} ***!
+  \*******************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17,9 +17,9 @@ createPage(_vehicleDetail.default);
 /***/ }),
 
 /***/ 110:
-/*!************************************************************************************************************!*\
-  !*** C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version/pages/component/vehicle/vehicleDetail.vue ***!
-  \************************************************************************************************************/
+/*!**********************************************************************************************************************!*\
+  !*** C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version-multiport/pages/component/vehicle/vehicleDetail.vue ***!
+  \**********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -58,9 +58,9 @@ component.options.__file = "pages/component/vehicle/vehicleDetail.vue"
 /***/ }),
 
 /***/ 111:
-/*!*******************************************************************************************************************************************!*\
-  !*** C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version/pages/component/vehicle/vehicleDetail.vue?vue&type=template&id=445743ff& ***!
-  \*******************************************************************************************************************************************/
+/*!*****************************************************************************************************************************************************!*\
+  !*** C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version-multiport/pages/component/vehicle/vehicleDetail.vue?vue&type=template&id=445743ff& ***!
+  \*****************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -80,9 +80,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 112:
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version/pages/component/vehicle/vehicleDetail.vue?vue&type=template&id=445743ff& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version-multiport/pages/component/vehicle/vehicleDetail.vue?vue&type=template&id=445743ff& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -130,9 +130,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ 113:
-/*!*************************************************************************************************************************************!*\
-  !*** C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version/pages/component/vehicle/vehicleDetail.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************/
+/*!***********************************************************************************************************************************************!*\
+  !*** C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version-multiport/pages/component/vehicle/vehicleDetail.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -146,9 +146,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 114:
-/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version/pages/component/vehicle/vehicleDetail.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version-multiport/pages/component/vehicle/vehicleDetail.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -218,7 +218,8 @@ var _mixin = _interopRequireDefault(__webpack_require__(/*! @/common/mixin.js */
     return {
       vehicleData: '',
       distCodeDatas: '',
-      positionDist: '' };
+      positionDist: '',
+      loadSelect: false };
 
   },
   methods: {
@@ -253,92 +254,91 @@ var _mixin = _interopRequireDefault(__webpack_require__(/*! @/common/mixin.js */
 
     } },
 
-  mounted: function mounted() {
-    uni.showToast({
-      title: '提示：详情页不能进行任何修改操作',
-      icon: 'none',
-      position: 'bottom' });
+  mounted: function mounted() {var _this2 = this;
+    this.$nextTick(function () {
+      var p1 = new Promise(function (resolve, reject) {
+        uni.showLoading({
+          title: '加载中...' });
 
+
+        /** 根据获取到的 uid , 调用查询详情接口, 说明: 该接口content-type不能设置为 urlencoded形式 */
+        uni.request({
+          url: "".concat(_this2.api, "txnsyscv2.ajson"),
+
+          header: {
+            'Cookie': getApp().globalData.header.Cookie },
+
+
+          data: {
+            primary_key: {
+              uid: _this2.uid } },
+
+
+          dataType: 'json',
+          method: 'POST',
+          success: function success(res) {
+            console.log(res);
+            uni.hideLoading();
+            if (res.data.error_code === '000000') {
+              _this2.vehicleData = res.data.record[0];
+              // 当车辆数据加载完毕后, 渲染下拉框组件, 下拉框组件再加载每一个的下拉框数据
+              _this2.loadSelect = true;
+              resolve();
+            } else {
+              _this2.toastRequestErr(res.data);
+              reject();
+            }
+          },
+          fail: function fail() {
+            reject();
+            uni.hideLoading();
+            _this2.toastErr();
+          } });
+
+      });
+      /** - 获取省市县数据: */
+      var p2 = new Promise(function (resolve, reject) {
+        uni.request({
+          url: "".concat(_this2.api, "tag.service?txn-code=option.ajson&option-name=tlt_have_truck_region"),
+
+          header: getApp().globalData.header,
+
+          data: {},
+          method: 'GET',
+          dataType: 'json',
+          success: function success(res) {var
+            codeDatas = res.data.codeDatas;
+            _this2.codeDatas = codeDatas;
+            if (res.statusCode === 200) {
+              console.log('返回的省市县数据', codeDatas);
+              _this2.distCodeDatas = codeDatas;
+              resolve();
+            } else {
+              reject();
+            }
+          },
+          fail: function fail() {
+            reject();
+          } });
+
+      });
+
+      Promise.all([p1, p2]).then(function (res) {
+        _this2.getDist();
+      });
+    });
   },
-  onLoad: function onLoad(option) {var _this2 = this;
+  onLoad: function onLoad(option) {
     this.uid = option.uid;
-    var p1 = new Promise(function (resolve, reject) {
-      uni.showLoading({
-        title: '加载中...' });
-
-
-      /** 根据获取到的 uid , 调用查询详情接口, 说明: 该接口content-type不能设置为 urlencoded形式 */
-      uni.request({
-        url: "".concat(_this2.api, "txnsyscv2.ajson"),
-
-        header: {
-          'Cookie': getApp().globalData.header.Cookie },
-
-
-        data: {
-          primary_key: {
-            uid: _this2.uid } },
-
-
-        dataType: 'json',
-        method: 'POST',
-        success: function success(res) {
-          console.log(res);
-          uni.hideLoading();
-          if (res.data.error_code === '000000') {
-            _this2.vehicleData = res.data.record[0];
-            resolve();
-          } else {
-            _this2.toastRequestErr(res.data);
-            reject();
-          }
-        },
-        fail: function fail() {
-          reject();
-          uni.hideLoading();
-          _this2.toastErr();
-        } });
-
-    });
-    /** - 获取省市县数据: */
-    var p2 = new Promise(function (resolve, reject) {
-      uni.request({
-        url: "".concat(_this2.api, "tag.service?txn-code=option.ajson&option-name=tlt_have_truck_region"),
-
-        header: getApp().globalData.header,
-
-        data: {},
-        method: 'GET',
-        dataType: 'json',
-        success: function success(res) {var
-          codeDatas = res.data.codeDatas;
-          _this2.codeDatas = codeDatas;
-          if (res.statusCode === 200) {
-            console.log('返回的省市县数据', codeDatas);
-            _this2.distCodeDatas = codeDatas;
-            resolve();
-          } else {
-            reject();
-          }
-        },
-        fail: function fail() {
-          reject();
-        } });
-
-    });
-
-    Promise.all([p1, p2]).then(function (res) {
-      _this2.getDist();
-    });
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
 /***/ 115:
-/*!**********************************************************************************************************************************************!*\
-  !*** C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version/pages/component/vehicle/vehicleDetail.vue?vue&type=style&index=0&lang=less& ***!
-  \**********************************************************************************************************************************************/
+/*!********************************************************************************************************************************************************!*\
+  !*** C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version-multiport/pages/component/vehicle/vehicleDetail.vue?vue&type=style&index=0&lang=less& ***!
+  \********************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -352,9 +352,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 116:
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--10-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--10-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--10-oneOf-1-2!./node_modules/postcss-loader/src??ref--10-oneOf-1-3!./node_modules/less-loader/dist/cjs.js??ref--10-oneOf-1-4!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--10-oneOf-1-5!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version/pages/component/vehicle/vehicleDetail.vue?vue&type=style&index=0&lang=less& ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--10-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--10-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--10-oneOf-1-2!./node_modules/postcss-loader/src??ref--10-oneOf-1-3!./node_modules/less-loader/dist/cjs.js??ref--10-oneOf-1-4!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--10-oneOf-1-5!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/Dell/Desktop/pool/pool/uniapp/gps-app-new-version-multiport/pages/component/vehicle/vehicleDetail.vue?vue&type=style&index=0&lang=less& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
