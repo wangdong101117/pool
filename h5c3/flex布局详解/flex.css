@@ -1,0 +1,56 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+.container {
+	display: flex;
+	/* flex-flow是 flex-direction 和 flex-wrap 的连写, 默认为 row, nowrap */
+	flex-flow: column nowrap;
+	width: 100vw;
+	height: 100vh;
+	/*align-items: center;*/
+	/*justify-content: center;*/
+	/*align-content: flex-start;*/
+}
+
+.container .item-content {
+	display: flex;
+	/*flex: 0 0;*/
+	flex-flow: row-reverse;
+	background: #ccc;
+	width: 60%;
+	height: 30%;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.item-content:last-child {
+	/*flex: 0 1;*/
+	justify-content: space-between;
+	align-items: flex-start;
+	background: #e2e2e2;
+}
+
+.container .item-content:first-child .item {
+	/*flex: auto;*/
+	background: #ff9900;
+	height: 50%;
+	width: 20%;
+}
+
+.container .item-content:last-child .item {
+	/*flex: auto;*/
+	background: #00a0e8;
+	height: 50%;
+	width: 20%;
+}
+
+.container .item-content:first-child .item:last-child {
+	align-self: flex-end;
+}
+
+.container .item-content:last-child .item:last-child {
+	align-self: flex-end;
+}

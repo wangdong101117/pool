@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>echarts监听容器宽高变化</title>
+</head>
+<body>
+<!-- 
+	在使用echarts绘图时往往需要监听浏览器或者图表容器的宽高来说先echarts图表的 resize() 功能
+
+	实现方案:
+		window 的 resize 事件: 浏览器窗口尺寸变化事件
+		ResizeObserver
+		element-resize-detector(没有实际使用过)
+
+	问题: 当resize遇到节流
+
+	具体实现:
+		方案1: 利用 window的resize
+			- 通过监控浏览器窗口的大小
+
+			data() {
+				return {
+					my_echarts: null,
+					can_resize: true
+				}
+			},
+			methods: {
+				chartResize() {
+	
+				}
+			},
+			mounted() {
+				
+				this.my_echarts = this.$echarts.init(document.getElementById('my-echarts'))
+
+				window.addEventListener('resize', this.chartResize);
+			}
+
+			方案1 这种方法在某些场景下并不适用:
+				最常见的就是 单页应用, 左边有个可收缩的侧边栏, 在收缩侧边栏的时候, 浏览器的窗口大小并没有变化, 仅仅是 echarts容器大小改变了, 这时我们要监听 echarts容器大小来实现 echarts的resize() => 即 方案2
+
+		方案2: ResizeObserver
+			Web API 提供了 ResizeObserver 来实现该方案
+
+			window.addEventListener('resize', this.chartResize);
+			// - 在监听window 的 resize 后续加入: 
+			const resizeObserver = new ResizeObserver(() => {
+				// 实现节流效果 避免页面卡顿
+				if (!this.can_resize) return
+				this.can_resize = false;
+				setTimeout(() => {
+					this.chartResize() // 执行chartResize(), 因为如果你有transition的话需要在transition之后再执行
+					this.can_resize = true
+				}, 300)
+			})
+
+			resizeObserver.observe(document.getElementById('my-echarts')) // 参数参入echarts容器id
+
+		方案3: element-resize-detector (未实际使用过)
+			- element-resize-detector 库 也可实现方案2 的效果
+
+			import elementResizeDetector from 'element-resize-detector'
+
+			let erd = elementResizeDetector();
+			// 下面可实现节流效果, 避免页面卡顿
+			erd.listenTo(document.getElementById('my-echarts'), _.throttle(this.chartResize), 300)	
+ -->
+</body>
+</html>

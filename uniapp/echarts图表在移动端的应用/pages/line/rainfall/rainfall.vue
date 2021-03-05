@@ -1,5 +1,6 @@
 <template>
     <view class="content">
+        
         <!-- #ifdef APP-PLUS || H5  -->
         <view id="container"></view>
         <!-- #endif -->
@@ -9,12 +10,6 @@
     </view>
 </template>
 
-<script>
-    export default {
-        onLoad() {},
-        methods: {}
-    }
-</script>
 
 <script module="f2" lang="renderjs">
     let myChart
@@ -22,9 +17,224 @@
         data: function() {
             return {
                 canvas: '',
+                option: {
+                                // title: {
+                                    // text:'200米彩椒棚 - 1 设备曲线'
+                                // },
+                                tooltip: {
+                                    trigger: 'axis',
+                                    padding: 10,
+                                    formatter :(params) => {
+                                        // console.log(params)
+                                        let action = '无';
+                                        let tem = '';
+                                        let hum = '';
+                                        let vent = '';
+                                        params[0].value? tem = params[0].value + '℃': tem = '无数据';
+                                        params[1].value? hum = params[1].value + '%': hum = '无数据';
+                                        params[2].value? vent = params[2].value + 'cm': vent = '无数据';
+                
+                                        if (params.length === 4) {
+                                            if (params[3].value == 0x25) {
+                                                action = '故障'
+                                            }
+                
+                                            if (params[3].value == 0x27) {
+                                                action = '报警'
+                                            }
+                
+                                            if (params[3].value == 0x30) {
+                                                action = '开关风'
+                                            }
+                
+                                            if (params[3].value == 0x32) {
+                                                action = '解锁'
+                                            }
+                
+                                            if (params[3].value == 0x33) {
+                                                action = '锁定'
+                                            }
+                
+                                            if (params[3].value == 0x34) {
+                                                action = '除湿'
+                                            }
+                
+                                            if (params[3].value == 0x60) {
+                                                action = '配置简易模式'
+                                            }
+                
+                                            if (params[3].value == 0x62) {
+                                                action = '配置分段温控'
+                                            }
+                
+                                            if (params[3].value == 0x66) {
+                                                action = '配置分时温控'
+                                            }
+                
+                                            if (params[3].value == 0x68) {
+                                                action = '配置普通温控'
+                                            }
+                
+                                            if (params[3].value == 0x70) {
+                                                action = '更换设备配置'
+                                            }
+                                            if (params[3].value == 0x80) {
+                                                action = '高低温报警配置'
+                                            }
+                                            if (params[3].value == 0x98) {
+                                                action = '风口配置'
+                                            }
+                                            if (params[3].value == 0x68) {
+                                                action = '配置普通温控'
+                                            }
+                                        } 
+                
+                                        // return `2021-01-21 ${params[0].axisValue} </br>
+                                        // ${params[0].seriesName}：${params[0].value} ℃&nbsp&nbsp&nbsp&nbsp${params[1].seriesName}：${params[1].value}%</br> 
+                                        // 设备操作：${action}`
+                
+                                        if (this.date_type === 'date') {
+                                            return `${params[0].axisValue} </br>
+                                            ${params[0].seriesName}：${tem}</br> 
+                                            ${params[1].seriesName}：${hum}</br> 
+                                            ${params[2].seriesName}：${vent}</br> 
+                                            设备操作：${action}`
+                                        } else {
+                                            return `${params[0].axisValue} </br>
+                                            ${params[0].seriesName}：${tem}</br>
+                                            ${params[1].seriesName}：${hum}</br> 
+                                            ${params[2].seriesName}：${vent}</br> `
+                                        }
+                                    }
+                                },
+                                visualMap: {
+                                    show: false,
+                                    pieces: [{
+                                        gt: 0,
+                                        lte: 15,
+                                        color: '#ffa208'
+                                    }, {
+                                        gt: 15,
+                                        lte: 35,
+                                        color: '#7ecef4'
+                                    }
+                                   ],
+                                    outOfRange: {
+                                      color: '#ffa208'
+                                    }
+                                },
+                                /** 定位 */
+                                grid: {
+                                    left: '2%',
+                                    right: '2%',
+                                    bottom: '10%',
+                                    containLabel: true
+                                },
+                                legend: {
+                                    data:['温度','湿度','风口位置']
+                                },
+                                axis: {
+                                    axisTick: {
+                                        show: false
+                                    }
+                                },
+                                xAxis: {
+                                    data: [],
+                                    type : 'category',
+                                    axisTick: {
+                                        show: false
+                                    },
+                                  
+                                },
+                                yAxis: [{
+                                    name: '单位：℃ / %',
+                                    type: 'value',
+                                    min: -20, // 最小
+                                    max: 100, // 最大
+                                    axisTick: {
+                                        show: false
+                                    },
+                                },{
+                                    name: '单位：cm',
+                                    type: 'value',
+                                    min: -20, // 最小
+                                    max: 100, // 最大
+                                    axisTick: {
+                                        show: false
+                                    },
+                                    splitLine: {
+                                        show: false
+                                    }
+                                }],
+                                /** dataZoom 组件 用于区域缩放 */
+                                dataZoom: [
+                                    { startValue: '' }, // 起始点 值
+                                    { type: 'inside' } // 类型
+                                ],
+                                /** 系列列表。每个系列通过 type 决定自己的图表类型 */
+                                series: [{
+                                    name: '温度', /** 系列名称，用于tooltip的显示 */
+                                    type: 'line', /** 规定图表类型 */
+                                    /** 接口请求得到的数据, 搁赋值给data */
+                                    data: [],
+                                    symbol: 'none',// none: 去掉折线上的点; circle: 圆圈
+                                    // 线条样式
+                                    lineStyle: {
+                                        // color: '#fbbb76'
+                                    },
+                                    smooth: true, // 平滑曲线显示
+                                    itemStyle: {
+                                        normal: {
+                                            color: '#fbbb76'  // 点背景色
+                                        }
+                                    }
+                                },{
+                                    name: '湿度', /** 系列名称，用于tooltip的显示 */
+                                    type: 'line', /** 规定图表类型 */
+                                    smooth: true, // 平滑曲线显示
+                                    /** 接口请求得到的数据, 搁赋值给data */
+                                    data: [],
+                                    symbol: 'none',// 实心圆
+                                    // 线条样式
+                                    lineStyle: {
+                                        color: '#4cefc9'
+                                    },
+                                    itemStyle: {
+                                        normal: {
+                                            color: '#4cefc9' // 点背景色
+                                        }
+                                    }
+                                },{
+                                    name: '风口位置', /** 系列名称，用于tooltip的显示 */
+                                    type: 'line', /** 规定图表类型 */
+                                    smooth: true, // 平滑曲线显示
+                                    yAxisIndex: 1,
+                                    /** 接口请求得到的数据, 搁赋值给data */
+                                    data: [],
+                                    symbol: 'none',// 实心圆
+                                    // 线条样式
+                                    lineStyle: {
+                                        color: '#ed4014'
+                                    },
+                
+                                    itemStyle: {
+                                        normal: {
+                                            color: '#ed4014' // 点背景色
+                                        }
+                                    }
+                                },
+                                {
+                                    name:'设备操作',
+                                    type:'scatter',
+                                    symbolSize: 30,
+                                    data: [],
+                                }
+                                ]
+                            }
             }
         },
         mounted() {
+            return
             console.log(this.sdata);
             // renderjs 里可以自由操作 window 、dom等浏览器环境属性
             const container = document.getElementById('container')
@@ -38,15 +248,17 @@
             this.canvas = canvas;
 
             if (typeof window.F2 === 'function') {
+                console.log(2)
                 this.initF4()
             } else {
+                console.log(3)
                 // 动态引入较大类库避免影响页面展示
                 const script = document.createElement('script')
                 script.src = 'static/echarts.min.js'
                 script.onload = this.initF4.bind(this)
                 document.head.appendChild(script)
             }
-            
+
             // this.loadData();
         },
         methods: {
@@ -62,6 +274,7 @@
                         var datas = JSON.parse(xhr.responseText);
                         if (datas.error_code === '000000') {
                             console.log(res);
+                            
                         }
                     }
                 }
@@ -1416,6 +1629,12 @@
         justify-content: center;
         padding-top: 20px;
         background-color: #fff;
+    }
+
+    .container {
+        height: 750rpx;
+        width: 750rpx;
+        margin-bottom: 36rpx;
     }
 
     .fitness-ring {
