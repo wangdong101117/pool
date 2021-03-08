@@ -63,7 +63,7 @@ section .loader span::before {
 	/* 设置不同的延迟时间 实现loading效果
 		0.1s 0.2s 效果不同哦
 	 */
-	animation-delay: calc(0.2s * var(--i));	
+	/*animation-delay: calc(0.1s * var(--i));	*/
 }
 
 /* 闪烁动画 */

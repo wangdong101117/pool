@@ -5,8 +5,7 @@
 </head>
 <body>
 <!-- 
-	1. justify-content: space-between; 可起到左右对齐方式
-
+	1. letter-spacing: 设置字与字之间的间距/字符间距;
 	2. 深度监听: 
 		在css 中使用 >>>  在less及sass中 使用/deep/
 
@@ -17,7 +16,33 @@
                 backgroundRepeat: "no-repeat",
                 backgroundSize: '100% 100%'
             },
- -->
+ 
+	5. vw / wh / wmin/ vmax
+		- vw: 视窗宽度的百分比; 1vw代表视窗的宽度为1%, 100 代表 100%
+		- vh: 视窗高度的百分比
+		- vmin: 当前vw和vh中 较小的一个值
+		- vmax: 当前vw和vh中 较大的一个值
 
+	6. 给后伪元素 添加hover: 
+		.content:hover::hefore {}
+
+	7. 鼠标悬停时: 设置为禁用图标
+		cursor: not-allowed;
+
+	8. 设置某个值为原始值
+		css中存在一个属性值关键字: initial; 可将任意属性设置为初始值, 但ie 不支持该属性
+			- width/height 设置为初始值还可以设置为 auto		
+
+	9. 过渡 transition 的 运动模式/动画函数: transition-timing-function
+			transition-timing-function: 动画模式/动画运动函数; 
+			- linear: 匀速 => cubic-bezier(0,0,1,1);
+			- ease: 慢 -> 快 -> 慢 => cubic-bezier(0.25,0.1,0.25,1);
+			- ease-in: 以慢速开始的过渡效果 => cubic-bezier(0.42,0,1,1);
+			- ease-out: 以慢速结束的过渡效果 => cubic-bezier(0,0,0.58,1);
+			- ease-in-out: 以慢速开始和结束的过渡效果 => cubic-bezier(0.42,0,0.58,1);
+			- cubic-bezier: 函数, 在cubic-bezier函数㕜定义自己的值, 可能的值是 0-1 之间的值;
+
+	10. flex布局详解: => 查看 h5c3: flex布局详解		
+ -->
 </body>
 </html>

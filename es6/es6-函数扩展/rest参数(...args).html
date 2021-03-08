@@ -12,6 +12,7 @@
 			- 由于箭头函数没有 arguments, 因此 es6 中 箭头函数 推出 rest参数: ...args
 				- 实质: 将函数调用传入的实参值保存在一个 变量 (args) 中, 因此该变量是一个数组结构
 					- 即便没有传入实参, 或者传入了一个实参, args也是一个数组结构
+
 	 */
 	
 	function rest (...args) {
@@ -20,6 +21,24 @@
 		})
 	}
 	rest('java', 'js', 'c++');
+
+	/** 说明: 
+			... 操作符(rest操作符?)的应用不仅仅局限于此, 下面只是简单举例
+	*/
+	let a = [...'123456'];
+	console.log(a) // => [1, 2, 3, 4, 5, 6]
+
+	// 浅拷贝导致的问题: 直接赋值操作, 更改arr_other 会影响源对象: arr (复杂数据类型复制问题)
+		let arr = [1, 2, 3];
+		let arr_other = arr;
+		arr_other[0] = 4;
+		console.log(arr); // [4, 2, 3]
+
+	// 使用 ...操作符进行处理: 	
+		// 因为 扩展运算符用于 取出参数对象中的所有可遍历属性，拷贝到当前对象之中。 由于该数组里面的所有对象都是基础数据类型，因此不存在浅拷贝的现象
+		let arr_another = [...arr_other];
+		arr_another[0] = 100;
+		console.log(arr_other);	// [4, 2, 3]
 </script>
 </body>
 </html>

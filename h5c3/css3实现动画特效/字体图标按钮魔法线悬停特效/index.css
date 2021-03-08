@@ -1,0 +1,90 @@
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+.container {
+	display: flex;
+	position: relative;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+	background: #111;
+}
+
+.container span {
+	position: relative;
+	margin: 0 20px;
+	cursor: pointer;
+}
+
+.container span a {
+	text-decoration: none;
+}
+
+.container span a .iconfont {
+	font-size: 6em;
+	color: #222;
+}
+
+.container span::before {
+	/* 使用字体图标 */
+	font-family: 'iconfont';
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-size: 6em;
+	height: 0;
+	overflow: hidden;
+	/* transition-timing-function: 动画模式/动画运动函数; 
+		- linear: 匀速 => cubic-bezier(0,0,1,1);
+		- ease: 慢 -> 快 -> 慢 => cubic-bezier(0.25,0.1,0.25,1);
+		- ease-in: 以慢速开始的过渡效果 => cubic-bezier(0.42,0,1,1);
+		- ease-out: 以慢速结束的过渡效果 => cubic-bezier(0,0,0.58,1);
+		- ease-in-out: 以慢速开始和结束的过渡效果 => cubic-bezier(0.42,0,0.58,1);
+		- cubic-bezier: 函数, 在cubic-bezier函数㕜定义自己的值, 可能的值是 0-1 之间的值;
+	*/
+	transition: 0.5s ease-in-out;
+}
+
+/* 鼠标悬停时, 设置height: 100%;
+	伪元素设置hover:
+		span:hover::before
+		span:hover::after
+ */
+.container span:hover::before {
+	height: 100%;
+}
+
+.container span:first-child::before {
+	content: '\e6cb';
+	color: #1da1f2;
+	/*border-bottom: 4px solid #1da1f2;*/
+}
+
+.container span:first-child:hover::before {
+	border-bottom: 4px solid #1da1f2;
+}
+
+.container span:nth-child(2)::before {
+	content: '\e609';
+	color: #25d366;
+	/*border-bottom: 4px solid #25d366;*/
+}
+
+.container span:nth-child(2):hover::before {
+	border-bottom: 4px solid #25d366;
+}
+
+.container span:last-child::before {
+	content: '\e661';
+	color: #ff0000;
+	/*border-bottom: 4px solid #ff0000;*/
+}
+
+.container span:last-child:hover::before {
+	border-bottom: 4px solid #ff0000;
+}
+
+

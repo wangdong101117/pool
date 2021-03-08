@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>模块化</title>
+</head>
+<body>
+<script type="text/javascript">
+/** 模块化: Module -- import & export
+		在ES6之前, 模块加载的方案, 主要有: CommonJS和AMD两种(前者用于服务器, 后者用于浏览器); ES6在语法标准的层面上, 实现了模块功能, 而且实现得相当简单, 完全可取代 CommonJS和AMD规范, 成为浏览器和服务器通用的模块解决方案。
+
+		ES6 模块化的基本规则(特点)
+			- 1. 每个模块只加载一次, 每个js只执行一次, 如果下次再去加载同目录下 同一个文件, 则直接从内存中读取。一个模块就是一个单例，或者说是一个对象；
+			- 2. 每个模块内声明的变量都是局部变量，不会污染全局作用域；
+			- 3. 模块内部的变量或者函数都可以通过export 导出
+			- 4. 一个模块可以导入别的模块
+
+		模块功能主要由两个命令构成： export 和 import。
+			- export 用于规定模块的对外接口
+			- import 用于引入其他模块提供的功能		
+
+		= export 命令：
+			一个模块就是一个独立的文件，该文件内部的所有变量，外部无法获取，如果希望外部能够读取模块内部的某个变量，就必须使用 export 输出（导出）该变量
+
+			<1> 使用命名导出
+				- export 可导出 变量、函数、class(类)
+					export const date = 2021
+					export var firstName = 'w'
+					export let lastName = 'd'
+					export function multiply(x, y) {
+						return x * y;
+					}
+					export class Point {
+						constructor(x, y) {
+							this.x = x;
+							this.y = y;
+						}
+						toString() {
+							return this.x + ',' + this.y
+						}
+					}
+
+
+					// 上面写法等价于：
+						var firstName = 'w'
+						let lastName = 'd'
+						const date = 2021
+						function multiply (x, y) {
+							return x * y;
+						}
+						class Point {
+							constructor(x, y) {}
+							toString() {}
+						}
+
+						export {firstName, lastName, date, multiply, Point}	
+				
+			<2> 使用默认导出： export default
+				因为 export default 命令其实只是输出一个叫做default的变量， 所以它后面不饿能跟变量声明语句。 默认导出的语法如下：
+					// 导出函数
+					export default function () {}
+					// 导出类
+					export default class {}
+
+			<3> export 与 export default的区别：
+				/1/ export default 后不可直接跟var let const， 即不饿能直接跟变量声明语句
+					export let a = 1;
+					var a = 1；
+					export default a; // 将变量 a 的值赋值给 default
+
+					// 下面这样写不对：
+						export default let a = 1;
+
+				/2/ 因为 export default 的本质是将后面的值赋值给default变量， 所以可以直接将一个值写在export default之后，但是 export 不能	
+					export default 1;
+					cosnt m = 1;
+					export {m};	
+					// 下面这样写不对
+						export 1; // 因为没有指定对外的接口（变量名/常量名）	
+
+				/3/ export default 为模块指定默认输出， 这样就不需要知道要加载模块的变量名， 导入时可任意设置名字，但是 export 在导入时必须跟被导入模块对外接口的名称相同
+
+				/4/ 一个文件或模块中 只能存在一个 export default 命令
+
+				/5/ export 导出的模块，在导入时，需要设置{ }
+				export let a = 1；
+				import {a} from './xx' 		
+
+			<4>	模块的整体加载
+				整体加载使用 * 指定一个对象，所有输出值都加载在这个对象上面
+
+					// index.js
+					export let a = 1；
+					export const sum = (x, y) => {
+						return x + y;
+					}
+					
+					// 逐一指定要加载的方法：
+					import {a, sum} from './index'
+					
+					// 整体加载的写法： 
+					import * as index from './index'
+					console.log(index.a);
+					console.log(index.sum(1, 2));
+
+*/
+</script>
+</body>
+</html>
