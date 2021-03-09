@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>css3-文字渐变</title>
+	<style type="text/css">
+		div	{
+			width: 400px;
+			height: 200px;
+			text-align: center;
+			line-height: 200px;
+			letter-spacing: 3px;
+			font-size: 5em;
+		}
+
+		div::after {  
+            content: attr(data-text);  
+            color: #FBEE00;  
+            position: absolute;  
+            left: 0;  
+            z-index: 2;
+            -webkit-mask-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#FBEE00), to(rgba(251,246,147,.6)));
+        }
+	</style>
+</head>
+<body>
+	<!-- 
+
+
+	 -->
+	<div data-text="文字渐变"></div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>css3-线性渐变</title>
+	<style type="text/css">
+		div	{
+			width: 400px;
+			height: 200px;
+			margin-bottom: 30px;
+		}
+
+		div:nth-child(1) {
+			background: linear-gradient(red, yellow);
+		}
+
+		div:nth-child(2) {
+			background: linear-gradient(to top right, red, yellow);
+		}
+
+		div:nth-child(3) {
+			background: linear-gradient(30deg, red, yellow);
+		}
+
+		div:nth-child(4) {
+			background: linear-gradient(to bottom right, red 0%, yellow 30%, blue 60%, green 100%);
+		}
+	</style>
+</head>
+<body>
+<!--  
+	径向渐变: linear-gradient(渐变方向, 起始颜色, 结束颜色)
+		- 第一种效果: 线性渐变 = 没指定渐变方向, 默认为从上到下
+			linear-gradient(red, yellow);
+
+		- 第二种效果: 方向线性渐变
+			// to top right: 从左下 到 右上 渐变
+			linear-gradient(to top right, red, yellow);
+
+		- 第三种效果: 角度线性渐变:
+			linear-gradient(45deg, red, yellow);
+
+		- 第四种效果: 多种颜色等比例渐变:
+			linear-gradient(to bottom right, red 0%, yellow 30%, orange 60%, green 100%);			
+ -->
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+</body>
+</html>

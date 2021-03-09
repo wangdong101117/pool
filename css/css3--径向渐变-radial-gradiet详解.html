@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>css3-径向渐变</title>
+	<style type="text/css">
+		div	{
+			width: 400px;
+			height: 200px;
+			margin-bottom: 30px;
+		}
+
+		div:nth-child(1) {
+			background: radial-gradient(green, blue);
+		}
+
+		div:nth-child(2) {
+			background: radial-gradient(ellipse, #000, #fff);
+		}
+
+		div:nth-child(3) {
+			background: radial-gradient(circle 100px, red, yellow);
+		}
+
+		div:nth-child(4) {
+			background: repeating-radial-gradient(circle 50px, #000, #fff);
+		}
+	</style>
+</head>
+<body>
+<!--  
+	径向渐变: 
+		- 第一种效果: 线性渐变 = 没指定渐变方向, 默认为从上到下
+			radial-gradient(green, blue);
+
+		- 第二种效果: 椭圆径向渐变
+			// to top right: 从左下 到 右上 渐变
+			radial-gradient(ellipse, red, yellow);
+
+		- 第三种效果: 圆形可设置大小的径向渐变:
+			radial-gradient(circle 100px, red, yellow);
+
+		- 第四种效果: 重复的径向渐变:
+			repeating-radial-gradient(circle 50px, #000, #fff);	
+ -->
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+</body>
+</html>
