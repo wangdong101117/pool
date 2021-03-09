@@ -10,7 +10,7 @@ section {
 	align-items: center;
 	justify-content: center;
 	min-height: 100vh;
-	background: #042104;
+	background: #010101;
 	animation: animateBg 10s linear infinite;
 }
 
@@ -18,7 +18,6 @@ section {
 @keyframes animateBg {
 	0% {
 		/* c3 filter hue-rotate() 属性: 色相旋转;
-
 		 */
 		filter: hue-rotate(0deg);
 		--webkit-filter: hue-rotate(0deg);
@@ -61,9 +60,9 @@ section .loader span::before {
 
 	animation: animate 2s linear infinite;	
 	/* 设置不同的延迟时间 实现loading效果
-		0.1s 0.2s 效果不同哦
+		0.1s 0.2s 效果不同
 	 */
-	/*animation-delay: calc(0.1s * var(--i));	*/
+	animation-delay: calc(0.1s * var(--i));	
 }
 
 /* 闪烁动画 */

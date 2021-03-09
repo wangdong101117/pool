@@ -1,0 +1,60 @@
+*{
+	padding: 0;	
+	margin: 0;
+}
+
+section	{
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	overflow: hidden;
+	background: #010101;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+section	span {
+	position: absolute;
+	bottom: -50px;
+	background: transparent;
+	border-radius: 50%;
+	/* 绝对定位元素盖住链接或添加某事件handle的元素后，
+		那么该链接的默认行为（页面跳转）或元素事件将不会被触发。
+		绝对定位元素盖住链接或添加某事件handle的元素后，那么该链接的默认行为（页面跳转）或元素事件将不会被触发。
+	 */
+	/*pointer-events: none;*/
+
+	/* 内阴影: 形成大泡泡; 这里通过js动态赋值 rgba, 设置成多彩气泡 */
+	/*box-shadow: inset 0 0 10px rgba(255, 255, 255, .5);*/
+	/* 设置动画: 执行的动画名称 / 动画执行时间 / 匀速运动 / 执行次数: 无穷次; */
+	animation: animate 4s linear infinite;
+}
+
+/* 前伪元素: 反光透明的小泡泡 */
+section	span::before {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	/* 缩放为 0.25倍 偏移距离 x轴: -70%; y轴: -70%; */
+	transform: scale(0.25) translate(-70%, -70%);
+	/* 设置径向渐变: 配合border-radius 形成 大泡泡内的 模拟反光的小泡泡 */
+	background: radial-gradient(#fff, transparent); 
+	border-radius: 50%
+} 
+
+@keyframes animate {
+	0% {
+		/* Y轴方向上的偏移(自身偏移量, 这样根据泡泡自身不同的尺寸就会 偏移不同的 y 轴距离) */
+		transform: translateY(0%);
+		/* 透明度 */
+		opacity: 1;
+	} 99% {
+		opacity: 1;
+	} 100% {
+		transform: translateY(-1200%);
+		opacity: 0;
+	}
+}
+

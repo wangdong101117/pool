@@ -21,7 +21,7 @@
 		4. 要使用的组件中:
 			require('echarts/extension/bmap/bmap')
 
-		5. 如果使用自定义图层:
+		5. 如果使用自定义图层: 有两种使用方式:
 			百度地图api中进行配置, 然后发布, 拿到 styleid, 并下载json文件
 
 				this.map_echart = this.$echarts.init(document.getElementById('map_echarts'));
@@ -30,9 +30,15 @@
 		        this.map_echart.on('finished', () => {
 		            // 从echarts对象中获取bmap对象
 		            var bmap = this.map_echart.getModel().getComponent('bmap').getBMap();
+
+                    // 个性化地图的调用方式1: 通过样式ID调用个性化地图样式（推荐）
 		            bmap.setMapStyleV2({
 		                styleId: 'a249aed278f1aa3e6fca47c21e1c0887'
 		            });
+
+                    // 个性化地图的调用方式2: 通过样式JSON调用个性化地图样式
+                    // bmap.setMapStyleV2({styleJson: require("./custom_map_config.json")}); 
+
 		            // bmap.disableDragging()
 					
 					// 监听缩放
@@ -47,6 +53,15 @@
 		                this.option.bmap.center = [bmap.getCenter().lng, bmap.getCenter().lat]
 		            })
 		        })    		
+
+                
+                // setMapType: 变更地图类型
+                bmap.setMapType(BMAP_EARTH_MAP); // 地球图
+                bmap.setMapType(BMAP_HYBRID_MAP); // 卫星影像图
+
+                // 下面不起作用 (echarts中是不起作用)
+                bmap.setHeading(64.5);   //设置地图旋转角度
+                bmap.setTilt(73);       //设置地图的倾斜角度
 
 		完整代码: 如下        
 	 */

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>深度监听</title>
+</head>
+<body>
+	<!-- 深度监听: 
+		- 某些时候, 我们修改不了样式(可能源码中样式层级高, 改不了样式)
+
+		css 中: 使用: >>> 的方式
+			>>> .ivu-progress-bg {
+				background: red;
+			}
+
+		less/scss中: 使用 /deep/
+			/deep/ .ivue-progress-bg {
+				background: red;
+			}	
+	 -->
+	<div class="container"></div>	
+</body>
+</html>

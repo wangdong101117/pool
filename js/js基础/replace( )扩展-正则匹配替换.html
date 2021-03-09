@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>replace()扩展-正则匹配替换</title>
+</head>
+<body>
+<script type="text/javascript">
+	/* replace(): 用于替换字符串中的某些字符
+		- 规则: 只能替换从左往右查找到的第一个满足要求的字符
+	 */
+	let str = 'abcbcbc';
+	let new_str = str.replace('b', '-');
+	console.log(new_str); // a-cbcbc 只能替换掉从左往右查找到的第一个字符
+
+	/** 替换查找到的所有字符: */
+	/* - 1. replace()扩展-正则匹配替换: 
+			参数1的位置不仅仅可以传入字符串, 还可传入正则表达式
+			例如: 
+				str.replace(/-+|\s|:+/g, '')
+	*/
+	let other_str = str.replace(/b/g, '=');
+	console.log(other_str); // a=c=c=c
+
+	/* - 2 ES12: replaceAll() */
+	let str2 = str.replaceAll('b', '');
+	console.log(str2); // accc
+</script>
+</body>
+</html>

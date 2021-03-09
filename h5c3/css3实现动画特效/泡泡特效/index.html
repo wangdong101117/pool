@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>js&css3实现泡泡特效</title>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="./index.css">
+</head>
+<body>
+	<section>
+	</section>
+	<script type="text/javascript">
+		/** 动态创建 泡泡元素 函数 */
+		function createBubble() {
+			// 获取要操作的 dom 元素
+			const section = document.querySelector('section');
+			// 创建元素节点
+			const createElement = document.createElement('span');
+
+			/* Math.random: 随机数函数(0-1) */ 
+			let size = Math.random() * 60;
+			// 设置本次创建的泡泡元素的宽度/高度/绝对定位后的 left(距离浏览器左侧的距离)
+			createElement.style.width = 20 + size + 'px';
+			createElement.style.height = 20 + size + 'px';
+
+			/* 这里的 innerWidth 用的是 window.innerWidth
+				window对象是浏览器环境中的顶级对象, 使用window对象的属性时, 可不加window
+
+					innerWidth: 获取浏览器窗口文档(document)可视区域宽度
+			 */
+			createElement.style.left = Math.random() * innerWidth + 'px';
+			/* 动态设置 box-shadow属性, 得到多彩气泡 */ 
+			createElement.style.boxShadow = 'inset 0 0 10px 2px ' + `rgba(${Math.round(255*Math.random()*1 + 1)}, ${Math.round(255*Math.random()*1 + 1)}, ${Math.round(255*Math.random()*1 + 1)})`
+		
+			// createElement.style.boxShadow = 'inset 0 0 10px rgba(255, 255, 255, .5)'
+
+			/* 
+				append() 与 appendChild():
+					append(): 存在兼容性
+						- 在调用节点(父节点)中最后位置插入元素节点或文本节点
+						- 可同时传入多个元素节点/文本节点(多个参数), 无返回值
+					
+					appendChild()
+						- 只能传入一个节点(一个参数), 不能插入文本节点
+			*/ 
+			// section.append(createElement);
+			section.appendChild(createElement);
+
+			/* 延时定时器: 每个泡泡的单次动画时长为 4s, 4s后移除该泡泡元素 */
+			setTimeout(() => {
+				createElement.remove();
+			}, 4000)
+		}
+
+		/** 间隔定时器: 每50毫米创建一个泡泡元素 */
+		setInterval(createBubble, 50)
+	</script>
+</body>
+</html>

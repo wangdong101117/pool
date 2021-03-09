@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>css3--pointer-events介绍</title>
+</head>
+<body>
+<!-- 
+	pointer-events 是 css3 的新属性, 指定在什么情况下元素可成为鼠标事件的target(包括鼠标的样式)
+
+	pointer-events属性有很多值, 但对于浏览器来说, 只有auto和none两个值可用, 其他的几个是针对 SVG(因为本身这个属性就来自于SVG技术)
+
+	pointer-events: auto; // 默认值, 鼠标不会穿透当前层, SVG中, 该值与 visibePainted的效果相同
+
+	pointer-events: none; // 元素用于不会成为鼠标事件的target(目标); 但是当后代元素的 pointer-events 属性指定为其他值是, 鼠标事件可以指向后代元素, 这时, 鼠标事件将在捕获或者冒泡阶段触发父元素的事件侦听器; 实际上默认就可以穿透当前层, 因为 pointer-events 的默认值为 auto
+
+
+	案例1: 
+		Google map中左上角的操作区域占位是挺大的，如红色框区域，然后在这个区域是无法操作地图层的。那么我们就可以给这个div设置 pointer-events:none，然后你就会发现下面的地图就可以拖动和点击了。
+
+		但是，操作区域本身却无法操作了，直接被无视掉了。不过不用担心，我们可以给里面的元素重新设置为 pointer-events:auto，当然，只给需要操作的元素区域设置。
+
+		貌似有点儿纠结，不过这样可以保证地图本身的可操作区域最大化。
+
+	
+	案例2: pointer-events 可以禁用 HTML 元素的 hover/focus/active 等动态效果。
+-->
+</body>
+</html>
