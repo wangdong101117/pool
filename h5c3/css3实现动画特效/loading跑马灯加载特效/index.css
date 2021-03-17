@@ -17,7 +17,7 @@ section {
 /* 变色动画 */
 @keyframes animateBg {
 	0% {
-		/* c3 filter hue-rotate() 属性: 色相旋转;
+		/* css3 filter: hue-rotate(); 色相旋转
 		 */
 		filter: hue-rotate(0deg);
 		--webkit-filter: hue-rotate(0deg);

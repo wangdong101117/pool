@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>继承</title>
+</head>
+<body>
+<script type="text/javascript">
+	/** 继承: 继承有很多种方式(7种?) */
+
+	/** 1. 借用构造函数继承: 可继承构造函数的属性 */
+		function Create1(name1, age1) {
+			this.name = name1;
+			this.age = age1;
+		}
+		// Create1 构造函数的原型 设置 方法: getName
+		Create1.prototype.getName = function () {
+			console.log(this.name);
+		}
+
+		var zs = new Create1('zs', 15);
+
+		function Create2(name, age, school) {
+			// 利用 call() 将函数内的 this 指向 进行了修改, 修改为 new 创建的对象 => student
+			Create1.call(this, name, age);	
+
+			this.school = school;
+		}
+		Create2.prototype.say = function () {
+			console.log('hello');
+		}
+		var student = new Create2('jack', 20, '五星小学');
+
+		console.log(student); 
+
+	/** 2. 原型对象继承: 可继承原型对象中的方法 */
+		function Obj1(name, age) {
+			this.name = name;
+			this.age = age;
+		}
+		Obj1.prototype.getSchool = function() {
+			console.log(this.school);
+		}	
+
+		function Obj2(school) {
+			this.school = school;
+		}
+
+		/** new 创建的对象赋值给 Obj2 的 原型对象, 这种方式为覆盖设置, 需要重新设置 constructor 属性
+			- 为什么不能继承构造函数中的属性:
+				new Obj1() 调用 得到的实例化对象, 属性值不能再更改
+		 */
+		Obj2.prototype = new Obj1('liujing', 22);
+		Obj2.prototype.constructor = Obj2;
+
+		Obj2.prototype.sayHello = function () {
+			console.log('nihao');
+		}
+
+		var obj = new Obj2('xx中学');
+		obj.getSchool();
+
+
+	/** 3. 组合继承 */
+</script>
+</body>
+</html>

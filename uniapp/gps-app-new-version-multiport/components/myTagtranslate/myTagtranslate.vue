@@ -49,8 +49,8 @@
         },
         methods: {
             getText() {
-                if (uni.getStorageSync(this.codeType) && uni.getStorageSync(this.codeType).length > 0) {
-                    let codeData = uni.getStorageSync(this.codeType)
+                if (getApp().globalData[this.codeType] && getApp().globalData[this.codeType].length > 0) {
+                    let codeData = getApp().globalData[this.codeType]
                     codeData.forEach((item, index) => {
                         if (item.codeValue === this.codeValue) {
                             this.codeName = item.codeName
@@ -72,7 +72,8 @@
                                     this.codeName = item.codeName
                                 }
                             })
-                            uni.setStorageSync(this.codeType, codeDatas)
+                            this.$set(getApp().globalData, this.codeType, codeDatas)
+                            // uni.setStorageSync(this.codeType, codeDatas)
                         }
                     })
                 }

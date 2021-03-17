@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>this详细解读</title>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+</head>
+<body>
+	<div class="box" style="width: 100px; height: 100px; background: #ccc"></div>
+<script type="text/javascript">
+/** this在不同情况 使用分别指向的是什么: */
+	/** 1. 在对象的方法中使用时: 指向的是当前的对象 */
+		const obj = {
+			name: 'wangdong',
+
+			getName() {
+				const name = 'liujing';
+				// getName() 属于对象obj 的方法, 对象中的方法 this 指向的是当前的对象: obj; this.name === obj.name
+				return this.name;
+			}
+		}
+		console.log(obj.getName()); // wangdong
+
+	/** 2. 构造函数中使用时, 指向创建的对象 
+		new 将函数内的 this 设置为创建的对象
+	*/
+		function CreateUser(name) {
+			// 这里的this 指向的是 创建的对象 girl
+			this.name = name;
+			this.getName = () => this.name;
+			this.otherGetname = function () {
+				return this.name
+			}
+		}
+
+		/** new 的作用
+			- 1. 创建了对象
+			- 2. 将函数内的 this 设置为创建的对象
+			- 3. 返回了这个对象
+			- 4. 帮我们进行了函数的调用
+				= new CreateUser 后面的代表函数调用的 '()' 不需要写, 但是 name(如果有其他属性)等属性值不确定, 因此设置上 '()', 可传参使用 
+		 */
+		/** 
+		 	girl: {
+				name: 'liujing',
+				getName = () => 'liujing'
+		 	}
+		 */
+		const girl = new CreateUser('liujing');
+		console.log(girl.getName(), girl.otherGetname()); // liujing liujing
+
+		const {getName} = girl; // 将 new 创建的对象 girl 进行解构赋值 => getName = () => 'liujing'
+		/** new 实例化后, 参数传入后 属性值已定型为 'liujing' */ 
+		console.log(getName()); // 'liujing'
+
+	/** 3.1 this在普通的方法中使用时, this指向的window对象 */
+		// 全局的函数和变量都是window对象的属性
+		var role = 'admin'; 
+		let gender = '男'; // let 声明的全局变量不会成为 window对象的属性
+		function getAge () {
+			// getAge 为普通的方法, this指向的是全局的window 对象
+			console.log(this.age, 'age'); // undefined => window.age
+			console.log(this.role, 'role'); // admin => window.role
+			console.log(this.gender, 'gender'); // undefined => let 声明的全局变量不会成为 window 对象的属性
+		}
+		getAge();
+	/** 3.2 定时器 混淆视听 */
+		const otherObj = {
+			user_name: 'wangdong',
+			getName() {
+				console.log(this.user_name);
+			}
+		};
+
+		/* 这里只是将 otherObj.getName 作为了 (对象属性)定时器中的函数进行 使用
+			相当于: 此时 this 是在 普通的函数中使用, this指向的是全局的 window 对象, window.name 为 undefined
+				setTimeout(function() {
+					console.log(this.name)
+				}, 1000)
+
+			而不是作为对象中的方法进行函数调用:
+				setTimeout(function () {
+					otherObj.getName();
+				}, 1000)	
+		 */
+		setTimeout(otherObj.getName, 1000); // undefined
+		setTimeout(() => {
+			otherObj.getName(); // wangdong
+		}, 1200);
+
+	/** 4. 在箭头函数中使用时, 指向的是外层的对象 */
+		let box = document.querySelector('.box');
+		box.onclick = () => {
+			console.log(this); // window全局对象
+		}
+
+		box.onmouseover = function () {
+			console.log(this); // box dom对象
+		}
+
+	/** 5. 使用 call() apply() bind() 对this指向进行更改, 可查看 js 高级 三者用法与区别 */
+		const obj2 = {
+			msg: 'hello'
+		}
+
+		let msg = 'hi';
+
+		// 如何让下面的 getMsg 函数 输入 'hello', 可使用 call() apply() bind()
+		function getMsg() {
+			console.log(this.msg);
+		}
+		/* call() 与 apply() 会立即改变函数中的this指向, 但只会生效一次
+			bind() 不会立即生效, 需要再进行一次函数调用, 是永久的改变 this 指向
+
+		 */
+		getMsg.call(obj2);
+		getMsg.apply(obj2);
+		// bind 返回的是一个 改变this指向后的函数, 用于稍后调用
+		const bindGetMsg = getMsg.bind(obj2); 
+		bindGetMsg();	
+
+	/** 6. */
+		const object = {
+			who: 'wd',
+			greet() {
+				// 对象中的 方法使用时, this指向的是当前对象 object
+				console.log(this.who);
+			},
+			farewell: () => {
+				// 构造函数中的this 指向外层作用域对象; 当前对象为 object, 外层对象为 window	
+				console.log(this.who);
+			}
+		}	
+
+		object.greet(); // wd
+		object.farewell(); // undefined
+
+	/* 7 普通函数在对象中的方法中调用时 */
+		var length = 20;
+		function callback() {
+			console.log(this.length, 'length');
+		} 
+		const object2 = {
+			length: 10,
+			method(cback) {
+				// callback 作为普通函数 进行了 调用, this指向window
+				callback(); // 20
+				cback(); // 20
+
+				/** arguments 是伪数组对象结构, 得到的是本次函数调用传入的全部实参值
+					{
+						0: callback,
+						1: 1,
+						2: 2,
+						length: 3
+					}
+
+					因此: arguments[0]() => callback()是 arguments对象的 callback 方法调用
+						this 指向的是 arguments
+				 */
+				arguments[0](); // 3
+			}
+		}
+
+		object2.method(callback, 1, 2)
+
+
+
+</script>
+</body>
+</html>

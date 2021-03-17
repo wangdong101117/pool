@@ -20,9 +20,10 @@
 
 		4. 要使用的组件中:
 			require('echarts/extension/bmap/bmap')
+            https://passport.baidu.com/v2/?login&u=http%3A%2F%2Flbsyun.baidu.com%2Fapiconsole%2Fcustommap
 
 		5. 如果使用自定义图层: 有两种使用方式:
-			百度地图api中进行配置, 然后发布, 拿到 styleid, 并下载json文件
+			百度地图api中进行配置, 然后发布, 拿到 styleId, 并下载json文件
 
 				this.map_echart = this.$echarts.init(document.getElementById('map_echarts'));
 
@@ -68,7 +69,6 @@
 </script>
 <!-- 
 <template>
-    // 事件 只描述在 tootip 上面, 而不展示在echarts图表上
     <div id='map_echarts' style="width: 100%; height: calc(100% - 44px);"></div>
 </template>
 

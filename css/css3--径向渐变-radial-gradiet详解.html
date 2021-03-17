@@ -21,8 +21,13 @@
 			background: radial-gradient(circle 100px, red, yellow);
 		}
 
-		div:nth-child(4) {
+		/*div:nth-child(4) {
 			background: repeating-radial-gradient(circle 50px, #000, #fff);
+		}*/
+		.repeat-radial {
+			width: 400px;
+			height: 400px;
+			border-radius: 50%;
 		}
 	</style>
 </head>
@@ -45,6 +50,19 @@
 <div></div>
 <div></div>
 <div></div>
-<div></div>
+<div class="repeat-radial"></div>
+
+<script type="text/javascript">
+	/** 重复的径向渐变 - 动画效果, 通过设置定时器 更改 设置圆形的半径 */
+	let repeat_radial = document.querySelector('.repeat-radial');
+	let index = 50;
+	setInterval(() => {
+		index += 5;
+		if(index >= 100) {
+			index = 50
+		}
+		repeat_radial.style.background='repeating-radial-gradient(circle ' + index + 'px, transparent, #00a0e8)';
+	}, 100)
+</script>
 </body>
 </html>

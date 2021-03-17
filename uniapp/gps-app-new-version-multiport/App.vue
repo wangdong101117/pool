@@ -103,7 +103,7 @@
             console.log('App Launch')
         },
         onLoad() {
-            
+            uni.removeStorageSync()
         },
         onShow() {
             console.log('App Show')

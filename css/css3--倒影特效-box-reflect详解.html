@@ -1,32 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>css3-文字渐变</title>
-	<style type="text/css">
-		div	{
-			width: 400px;
-			height: 200px;
-			text-align: center;
-			line-height: 200px;
-			letter-spacing: 3px;
-			font-size: 5em;
-		}
-
-		div::after {  
-            content: attr(data-text);  
-            color: #FBEE00;  
-            position: absolute;  
-            left: 0;  
-            z-index: 2;
-            -webkit-mask-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#FBEE00), to(rgba(251,246,147,.6)));
-        }
-	</style>
+	<title>css3-倒影特效:box-reflect</title>
 </head>
 <body>
-	<!-- 
+<!-- 倒影特效: box-reflect
+		该属性有三个值: direction(方向) offset(反射偏移的距离) mask-box-image(定义遮罩对象)
 
+			- direction: 定义方向; 取值包括: 
+				= above: 指定倒影在对象的上边
+				= below: 指定倒影在对象的下边
+				= left: 指定倒影在对象的左边
+				= right: 指定倒影在对象的右边
 
-	 -->
-	<div data-text="文字渐变"></div>
+			- offset: 定义反射偏移的距离(对象与倒影的间隔), 可取值为数值/百分比; 百分比根据对象的尺寸进行确定, 默认为0; 数值/百分比可以为负值
+
+			- mask-box-image: 定义遮罩图像, 该图像将覆盖投影区域; 默认为无遮罩图像
+				- none: 默认值, 无遮罩图像
+				- 可使用绝对/相对地址指定遮罩图像
+				- 渐变(线性/径向)创建遮罩图像
+
+		-webkit-box-reflect: below 15px linear-gradient(transparent, #000005);
+ -->
 </body>
 </html>

@@ -16,7 +16,7 @@
                 </view>
                 <uni-combox label="所属组织:" :placeholder="select_oganization_name? select_oganization_name : '请选择所属组织'"
                     :s_id="refs[1]" :value="select_oganization_name" @sendValue="selectedOganization"
-                    v-model="select_oganization_name" codeType="tlt_organization" :ref="refs[1]"></uni-combox>            
+                    v-model="select_oganization_name" codeType="tlt_organization_available" :ref="refs[1]"></uni-combox>            
                 <uni-combox label="整车编号:" :placeholder="select_vehicle_id_name? select_vehicle_id_name : '请选择整车编号'"
                     :s_id="refs[2]" :value="select_vehicle_id_name" :region_code="region_code"
                     @sendValue="selectedVehicleID" v-model="select_vehicle_id_name" codeType="tlt_vehicle_in_region"

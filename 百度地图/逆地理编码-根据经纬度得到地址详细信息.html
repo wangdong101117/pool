@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+    <!-- 
+		http://lbsyun.baidu.com/index.php?title=webapi/guide/webservice-geocoding-abroad
+	
+				uni.request({
+                    url: "http://api.map.baidu.com/reverse_geocoding/v3/",
+                    data: {
+                        "location": `${getApp().globalData.latitude},${getApp().globalData.longitude}`,
+                        "coord_type": "gcj02",
+                        "output": "json",
+                        "ak": 'dggF6wyVwUwsaXbn6GWRb1wqLZHwK40y'
+                    },
+                    dataType: 'json',
+                    success: (data) => {
+                        console.log(data, '反向解码经纬度, 获取位置信息')
+                        if (data.status == "OK") {
+                            // operator_position = data.result.formatted_address;
+                        }
+                    },
+                    fail: (xhr, type, errorThrown) => {
+                        //异常处理；
+                         // plus.runtime.restart();
+                    },
+                    type: 'GET'
+                })
+
+		{
+		    "data": {
+		        "status": 0,
+		        "result": {
+		            "location": {
+		                "lng": 116.31738799999992,
+		                "lat": 40.066552064014616
+		            },
+		            "formatted_address": "北京市海淀区龙域南街",
+		            "business": "回龙观,西二旗,上地",
+		            "addressComponent": {
+		                "country": "中国",
+		                "country_code": 0,
+		                "country_code_iso": "CHN",
+		                "country_code_iso2": "CN",
+		                "province": "北京市",
+		                "city": "北京市",
+		                "city_level": 2,
+		                "district": "海淀区",
+		                "town": "",
+		                "town_code": "",
+		                "adcode": "110108",
+		                "street": "龙域南街",
+		                "street_number": "",
+		                "direction": "",
+		                "distance": ""
+		            },
+		            "pois": [],
+		            "roads": [],
+		            "poiRegions": [],
+		            "sematic_description": "",
+		            "cityCode": 131
+		        }
+		    },
+		    "statusCode": 200,
+		    "header": {
+		        "Content-Type": "text/javascript;charset=utf-8",
+		        "Http_x_bd_product": "map",
+		        "Expires": "Fri, 12 Mar 2021 07:58:39 GMT",
+		        "Http_x_bd_logid64": "3519426390517308426",
+		        "Http_x_bd_subsys": "apimap",
+		        "Connection": "keep-alive",
+		        "Http_x_bd_logid": "3519426938",
+		        "Server": "apache",
+		        "Date": "Thu, 11 Mar 2021 07:58:39 GMT",
+		        "Cache-Control": "max-age=86400"
+		    },
+		    "errMsg": "request:ok",
+		    "cookies": []
+		}
+	 -->
+    </body>
+</html>
+正常: 
+开关风
+<!-- 锁车/解锁 -->
+故障
+失联
+温度报警
+故障报警
+
+自定开关风: 点击后出现曲阳, 以地区区别: 某个地区, 一年中, 没
