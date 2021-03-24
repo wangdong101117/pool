@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>echarts-旭日图配置</title>
+</head>
+<body>
+<!-- 
+	echarts_sunburst_option: {
+        tooltip : {
+            trigger: 'item',
+            backgroundColor: 'rgba(50,50,50,0.8)',
+            padding: 12,
+            formatter: function (param) {
+                var depth = param.treePathInfo.length;
+                if (depth === 2) {
+                    return param.treePathInfo[depth - 1].name + '：' + param.treePathInfo[depth - 1].value
+                } else if (depth === 3) {
+                    return param.treePathInfo[depth - 2].name + ' - ' + param.treePathInfo[depth - 1].name + '：' + param.treePathInfo[depth - 1].value
+                } else if (depth === 4) {
+                    return param.treePathInfo[depth - 2].name + ' - ' + param.treePathInfo[depth - 1].name + '：' + param.treePathInfo[depth - 1].value
+                } else if (depth === 1) {
+                    return '主要农作物' + param.treePathInfo[depth - 1].value
+                 }
+            }
+        },
+        graphic: [ //环形图中间添加文字
+            {　　　　　　　　　　　　　　　　
+                type: 'text',
+                left: '47%',　　　　　　　　　　
+                top: '49%', //通过不同top值可以设置上下显示
+                style: {　　　　　　　　　　　　　　　　
+                    text: '5000', //（自己设置显示内容）,
+                    textAlign: 'center',
+                    fill: '#fff', //文字的颜色
+                    fontSize: 16,
+                    fontWeight: 700,
+                    fontFamily: "Microsoft YaHei"
+                }
+            },
+        ],
+        calculable: true,
+        // color: ['#1cbb8e','#d12c32','#d28223','#5988fe'], // 自定义圆环颜色
+        series: [
+            {
+                name: '',
+                type: 'sunburst', // 旭日图
+                radius: ['25%', '90%'], // 半径
+                center: ['50%', '50%'], // 圆心位置
+                label: {
+                    rotate: 'radial',
+                	minAngle: 3
+                },
+                data: [],
+                nodeClick: false, // 点击每个部分不触发下钻效果
+                levels: [{
+                    r0: 0,
+                    r: 40,
+                }, {
+                    r0: 40,
+                    r: 90,
+                    label: {
+                        rotate: '0'
+                    }
+                }, {
+                    r0: 90,
+                    r: 220
+                }, {
+                    r0: 220,
+                    r: 300,
+                	itemStyle: {
+                        shadowBlur: 2,
+                        // shadowColor: colors[2],
+                        // color: 'transparent'
+                	},
+                    label: {
+                        rotate: 'tangential',
+                        fontSize: 10,
+                        // color: colors[0]
+                    }
+                }]
+                // itemStyle: {
+                //  	normal: {
+                //  		label: {
+                //   			show: false
+                //   		},
+                //         	labelLine: {
+                //             	show: false
+                //         	}
+                //     },
+                //     emphasis: {
+                //         label: {
+                //             show: false,
+                //             position: 'center',
+                //             textStyle: {
+                //                 fontSize: '30',
+                //                 fontWeight: 'bold'
+                //             }
+                //         }
+                //     }
+                // },
+            }
+        ]
+    }
+ -->
+</body>
+</html>

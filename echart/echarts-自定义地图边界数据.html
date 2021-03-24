@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>自定义地图边界数据</title>
+</head>
+<body>
+<!-- 
+	不使用百度地图, 而是使用 geoJson 文件 自定义地图:
+
+	<template>
+	    <div style="width: 100%; height: 100%;">
+	        <div id='map-echarts' style="width: 100%; height: 100%;"></div>
+	    </div>    
+	</template>
+
+	<script>
+	import axios from 'axios';
+
+	export default {
+	    data() {
+	        return {
+	            can_resize: true,
+	            map_echart: null,
+	            // 设备状态 echarts 配置项
+	            option: {
+	                visualMap: {
+	                    show: false,
+	                    type: 'piecewise',
+	                    pieces: [
+	                        {
+	                            min: 1,
+	                            color: '#ff9900'
+	                        }
+	                        // {min:0,max: 2000},
+	                        // {max:100}// 不指定 min，表示 min 为无限大（-Infinity）。
+	                    ],
+	                    color: '#fff',
+	                    textStyle: {
+	                        color: '#fff',
+	                    },
+	                    showLabel: true,
+	                    right: '5%',
+	                    bottom: '10%',
+	                    // top: 'bottom',
+	                    // text: ['数量关系'], // 文本，默认为数值文本
+	                    calculable: true,
+	                    // inRange: {
+	                    //     color: ['white','#1488CC', '#2B32B2'] // 浅蓝
+	                    // },
+	                    visibility: 'off'
+	                },
+	                // 如果是 3D 地图, 需要配置 geo, 相当于 是两个图层
+	                // geo: {
+	                //     show: true,
+	                //     map: 'chinacity',
+	                //     aspectScale: 0.75,
+	                //     label: {
+	                //         emphasis: {
+	                //             show: false
+	                //         }
+	                //     },
+	                //     regions: [
+	                //         {
+	                //         name: "南海诸岛",
+	                //         value: 0,
+	                //         itemStyle: {
+	                //             normal: {
+	                //             opacity: 0,
+	                //             label: {
+	                //                 show: false
+	                //             }
+	                //             }
+	                //         }
+	                //         }
+	                //     ],
+	                //     itemStyle: {
+	                //         normal: {
+	                //             borderColor: 'rgba(147, 235, 248, 0)',
+	                //             borderWidth: 0.5,
+	                //             areaColor: {
+	                //                 x: 1000,
+	                //                 y: 1000,
+	                //                 x2: 1000,
+	                //                 y2: 0,
+	                //                 colorStops: [{
+	                //                     offset: 0,
+	                //                     color: '#69c5d8' // 0% 处的颜色
+	                //                 }, {
+	                //                     offset: 1,
+	                //                     color: '#126caf' // 50% 处的颜色
+	                //                 }],
+	                //                 global: true // 缺省为 false
+	                //             },
+	                //             opacity:1,
+	                //         },
+	                //         emphasis: {
+	                //             show:false,
+	                //             areaColor: '#69c5d8'
+	                //         }
+	                //     },
+	                //     z: 2
+	                // },
+	                tooltip: {
+	                    trigger: 'item',
+	                    formatter: '{b}'
+	                },
+	                series: [{
+	                        name: '',
+	                        type: 'map',
+	                        // aspectScale: 0.75,
+	                        mapType: 'chinacity',
+	                        label: {
+	                            normal: {
+	                                show: false,
+	                                color: '#fff'
+	                            }
+	                        },
+	                        roam: true,
+	                        // itemStyle: {
+	                        //     normal: {
+	                        //         borderColor: 'rgba(147, 235, 248, 1)',
+	                        //         borderWidth: 1,
+	                        //         areaColor: {
+	                        //             type: 'radial',
+	                        //             x: 0.5,
+	                        //             y: 0.5,
+	                        //             r: 0.8,
+	                        //             colorStops: [{
+	                        //                 offset: 0,
+	                        //                 color: 'rgba(147, 235, 248, 0)' // 0% 处的颜色
+	                        //             }, {
+	                        //                 offset: 1,
+	                        //                 color: 'rgba(147, 235, 248, .2)' // 100% 处的颜色
+	                        //             }],
+	                        //             globalCoord: false // 缺省为 false
+	                        //         },
+	                        //         shadowColor: 'rgba(128, 217, 248, 1)',
+	                        //         // shadowColor: 'rgba(255, 255, 255, 1)',
+	                        //         shadowOffsetX: -2,
+	                        //         shadowOffsetY: 2,
+	                        //         shadowBlur: 8
+	                        //     },
+	                        //     emphasis: {
+	                        //         areaColor: '#389BB7',
+	                        //         borderWidth: 0
+	                        //     }
+	                        // },
+	                        itemStyle: {
+	                            normal: {
+	                                areaColor: 'rgb(10,60,83)',
+	                                borderColor: 'rgba(0,243,255,0.4)',
+	                                borderWidth: 1.2
+	                            },
+	                            emphasis: {
+	                                areaColor: 'rgb(10,60,83)',
+	                                label: {
+	                                    color: "#fff"
+	                                }
+
+	                            }
+	                        },
+	                        zoom: 1.2,
+	                        zlevel: 1,
+	                        data: [{
+	                            name: '潍坊',
+	                            value: 2
+	                        },{
+	                            name: '保定',
+	                            value: 2
+	                        },{
+	                            name: '北京',
+	                            value: 2
+	                        },{
+	                            name: '大连',
+	                            value: 2
+	                        },
+	                        {
+	                            name: '包头',
+	                            value: 2
+	                        },{
+	                            name: '榆林',
+	                            value: 2
+	                        },{
+	                            name: '济宁',
+	                            value: 2
+	                        },
+	                        {
+	                            name: '赤峰',
+	                            value: 2
+	                        },{
+	                            name: '长春',
+	                            value: 2
+	                        }]
+	                    }
+	                ]
+	            }
+	        }
+	    },
+	    methods: {
+	        /** echarts自适应 */
+	        echartsResize() {
+	            this.map_echart.resize();
+	        },
+	        /** 加载地图数据: 设备经纬度/状态 */
+	        loadMapData() {
+	            var cityname = [];
+	            axios.get('https://unpkg.com/echarts@3.6.2/map/json/china-cities.json').then(json => {
+	                // this.map_echart.hideLoading();
+
+	                console.log(json, '8888888888888')
+
+	                this.$echarts.registerMap('chinacity', json.data); // 注册china-cities以便下面的map使用
+	                var mapFeatures = this.$echarts.getMap('chinacity').geoJson.features;
+	                mapFeatures.forEach(function(v) {
+	                    // 地区名称
+	                    var name = v.properties.name;
+	                    cityname.push(name)
+	                });
+
+	                this.map_echart.setOption(this.option);
+	            })
+	        }
+	    },
+	    mounted() {
+	        this.map_echart = this.$echarts.init(document.getElementById('map-echarts'));
+	        this.loadMapData();
+	        // window.addEventListener('resize', this.echartsResize);
+	        const resizeObserver = new ResizeObserver(() => {
+	            if (!this.can_resize) {
+	                return
+	            }
+	            this.can_resize = false;
+	            setTimeout(() => {
+	                this.echartsResize(); // 注意这里需要在这里执行，因为如果你有transition的话需要在transition之后再执行
+	                this.can_resize = true;
+	            }, 300)
+	        })
+	        resizeObserver.observe(document.getElementById('map-echarts'));
+	        // this.map_echart.on('georoam', (params) => {
+	        //     var option = this.map_echart.getOption(); //获得option对象
+	        //     if (params.zoom != null && params.zoom != undefined) { //捕捉到缩放时
+	        //         option.geo[0].zoom = option.series[0].zoom; //下层geo的缩放等级跟着上层的geo一起改变
+	        //         option.geo[0].center = option.series[0].center; //下层的geo的中心位置随着上层geo一起改变
+	        //     } else { //捕捉到拖曳时
+	        //         option.geo[0].center = option.series[0].center; //下层的geo的中心位置随着上层geo一起改变
+	        //     }
+	        //     this.map_echart.setOption(option); //设置option
+	        // });
+	    }
+	}
+	</script>
+
+	<style>
+	    /* 隐藏左下角百度地图标志 */
+	    .anchorBL {
+	        display: none !important;
+	    }
+	</style>
+	<style scoped lang="less">
+	    .map-popup {
+	        // height: calc(~"100% - 80px");
+	        height: 100%;
+	        width: 100%;
+	        position: absolute;
+	        bottom: 0;
+	        left: 0;
+	        background: #131f39;
+	        z-index: 990;
+	    }
+	</style>
+
+ -->
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>隐藏滚动条的方式</title>
+</head>
+<body>
+<!-- 
+	1. 给存在滚动条的容器设置: margin-right: -18px;
+
+	2. 利用css3新属性: 有兼容性
+		给存在滚动条的容器设置: 
+			.box {
+				// 滚动条整体部分
+				&::-webkit-scrollbar{
+	                width: 0;
+	            }
+
+	            // 滚动条的轨道, 里面包含 thumb
+	            &::-webkit-scrollbar-track{
+	                background-color: transparent;
+	            }
+
+	            // 滚动条里的小方块
+	            &::-webkit-scrollbar-thumb{
+	                background: #e8eaec;
+	            }
+			}
+
+			其他的相关属性:
+				::-webkit-scrollbar-button 滚动条的轨道的两端按钮，允许通过点击微调小方块的位置。
+				::-webkit-scrollbar-track-piece 内层轨道，滚动条中间部分（除去）
+				::-webkit-scrollbar-corner 边角，即两个滚动条的交汇处
+				::-webkit-resizer 两个滚动条的交汇处上用于通过拖动调整元素大小的小控件
+
+	3. 设置一个容器, 覆盖在 滚动条上		
+ -->
+</body>
+</html>
