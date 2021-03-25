@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>构造函数</title>
+</head>
+<body>
+<script type="text/javascript">
+	function Create(name, age) {
+		this.name = name;
+		this.age = age;
+	}
+	var user = new Create('wd', 25);
+	/* prototype 属性:
+			- 每个函数都有一个属性: prototype, 值为对象
+			- 该属性是给构造函数使用的, 其他函数并不使用这个属性
+			- 作用: 保存构造函数中所有需要共用的方法
+
+		== 实例对象 可使用 原型对象中方法的 原因::
+			- 观察可知: 实例对象具有一个 __proto__ 属性, 这是 new 给实例对象设置的
+			- 比较发现: 实例对象的 __proto__ 属性与 构造函数的prototype 实际上是 同一个对象
+				=> 即: 实例对象的 __proto__ 属性指向的是 原型对象
+
+				console.log(user.__proto__ === Create.prototype); // true
+
+			** 对象的属性访问关系: 
+				- 首先找到自身, 如果自身存在要使用的属性, 使用;
+				- 如果没找到, 查找 __proto__ 属性, 如果存在, 使用		
+	 */
+	
+	/* constructor 属性:
+		= constructor: 构造器, 指向构造函数本身
+			- 该属性是给通过构造函数创建的实例对象准备的
+			- 用来描述构造函数和实例对象之间关系的一种方式 
+	 */	
+	
+	/* 构造函数、 原型对象、 实例对象 三者关系
+
+		- 实例对象:
+			通过构造函数 new 创建的对象就是实例对象
+				= 每个实例对象都有一个 __proto__ 属性, 指向构造函数的原型对象
+					* user.__proto__ === Create.prototype
+
+				= 具有 constructor 属性, 指向构造函数, 用来描述实例对象与构造函数直接的关系(该实例对象是由哪个构造函数创建的)
+					* user.constructor === Create
+		
+		- 构造函数:
+			用来创建实例对象(通过new)
+				= 都具有 prototype属性 => 原型对象, 只有构造函数使用 prototype 属性
+
+
+		- 原型对象: 
+			= 每个原型对象都具有一个 constructor属性, 但这个属性实际上是给实例对象使用的
+				* Create.prototype.constructor === Create
+				* 一般不会这样使用, 没实际意义
+				* 但: Create.prototype !== user
+			
+			= 在原型对象中设置的方法, 都可被构造函数创建的实例对象使用
+	 */
+	
+	/* 原型链概念: 
+		-- 用于描述实例对象和原型对象之间关系的一种方式; 同时也是给对象的属性提供的访问方式
+			= 对象属性的访问方式: 沿原型链向上查找
+				* 先查找自身, 如果自身具有属性, 就使用, 如果没有, 查找 __proto__
+				* 原型链的终点: Object.prototype
+					console.log(Object.prototype); => null 
+	 */
+</script>
+</body>
+</html>

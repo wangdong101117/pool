@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<!-- 
+	js的异步有一个机制: 遇到宏任务先执行宏任务, 将宏任务放入eventqueue中, 然后再执行微任务, 将微任务放入eventqueue中, 但这两个eventqueue不是同一个, 当你往外拿到的时候先从微任务里面拿这个回调函数 然后再从宏任务的eventqueue中拿宏任务的回调函数
+
+		宏任务: 整体代码的script 定时器
+		微任务: Promise process.nextTick
+
+		setTimeout(function() {
+			consoe.log(1)
+		})
+		new Promise((resolve) => {
+			console.log(2)
+			resolve()
+		}).then(() => {
+			console.log(3)
+		})
+		console.log(4)
+
+		// 结果是 2 4 3 1
+
+		.. 因为setTimeout是宏任务, 被放入到事件队列中, Promise的then()是微任务, 也放入到事件队列中, 先执行主线程的代码, 分别是 2 4 然后从微任务的事件队列中拿回调函数 输出3 微任务执行完后从宏任务的事件队列里面执行回调函数 输出1
+ -->
+</body>
+</html>

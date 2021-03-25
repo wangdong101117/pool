@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>样式的获取操作</title>
+	<style type="text/css">
+		.box {
+			height: 100px;
+			background: #00a0e8;
+		}
+	</style>
+</head>
+<body>
+<div class="box" style="width: 100px;"></div>	
+<script type="text/javascript">
+	/** 
+	 	样式的获取操作方式: 使用style属性
+	 		document.querySelector('.box').style.width
+			- 说明: 使用style属性不仅仅可以设置样式, 还可进行样式的获取
+				= 使用style属性只能获取到行内样式
+				= 使用style属性进行非行内样式的获取操作, 得到的是空字符串
+	 */
+	let box = document.queryselector('.box')
+	let box_width = box.style.width; // '100px'
+	let box_height = box.style.height; // '' 空字符串
+	
+	/** 
+	 	currentStyle属性 与 getComputedStyle方法
+			- 两者都是获取操作, 获取元素生效的样式
+			- currentStyle 属性是 ie 推出的, 在其他浏览器中不支持
+			- getComputedStyle() 在 ie9以下不支持
+	 */
+	// 兼容性处理, 属性的检测方式更加稳定, 对currentStyle进行检测
+	// typeof 检测数据类型, 得到的是 字符串形式的 数据类型名称
+	if (typeof box.currentStyle !== 'undefined') {
+		console.log(box.currentStyle.height);
+	} else {
+		console.log(getComputedStyle(box).height);
+	}
+</script>
+</body>
+</html>
