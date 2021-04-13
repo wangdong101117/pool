@@ -1,0 +1,17 @@
+主要是因为 initRouter.js 动态路由 初始化文件导致出现的问题:
+	initRouter() 会在: 
+		1. 入口文件 main.js 的 mounted 钩子中 判断 token 之后调用
+			- 说明: 项目启动时(页面打开及页面刷新时)都会执行 入口文件 main.js
+		2. 登录成功后 进行调用, 并进行重定向
+
+	对该问题未更改前:
+		initRouter.js 中 initRouter方法中:
+			- 因为 initRouter()只有在登录时 以及 main.js的mounted钩子函数中, 判断了token之后调用(登录后), 所以, 配置完路由对象以及侧边菜单后, 刷新页面重定向到首页
+	        if (!store.state.admin.layout.isMobile) {
+	            router.replace('/');
+	        }	  
+
+	- 问题更改:
+	        问题不能每次调用该方法都重定向, 而是在登录成功后进行重定向, 直接去掉这几行代码
+
+

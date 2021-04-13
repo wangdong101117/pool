@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<!-- 引用 React HTML 模板, 这三个js文件需要先加载
+		react.js 是 React 的核心库
+		react-dom.js 是 提供与 DOM 相关的功能
+		babel.js 是将 JSX 语法转为 JS 语法, 这一步很耗时间, 实际上线的时候, 应该将它放在服务器完成
+	 -->
+	<script src="./build/react.development.js"></script>
+    <script src="./build/react-dom.development.js"></script>
+    <script src="./build/babel.min.js"></script>
+</head>
+<body>
+	<!-- React可以在浏览器中运行, 也可以在服务器运行 -->
+	<!-- 使用babel src --out-dir build 可将 src子目录的 js 文件进行语法转换, 转码后的文件放在build下 -->
+	<div id="example"></div>
+
+
+	<!-- type属性为: text/babel; 
+			这是因为 React独有的 JSX 语法, 跟JS不兼容, 凡是使用 JSX 的地方, 都有加上 type="text/babel"
+	-->
+	<script type="text/babel">
+		{/*
+			ReactDOM.render(): 
+				是 React 的最基本方法, 用于将模板转为 HTML 语言, 并插入指定的DOM节点	
+		 */}
+		ReactDOM.render(
+			<h1>学习React</h1>,
+			document.getElementById('example')
+		)
+
+		{/* JSX语法:
+				HTML语言直接写在 JS 语言中, 不加任何引号, 这就是 JSX 语法, 它允许 HTML 与 JS 混写
+		 */}
+		ReactDOM.render(
+			<div>
+				{
+					
+				}
+			</div>
+		)
+
+	</script>
+<!-- 
+	4. JSX语法: 
+		- HTML语言直接写在JavaScript语言中, 不加任何引号, 这就是 JSX 语法, 它允许 HTML 与 JavaScript 混写(demo2)
+
+		var names = ['微信', 'QQ', '抖音'];
+
+		ReactDOM.render(
+			<div>
+			{
+				names.map(function (item) {
+					return <div>手机中有: {item}这些软件</div>
+				})
+			}
+			</div>,
+			document.getElementById('example')
+		);
+
+		- 上面代码体现了 JSX 的基本语法规则:
+			-- 遇到HTML标签(以 < 开头的), 就用 HTML 规则解析
+			-- 遇到代码块(以 { 开头的), 就用 JavaScript 规则解析
+
+		- JSX 允许直接在模板插入 JavaScript 变量, 如果该变量是一个数组, 则会展开这个数组的所有元素(demo3)
+			var arr = [
+				<h1>h1标签内容</h1>
+				<h2>h2标签内容</h2>
+			];
+
+			ReactDOM.render(
+				<div>{arr}</div>,
+				document.getElementById('example')
+			);	
+
+			-- 上面代码中 arr 是一个数组, JSX 会将它的所有成员, 添加到模板中:
+				--- 即 id为 example的 div标签内 存在一个 h1标签和 h2标签
+
+	5. 组件: (demo4)
+		- React 允许将代码封装为 组件(component), 然后像插入普通 HTML标签一样, 在网页中插入这个组件
+		- React.createClass() 就是用于生成一个组件类
+			
+			var HelloMessage = React.createClass({
+				render: function () {
+					return <h1>Hello {this.props.name}</h1>
+				}
+			});
+
+			ReactDOM.render(
+				<HelloMessage name="王东" />,
+				document.getElementById('example')
+			);
+
+			-- 上面代码中, 变量 HelloMessage 就是一个组件类, 模板插入 <HelloMessage /> 时, 会自动生成 HelloMessage 的一个实例(组件其实就是指组件类的实例)
+			-- 所有的组件类都必须有自己的 render 方法, 用于输入组件
+		
+		* 注意:
+			** 组件类的第一个字母必须大写, 否则会报错, 如: HelloMessage 不能写成 helloMessage
+			** 组件类只能包含一个顶层标签, 否则也会报错
+			
+			var HelloMessage = React.createClass({
+				render: function () {
+					return <h1></h1><p></p>;
+				}
+			})
+			
+			- 上面代码就会报错, 因为 组件中包含了 两个顶层标签 h1 和 p
+
+		- 组件的用法与原声的 HTML 标签完全一致, 可以任意加入属性
+			- 例如: <helloMessage name="王东" /> 就是 HelloMessage 组件加入了一个 name 属性, 值为 王东
+
+			- 组件的属性 可以在 组件类的 this.props 对象上获取, 比如 name 属性就可通过 this.props.name 读取
+
+			- 添加组件属性, 有一个地方需要注意: 为了区别于 JavaScript 的保留字 
+				-- class 属性需要写成 className
+				-- for 属性需要写成 htmlFor
+
+	6. this.props.children(demo5)
+		- this.props 对象的属性与组件的属性一一对应, 但是有一个例外, 就是 this.props.children属性
+		- this.props.children属性 表示所有的子节点			
+
+		var NodeList = React.createClass({
+			render: function () {
+				return (
+					<ol>
+					{
+						react.Children.map(this.props.children, function (child) {
+							return <li>{child}</li>;			
+						})
+					}
+					</ol>
+				);
+			}
+		});
+
+		ReactDOM.render(
+			<NodeList>
+				<span>hello</span>
+				<span>world</span>
+			</NodeList>,
+			document.body
+		)
+		
+		- 上面代码的 NodeList 组件有两个 span 子节点, 他们都可以通过 this.props.children 读取
+		- 这里需要注意:
+			-- this.props.children 的值有三种可能:
+				--- 如果当前组件没有子节点, 它就是 undefined
+				--- 如果有一个子节点, 数据类型为 object
+				--- 如果有多个子节点, 数据类型就是 array
+
+		- React 提供一个工具方法 React.Children 来处理 this.props.children, 我们可以用 React.children.map 来遍历子节点, 而不用担心 this.props.children 的数据类型为 undefined还是 object				
+
+	- 7. PropTypes (demo6)
+		- 组件的属性可以接受任意值: 字符串 / 对象 / 函数等都可以, 有时候我们需要一种机制, 验证别人使用组件时, 提供的参数时候符合要求
+
+		- 组件类的 PropTypes 属性就是用来验证 组件实例的属性是否符合要求	
+
+			var MyTitle = react.createClass({
+				propTypes: {
+					title: React.PropTypes.string.isRequired,
+				},
+
+				render: function () {
+					return <h1> {this.props.title} </h1>;
+				}
+			});
+
+		上面的 MyTitle 组件有一个 title 属性, PropTypes 告诉 React, 这个 title 属性是必须的, 而且它的值必须是字符串, 现在, 我们设置 title 属性的值是一个数值
+
+			var data = 123;
+
+			ReactDOM.render(
+				<MyTitle title={data} />,
+				document.body
+			)
+
+		这样一来, title的属性就不能通过 验证了, 控制台会报错, 更多的 PropTypes 设置 可查看官网文档
+		
+		- 另外, getDefaultProps() 可用来设置组件属性的默认值
+
+			var MyTitle = React.createClass({
+				getDefaultProps: function () {
+					return {
+						title: 'hello world'
+					};
+				},
+
+				render: function () {
+					return <h1> {this.props.title} </h1>;
+				}
+			});
+
+			ReactDOM.render(
+				<MyTitle />,
+				document.body
+			);
+
+	8. 获取真实的DOM节点: ref 属性 (demo7)
+		- 说明: 组件并不是真实的 DOM 节点, 而是存在于内存之中的一种数据结构: 虚拟 DOM,只有当它插入文档之后, 才会变为真实的 DOM, 根据React的设计, 所有的 DOM 变动, 都会现在虚拟 DOM 上发生, 然后再将实际发生变动的部分, 反映在真实的 DOM 上, 这种算法叫做 DOM diff, 这可以极大的提高网页的性能表现
+
+		- 但是, 有时需要从组件上获取真实的 DOM 节点 这时需要用到 ref 属性		
+
+			var MyComponent = React.createClass({
+				handleClick: function () {
+					this.refs.myTextInput.focus()
+				},
+				render: function () {
+					return (
+						<div>
+							<input type="text" name="" ref="myTextInput">
+							<input type="button" value="点击按钮,输入框获取焦点" onClick={this.handleClick}>
+						</div>
+					);
+				}
+			});
+
+			ReactDOM.render(
+				<MyComponent />,
+				document.getElementById('example')
+			);	
+
+			- 上面的代码中, 组件的 MyComponent 的子节点 有一个文本输入框, 用于获取用户的输入, 这时就必须获取真实的 DOM 节点, 虚拟 DOM 是拿不到用户输入的, 文本输入框必须有一个 ref 属性, 然后 this.refs.refName 就会返回这个真实的 DOM 节点
+
+			- 需要注意的是, 由于 this.refs.refName 属性获取的是真实的DOM, 所以必须等到虚拟 DOM 插入文档以后, 才能使用这个属性, 否则会报错
+
+			- 上面代码中, 通过组件指定 Click 事件的回调函数, 确保了只有等到真实 DOM 发送 Click 事件之后, 才会读取 this.refs.refName 属性
+
+			React组件支持很多事件, 除了 Click 事件以外, 还有 KeyDown Copy Scroll 等, 可查看官网
+
+	9. this.state (demo8)
+		- 组件免不了要与用户互动, React 的一大创新就是将组件看成是一个状态, 一开始有一个初始状态, 然后用户互动, 导致状态变化, 从而触发重新渲染 UI
+
+			var LikeButton = React.createClass({
+				getStartState: function () {
+					return: {liked: false};
+				},
+				handleClick: function (event) {
+					this.setState({liked: !this.state.liked});
+				},
+
+				render: function () {
+					var text = this.state.liked? 'like' : 'noLiked';
+					return(
+						<p onClick={this.handleClick}>
+							切换{text}
+						</p>
+					);
+				}
+			});
+			ReactDOM.render(
+				<LikeButton />,
+				document.getElementById('example')
+			);	
+
+		- 上面代码是一个 LikeButton 组件, 它的 getStartState() 用于定义初始状态, 也就是一个对象, 该对象可通过 this.state 属性读取, 当用户点击组件, 导致状态变化, this.setstate() 修改状态值, 每次修改后, 自动调用 this.render() 再次渲染组件	
+
+	10. 表单: (demo9)
+		用户在表单填入内容, 输入用户跟组件的互动, 所以不能用this.props进行读取
+
+			var Input = React.createClass({
+				getStartState: function () {
+					return {value: 'hello'};
+				},
+				handleChange: function (event) {
+					this.setState({value: event.target.value});
+				},
+				render: function () {
+					var value = this.state.value;
+					return (
+						<div>
+							<input type="text" name="" value={value} onChange={this.handleChange} />
+							<p>{value}</p>
+						</div>
+					);
+				}
+			});
+
+			ReactDOM.render(
+				<Input />,
+				document.body
+			);
+
+		- 上面的代码中, 文本输入框的值, 不能用 this.props.value读取, 而是定义一个 onChange 事件的回调函数, 通过 event.target.value 读取用户输入的值
+			-- textarea元素 select元素 / radio元素都属于这种情况	
+ -->
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script src="./build/react.development.js"></script>
+    <script src="./build/react-dom.development.js"></script>
+    <script src="./build/babel.min.js"></script>
+</head>
+<body>
+<!-- 
+	JSX 语法学习: 
+		- JSX 是 React 的核心组成部分, 它使用 XML 标记的方式去直接声明界面, 界面组件之间可相互嵌套; 可以理解为在 JS 中编写与 XML 类似的语言, 是一种定义带属性的树状结构(DOM结构)的语法, 他的目的不是要在浏览器或者引擎中实现, 而是通过各种编译器将这些标记编译成标准的 JS 语言
+
+		- 虽然你可以完全不使用 JSX 语法, 只使用 JS 语法, 但还是推荐使用 JSX, 可定义包含属性的树状结构的语法, 类似 HTML 标签那样使用, 而且更便于代码的阅读
+
+		- 使用 JSX 语法后, 你必须要引入 babel 的 JSX解析器, 把 JSX 转为 JS 语法, 这个工作会由 babel 自动完成, 同时引入 babel 后, 你就可使用新的 ES6 语法, babel 会帮你将 ES6 语法转为 ES5 语法, 兼容更多的浏览器 
+ -->
+	<div id="example1"></div>
+	<div id="example2"></div>
+	<div id="example3"></div>
+	<div id="example4"></div>
+	<!-- 
+		下面示例中: <h1>学习JSX语法</h1> 就使用了 JSX 语法
+			HTML 语言直接写在 JS 语言中, 不加任何引号, 这就是 JSX 语法, 它允许 HTML 与 JS 的混写
+	 -->
+ 	<script type="text/babel">
+ 		ReactDOM.render(
+ 			<h1>学习JSX语法</h1>,
+ 			document.getElementById('example1')
+ 		)
+ 	</script>
+
+ 	<!-- JSX 的特点:
+		1. 类 XML 语法容易接受, 结构清晰
+		2. 增强 JS 语义
+		3. 抽象程度高, 屏蔽 DOM 操作, 跨平台
+		4. 代码模块化
+ 	 -->
+ 	<!-- JSX 基本语法规则:
+ 		JSX 本身就和 XMl 语法类似, 可定义属性及子元素; 唯一特殊的是:
+ 			用 大括号{} 来加入 JS 表达式; 遇到HTML标签(以 < 开头), 就用 HTML 规则解析; 遇到代码块(以 { 开头), 就用 JS 规则解析
+
+ 	 -->
+ 	<script type="text/babel">
+ 	 	var arr = [
+		 	<h2> JSX 特点 </h2>,
+		 	<h3> JSX 基本语法规则 </h3>
+		];
+		ReactDOM.render(
+			<div>{arr}</div>,
+			document.getElementById('example2')
+		);
+ 	</script>
+
+ 	<!-- React 组件 
+		我们使用 JSX 来将代码封装成 React 组件, 然后像插入普通 HTML 标签一样, 在其他地方插入这个组件, 使用 React.Component(16.0版本之后已经废除了React.createClass()) 用于生成一个组件;
+
+			- 在 react 中通常约定 组件类的第一个字母必须大写, html标签都是小写
+			- 组件类只能包含一个顶级标签 
+
+			- MyComponent 是一个组件类, 在模板中 插入时, 会自动生成 MyComponent的一个实例(组件), 所有的组件类都必须有自己的 render 方法, 用于输出组件
+
+			- MySecondComponent 实现一个 动态组件
+ 	 -->
+ 	<script type="text/babel">
+ 		class MyComponent extends React.Component{
+	 		render() {
+	 			return <div>React 组件</div>;
+	 		}
+	 	}
+	 	ReactDOM.render(
+	 		<MyComponent />,
+	 		document.getElementById('example3')
+	 	) 	
+
+	 	class MySecondComponent extends React.Component{
+	 		getNumber: function() {
+	 			return number;
+	 		},
+	 		changeNumber: function() {
+	 			var num = this.state.number;
+	 			num++;
+	 			this.setState({number: num});
+	 		},
+	 		render: function() {
+	 			return (
+	 				<div>
+	 					<p onClick={this.changeNumber}>{this.props.username}</p>
+	 					<p style={{color: 'red'}}>点击{this.props.name}次数:{this.state.number}</p>	
+	 				</div>
+	 			)
+	 		}
+	 	}
+	 	ReactDOM.render(
+	 		<div>
+	 			<MySecondComponent name="张三" />
+	 			<MySecondComponent name="李四" />
+	 		</div>,
+	 		document.getElementById('example4')
+	 	);
+ 	</script>
+
+ 	<!-- JSX 中的 props
+ 		指定 JSX 中的 props 有以下几种方式:
+ 			<1>使用 JS 表达式
+				= 任何有效的 JS 表达式都可以作为 prop 的值, 使用时将该表达式放到一对大括号中:
+
+					<MyComponent foo={1+2+3} />
+			
+			<2>使用字符串
+				= 字符串可作为 prop 值, 下面的代码是等价的:
+					<MyComponent message="hello world" />
+					<MyComponent message="{'hello world'}" />
+
+			<3>使用扩展运算符
+				= 如果想将一个 props 对象传入 JSX, 可使用扩展运算符(...) 直接将 整个prop对象传入
+
+				function App1() {
+					return <User firstUser="zs" lastUser="ls" />
+				}		 
+
+				function App2() {
+					const props = {firstUser: 'zs', lastUser: 'ls'};
+					return <User {...props} />;
+				}
+ 	 -->
+
+ 	<!-- 共享结构的对象
+ 	 	const obj = {
+			a: 1, b: 2
+ 	 	};
+		const obj2 = {...obj}
+		上面代码实质: 新建一个对象obj2, 然后将 obj 所有的属性复制到 obj2 中,相当于对象的浅拷贝, 虽然内容相同, 但却是两个不同的对象
+
+		上面这种写法还可作用于: 覆盖以及扩展对象属性
+			const obj3 = {...obj, b:3, c: 4}; // {a:1, b:3, c:4} 覆盖了b, 新增了c
+
+			将该特性应用在 state 的更新上, 急用直接修改原来的对象, 如果要修改某些东西, 就需要将要修改的对象复制一遍, 例如:
+				appState.title.text = 'aaa'
+
+				先新建一个对象, 新建appState.title, 新建appState.title.text
+
+				let newAppState = { // 新建一个对象: newAppState
+					...appState, // 复制appState 里面的内容
+					title: { // 新建一个 title 对象复制原来的 title 属性
+						...appState.title, // 复制原来 title 对象里面的内容
+						text: 'bbb' // 覆盖 text 属性
+					}
+				}
+
+			这样在我们每次修改某些数据的时候, 都不会误操作原来的数据, 而是将需要修改的数据路径上的对象都 copy 一个出来, 这样可优化渲染性能, 不修改的部分不会重新渲染	
+ 	 -->
+
+ 	<!-- JSX 中的 children
+		React 组件中有一个特殊的 prop: props.children; 它指代了 JSX 表达式中开关标签中包含的内容
+
+			1. 直接使用字符串:
+				<MyComponent>这是组件中的内容</MyComponent>
+				- MyComponent 的props.children将获得 这是组件中的内容 字符串; 通过该方式传入的字符串是未经 HTML 转义的, 实际上你只需要像在 HTML 标签中写入文本那样即可:
+					p标签中写入文本: '<script></script>'
+
+					<p>&#60</p>;script&#62;&#60;/script&#62;</p>
+
+				=== 注意:
+					JSX会自动删除 一行中开头和结尾处的空白符; 
+					JSX会自动删除空行;
+					JSX会自动删除紧邻标签的换行;
+					JSX会删除字符串中的换行;
+					字符串中的换行会转换成一个空格;
+
+					- 下面的都是等价的:
+						<div>你好 小京</div>
+						<div> 你好 小京 </div>
+						<div>
+							你好 小京
+						</div>		
+						<div>
+							你好
+							小京
+						</div>
+						<div>
+							
+							你好 小京
+						</div>
+
+			2. JSX 元素作为children
+				使用 JSX元素作为 JSX的 chilren, 由此可实现嵌套组件	
+
+				<MyContainer>
+					<MyFirstComponent />
+					<MySecondComponent />	
+				</MyContainer>		
+ 	  -->
+</body>
+</html>

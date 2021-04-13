@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>es11(es2020)三个强大的运算符</title>
+</head>
+<body>
+<script type="text/javascript">
+	/**
+	 * 这三个运算符是 ES2020(ES11) 新增的
+	 */
+	
+	/** 
+	 * 1. 非空运算符: ?? 
+	 * 		- 在 JS 中, ?? 运算符被称为 '非空运算符'; 
+	 * 		  如果第一个参数不是 null/undefined, 将返回第一个参数, 否则返回第二个参数
+	 * 		  	(注: 这是并不是指 JS 中的假值; JS 中的假值指的是: 隐式转换为 false 的 六个值)
+	 */
+	
+	let a = null ?? 5; // 5
+	let b = 3 ?? 5; // 3
+	let c = 0 ?? 5; // 0
+	let d = false ?? null; // false
+	let e = null ?? undefined; // undefined
+	console.log(a, b, c, d, e);
+
+	/**
+	 * 2. 非空赋值运算符: ??=
+	 */
+	
+	/**
+	 * 3. 可选链判断运算符: ?.
+	 * 		- 在 ES2020 前, 如果要访问 JS 中对象的嵌套属性, 则需要在每个级别检查是否为 null/undefined, 否则会报错	
+	 * 		- 链判断运算符 ?. 允许开发人员读取深度嵌套在对象链中的属性值, 而不是必须验证每个引用;
+	 * 		- 当引用为空时, 表达式停止计算并返回 undefined
+	 */
+	
+	var obj = {
+		level: {
+			name: 'wd',
+			hobby: {
+				game: {
+					text: 'lol'
+				}
+			}
+		}
+	}
+	// obj.a.hobby
+	// obj.level.a.game.text
+	// obj.level.hobby.a.name
+	// 上面都会报错, 但是加上 可选链判断运算符, 就可避免了
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>v-for与v-if的优先级</title>
+</head>
+<body>
+<!-- 
+	Vue 中, v-for 和 v-if 是可以同时使用作用于某个元素上的, 但是官方文档已指明, 不推荐这样使用, 因为会影响性能增加渲染时长
+
+	当 v-for 与 v-if 同时使用时, 2.x版本 v-for的优先级会更高; 3.x版本 v-if优先级高
+
+		<div id="app">
+			<ul>
+				<li v-for="item in nums" v-if="item % 2 == 0">{{item}} -> 偶数</li>
+				<li v-else>{{item}} -> 奇数</li>
+			</ul>
+		</div>
+
+		<script type="text/javascript">
+			new Vue({
+				el: '#app',
+				data: {
+					nums: [0, 1, 2, 3, 4, 5, 6]
+				}
+			})
+		</script>
+
+	第二个 li 中 使用了 item, 为什么可以直接使用呢, 这是因为 这两行代码被封装为一个 三元表达式函数了	
+
+ -->
+</body>
+</html>

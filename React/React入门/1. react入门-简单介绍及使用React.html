@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<!-- 这三个 js 文件需要先加载
+		react.js是 React 的核心库
+		react-dom.js是提供与 DOM 相关的功能
+		babel.js是将 JSX 语法转为 JS 语法, 这一步很耗时间, 实际上线时, 应该将它放在服务器中完成
+	 -->
+	<script src="./build/react.development.js"></script>
+    <script src="./build/react-dom.development.js"></script>
+    <script src="./build/babel.min.js"></script>
+</head>
+<body>
+	<!-- React 特点:
+		1. 声明式的写法
+		2. 组件化
+		3. 一次学习, 随处编写
+
+	 -->
+
+	<!-- React可以在浏览器中运行, 也可以在服务器运行 -->
+	<!-- 使用babel src --out-dir build 可将 src子目录的 js 文件进行语法转换, 转码后的文件放在build下 -->
+	<div id="example"></div>
+
+	<!-- type属性为: text/babel; 
+			这是因为 React 独有的 JSX 语法, 跟 JS 不兼容, 凡是使用 JSX 的地方, 都要加上 type="text/babel"
+	-->
+	<script type="text/babel">
+		{/*
+			ReactDOM.render(): 
+				是 React 的最基本方法, 用于将模板转为 HTML 语言, 并插入到指定的 DOM 节点	
+		 */}
+		ReactDOM.render(
+			<h1>学习React</h1>,
+			document.getElementById('example')
+		)
+	</script>
+</body>
+</html>

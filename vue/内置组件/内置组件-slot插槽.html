@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>内置组件-slot插槽</title>
+</head>
+<body>
+<!-- 
+	- Props:
+		name: string, 用于命名插槽
+
+	- 用法:
+		<slot>元素作为组件模板之中额内容分发插槽;
+		<slot>元素自身将被替换
+
+	- 实例: Vue文档: 通过插槽分发内容
+		与 HTML 元素一样, 我们经常需要向一个组件传递内容:
+			<alert>
+				错误的事情发生了
+			</alert>
+
+			Vue.component('alert', {
+				template: `
+					<div class="alert-container">
+						<strong>错误!</strong>
+						<slot></slot>
+					</div>
+				`
+			})
+
+			只要在需要的地方加入插槽就行了
+
+	-- 插槽详细解读
+		** 说明: 2.6.0版本及以后, 为具名插槽和作用域插槽添加了一个新的统一语法(v-slot 指令); 取代了 slot 和 slot-scope 这两个目前已被废弃但未被移除的 属性
+		
+		** 插槽内容
+			Vue 实现了一套内容分发的 API, 将 <slot> 元素作为承载分发内容的出口
+
+				<navigation url="/news">
+					新闻页面
+				</navigation>
+
+			在 <navigation> 组件的模板中
+				<a :href="url">
+					<slot />
+				</a>	
+
+			当组件渲染的时候, <slot /> 将会替换为 新闻列表; 插槽内可包含任何模板代码, 包括HTML
+				
+				<navigation url="/news">
+					 添加一个图标的组件
+  					<font-awesome-icon name="user"></font-awesome-icon>
+					<p>新闻页面</p>
+				</navigation>
+
+			如果 <navigation> 组件的 template 中没有包含 <slot> 元素, 则该组件的起始标签与结束标签之间的任何内容都会被抛弃
+		
+		** 编写作用域
+			当你想在一个插槽中使用数据时, 如:
+				<navigation url="/news">
+					新闻内容关于{{ user }}		
+				</navigation>
+
+			该插槽跟模板的其他地方一样可访问相同的实例属性(即相同的 '作用域'), 而不能访问 <navigation> 的作用域, 比如: url是访问不到的	
+
+			即: 父级模板里的内容都是在父级作用域中编译的; 子模板里的所有内容都是在子作用域中编译的
+			
+		** 后备内容(插槽默认值)
+			只会在没有提供内容的时候被渲染, 例如:
+				<button type="submit">
+					<slot />
+				</button>	
+
+			如果我们希望该组件内 绝大多数情况下都渲染 文本 '提交'; 为了将 '提交'作为默认内容, 我们可将它放在 <slot> 标签内:
+				<button type="submit">
+					<slot>提交</slot>
+				</button>	
+
+			在 父组件中使用时:
+				1. 如果不提供任何插槽内容:
+					<submit-button></submit-button>
+					此时: "提交" 将会被渲染	
+				
+				2. 如果我们提供内容, 那么提供的内容将会取代默认内容进行渲染
+
+		** 具名插槽: 使用 name 属性
+			有时需要多个插槽, 如:
+				<div>
+					<header></header>
+					<main></main>
+					<footer></footer>
+				</div>
+			对于这种情况, 使用 name 属性可完美契合
+				<div>
+					<header>
+						<slot name="header"></slot>
+					</header>
+					<main>
+						<slot></slot>
+					</main>
+					<footer>
+						<slot name="footer"></slot>
+					</footer>
+				</div>
+
+			对于不带 name 的 <slot>, 其 name 默认为 'default'
+			
+			在向具名插槽提供内容时, 可在一个 <template>元素上使用 v-slot 指令, 并以 v-slot 的参数的形式提供名称
+				<base-layout>		
+					<template v-slot:header>
+						<h1>标题</h1>
+					</template>
+					
+					<p>内容</p>
+					
+					<template v-slot:footer>
+						<p>页脚</p>
+					</template>
+				</base-layout>
+
+			任何没有被包裹在带有 v-slot 的 <template> 中的内容都会被视为默认插槽的内容
+			
+			!!!!!!注意点:
+				v-slot 指令只能添加在 <template> 上	
+
+				特殊情况: 下面的插槽作用域中讲到
+					- 独占默认插槽的缩写语法
+
+		** 具名插槽的缩写
+			跟 v-on 和 v-bind 一样, v-slot 也有缩写
+				v-on => @
+				v-bind => :
+				v-slot => # => v-slot:header => #header
+
+		** 插槽作用域
+			有时让插槽内容可访问子组件中才有的数据, 如: 组件 <current-user> 的模板
+				<span>
+					<slot>{{ user.name }}</slot>
+				</span>				
+
+			我们可能想换掉备用内容, 用年龄来显示
+				<current-user>
+					{{user.age}}
+				</current-user>		
+
+			但, 上述代码不会正常执行, 因为只有 <current-user> 组件可访问到 user, 而我们提供的内容是在父级进行渲染的
+
+			为了让 user 可以在父级的插槽中可用, 我们可将 user 作为 <slot> 元素的 一个属性绑定上去	
+
+				<span>
+					<slot :user="user">
+						{{user.name}}
+					</slot>	
+				</span>
+
+			绑定在 <slot> 元素上的参数被称为: 插槽prop; 在父级作用域中可使用带值的 v-slot 来定义我们提供的 插槽prop 的名字	
+
+				<current-user>
+					<template v-slot:default="slotProps">
+						{{slotProps.user.firstName}}
+					</template>
+				</current-user>	
+
+			将包含所有 插槽prop 的对象命名为 slotProps	
+
+
+		** 独占默认插槽的缩写语法:
+			在上述情况下, 当被提供的内容只有默认插槽时, 组件的标签才可被当做插槽的模板来使用; 这样我们可以吧 v-slot 直接用着组件上
+				<current-user v-slot:default="slotProps">
+					{{ slotProps.user.firstName }}
+				</current-user>	
+
+					
+
+ -->
+</body>
+</html>

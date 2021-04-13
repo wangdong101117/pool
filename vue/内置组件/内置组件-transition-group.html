@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>内置组件-<transition-group></title>
+</head>
+<body>
+<!-- 
+	<transition-group tag="ul"></transition-group>	
+	
+	props:
+		* tag: 字符串类型, 默认为span
+		* move-class: 覆盖移动过渡期间应用的 css 类
+		* 除 mode 外, 其他的 attribute 与 <transition> 相同
+		
+	- 事件:
+		事件和 <transition> 相同
+
+	- 用法:
+		<transition-group> 作为多个元素/组件的过渡效果
+		<transition-group> 渲染一个真实的 DOM 元素, 默认渲染 <span>, 可通过 tag 来配置哪个元素应该被渲染
+
+		<transition-group> 支持通过 Css transform 进行过渡移动; 当一个子节点被更新, 从屏幕上的位置发生变化, 它会被应用一个移动中的 CSS 类(通过 name 或者 配置 move-class 自动生成); 当 CSS transform 中的属性是可过渡的属性, 当应用移动类是, 会使用 FLIP 技术使元素流畅额到达动画终点
+
+			<transition-group tag="ul" name="slide">
+				<li v-for="item in items" :key="item.id">
+					{{ item.text }}
+				</li>
+			</transition-group>	
+
+	- 注意点: 每个 <transition-group> 的子节点必须有独立的key, 动画才能正常工作			
+ -->
+</body>
+</html>

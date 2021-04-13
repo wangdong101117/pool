@@ -28,7 +28,7 @@
 	let a = [...'123456'];
 	console.log(a) // => [1, 2, 3, 4, 5, 6]
 
-	// 浅拷贝导致的问题: 直接赋值操作, 更改arr_other 会影响源对象: arr (复杂数据类型复制问题)
+	// 直接赋值操作, 更改arr_other 会影响源对象: arr (复杂数据类型复制问题)
 		let arr = [1, 2, 3];
 		let arr_other = arr;
 		arr_other[0] = 4;

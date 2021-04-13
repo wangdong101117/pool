@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+<!-- 
+	1. React JSX:
+		- React 使用 JSX 来代替常规的 JavaScript
+		- JSX 是一个看起来很像 XML 的 JavaScript 的语法扩展
+		- 我们不需要一定使用 JSX, 但是它有以下优点:
+			-- 1. JSX执行更快, 因为它在编译为 JavaScript代码后进行了优化
+			-- 2. 它是类型安全的, 在编译过程中就能发现错误
+			-- 3. 使用JSX编写模板更加简单快速
+
+		- 推荐在 React 中使用 JSX
+		- JSX 是在JavaScript内部实现的
+
+		- 元素是构成 React 应用的最小单位, JSX就是用来声明 React 中的元素, 与浏览器中的DOM元素不同, React当中的元素事实上是普通的对象, React DOM 可以确保浏览器 DOM 的数据内容与 React 元素保持一致	
+
+
+	2. 使用 JSX
+		
+		ReactDOM.render(
+			<div>
+				<h1>使用 JSX</h1>
+				<p data-myattribute = 'someValue'>添加自定义属性 date-myattribute</p>
+			</div>,
+			document.getElementById('example')
+		);
+
+		- 注: 添加自定义属性 使用: data- 前缀
+
+	
+	3. 作为独立文件
+		JSX 代码可以放在一个 独立文件上:
+			helloworld_react.js:
+				ReactDOM.render(
+					<h1>Hello world</h1>,
+					document.getElementById('example')
+				);	
+
+			然后在 HTML 文件中引入该 JS 文件
+			
+			<body>
+				<div id="example"></div>
+				<script type="text/babel" src="helloworld_react.js"></script>
+			</body>	
+	
+	
+	4. js表达式:
+		我们可以在 JSX 中使用 js 表达式, 表达式写在 {} 中
+		- JSX中不能使用 if else 语句, 但可使用三元表达式代替
+
+			ReactDOM.render(
+				<div>
+					<h1> {i == 1? 'true' : 'false'} </h1>
+				</div>,
+				document.getElementById('example')
+			);
+			
+
+	5. 样式:
+		React 推荐使用 内联(内嵌)样式, 
+			React 会在指定元素的数字后 自动添加 px
+
+			var myStyle = {
+				fontSize: 100,
+				color: '#ff0000'
+			};
+
+			ReactDOM.render(
+				<h1 style = {myStyle}>菜鸟教程</h1>,
+				document.getElementById('example')
+			);		
+
+	6. 注释
+		注释要写在 {} 中
+ -->
+</body>
+</html>

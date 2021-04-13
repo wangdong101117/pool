@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>react入门-组件</title>
+	<script src="./build/react.development.js"></script>
+    <script src="./build/react-dom.development.js"></script>
+    <script src="./build/babel.min.js"></script>
+</head>
+<body>
+	<div id="app"></div>
+	<div id="app2"></div>
+<!-- 组件:
+	- React 允许将代码封装成组件(component), 然后像插入普通HTML标签一样, 在网页中插入这个组件;
+
+	- React 组件可让你将 UI 分割成独立、可复用的片段, 并且将每一个片段作为相互独立的部分
+
+		- 组件是由一个个 HTML 元素组成的
+		- 从概念上来讲, 组件就像 JS 中的函数; 他们接受用户输入(props), 并且返回一个 React 对象, 用来描述展示在页面中的内容
+
+	- React创建组件的两种方式:
+		<1>通过 JS 函数创建(无状态组件)
+		<2>通过 class 创建(有状态组件)
+		
+		两种创建方式使用场景说明:
+			- 组件仅仅是为了展示数据, 那么此时可使用 函数组件
+			- 组件中有一定的业务逻辑, 需要操作数据, 需使用 class 创建组件, 此时需要使用 state	
+ -->
+
+ <!-- JS 函数创建组件: 
+	注意点: 
+		1. 函数名称必须为 大写字母开头, React 通过这个特点来判断是否是一个组件
+		2. 函数必须要有返回值, 返回值可以是: JSX对象 或 null
+		3. 返回的 JSX对象, 必须只有一个根元素
+		4. 组件的返回值 使用 () 包裹, 避免换行问题
+ -->
+ <script type="text/babel">
+ 	function Welcome(props) {
+ 		return (
+ 			// 此处注释的写法
+ 			<div className="welcome-container">
+ 				{/* 此处注释的写法 */}
+ 				<h1>名字是{props.name}</h1>
+ 				<ul>
+ 					<li>aaa</li>
+ 					<li>bbb</li>
+ 				</ul>
+ 			</div>
+ 		)
+ 	}
+
+ 	ReactDOM.render(
+ 		<Welcome name="张三" />,
+ 		document.getElementById('app')
+ 	)
+ </script>
+
+ <!-- class 创建组件
+ 	es6中 class 仅仅是一个 语法糖, 并不是真正的类, 本质上还是构造函数 + 原型 实现继承 
+
+ 	扩展: React.createClass
+ 		- React.createClass({}) 用来创建有状态的组件, 但该方式已被废弃
+ 		- 在不适用ES6的情况下, 通过导入: 
+ 			require('create-react-class'); 来创建有状态组件
+
+ 		- getDefaultProps() 与 getInitialState() 是 createReactClass() 这种组件创建方式中的两个方法
+
+ 		- 示例:
+ 			var createReactClass = require('create-react-class');
+ 			var Greeting = createReactClass({
+				// 初始化 props
+				getDefaultProps: function() {
+					console.log('执行 getDefaultProps 方法');
+					return {
+						title: 'Basic counter!!!'
+					}
+				},
+
+				// 初始化 state
+				getInitialState: function() {
+					console.log('执行 getInitialState 方法')
+
+					return {
+						count: 0
+					}
+				},
+
+				render: function() {
+					return (
+						<div>
+							<h3>{this.props.title}</h3>
+							<p>{this.state.count}</p>
+							<input type="button" name="" value='+' onClick={this.handleClick} />
+						</div>
+					);
+				},
+
+				handleClick: function() {
+					var newCount = this.state.count + 1;
+					this.setState({count: newCount});
+				},
+
+				propTypes: {
+					title: React.PropTypes.string
+				}
+ 			});
+
+ 			ReactDOM.render(
+				React.createElement(Greeting),
+				document.getElementById('app')
+ 			)	
+
+
+
+  -->
+<script type="text/babel">
+	class MyComponent extends React.Component {
+		constructor(props) {
+			super(props)
+		}
+
+		// class 创建的组件中, 必须要有render(), 方法中需要 return 一个 React对象 或者 null
+		render() {
+			return (
+				<div className="box">
+					<h2>名字是{this.props.name}</h2>
+				</div>
+			)
+		}
+	}
+
+	ReactDOM.render(
+		<MyComponent name="李四" />,
+		document.getElementById('app2')
+	)
+</script>
+<!-- 组件传值:
+	父子组件传值:
+		- 组件中有一个 只读的对象: props
+		- 获取方式: 函数参数  props
+		- 作用: 将传递给组件的属性转化为 props 对象中的属性
+ -->
+
+<!-- props 和 state
+	props: 
+		- 作用: 给组件传递数据, 一般用在父子组件之间
+		- 说明: React 把传递给组件的属性转化为一个对象并交给 props
+		- 特点: props 是只读的
+		- props.children 用于获取组件的内容
+
+			<MyComponent>这是内容</MyComponent>
+			通过 props.children 获取到的 '这是内容' 就是获取到的 组件的内容
+
+	state: (状态即数据)
+		- 作用: 用来给组件提供 组件内部 使用的数据
+		- 注意: 
+			-- 只有通过 class 创建的组件才具有状态
+			-- 使用 setState() 修改状态, 状态改变后, React会重新渲染组件
+			-- 不要直接修改 state 属性的值, 这样不会重新渲染组件
+	 		-- 状态是私有的, 完全由组件来控制
+			-- 不要在 state 中添加 render() 中不需要的数据, 会影响渲染性能
+				- 可以将组件内部使用但是不渲染在视图中的内容, 直接添加给this
+			-- 不要在render() 中调用 setState() 来修改 state 的值
+				- 但可通过 this.state.name = 'rose' 方式设置state(不推荐)	
+
+		- 使用: 
+			== 1. 先初始化 state
+			== 2. setState() 修改 state
+
+			this.state.test = '这样的修改方式, 不会重新渲染组件';
+			constructor(props) {
+				super(props)
+
+				// 1. 初始化 state
+				this.state = {
+					count: props.initCount
+				}
+			}
+
+			componentWillMount() {
+				// 2. 修改 state 的值
+
+				// 第一种方式
+				this.setState({
+					count: this.state.count + 1
+				})
+
+				this.setState({
+					count: this.state.count + 1
+				}, function() {
+					// 由于 setState() 是异步操作, 所以, 如果想立即获取修改后的state, 需要在回调函数中获取
+				})
+
+
+				// 第二种方式
+				this.setState(function(pervState, props) {
+					return {
+						counter: prevState.counter + prop.increment
+					}
+				})
+
+				// 或者: 因为返回的是一个对象, 所以需要带 ()
+				this.setState((prevState, props) => ({
+					counter: prevState.counter + props.increment	
+				}))
+			}
+ -->
+<script type="text/babel">
+	class Hello extends React.Component {
+		constructor() {
+			// es6 继承必须用 super()调用父类的constructor
+			super()
+
+			this.state = {
+				gender: 'male'
+			}
+		}
+
+		render() {
+			return (
+				<div>性别: { this.state.gender }</div>
+			)
+		}
+	}
+</script>
+
+<!-- JSX 语法转化过程 
+	// JSX
+	const element = (
+		<h1 className = 'greeting'>
+			学习React  
+		</h1>
+	)
+
+	// JSX -> createElement
+	const element = React.createElement(
+		'h1',
+		{className: 'greeting'},
+		'Hello, world'
+	)
+
+	// React elements: 使用对象的形式描述页面结构
+	// 说明: 这是简化后的对象结构
+	const element = {
+		type: 'h1',
+		props:{
+			className: 'greeting'
+		},
+		children: ['hello, world']
+	}
+ -->
+
+
+<!-- 组件的生命周期
+	一个组件从开始到最后消亡所经历的各种状态, 就是一个组件的生命周期; 具体来说: 从组件被创建, 到组件挂载到页面上运行, 再到页面关闭组件被卸载, 这三个阶段总是伴随着各种各样的事件, 这些事件称为组件的生命周期函数
+
+	- 在声明周期函数中, 可以添加自己的代码, 来控制组件
+
+	- 生命周期函数包括:
+		- 创建阶段(Mounting)
+			= 特点: 该阶段的函数只执行一次
+			
+			* constructor()
+				- 作用: 
+					1. 获取props
+					2. 初始化state
+				- 说明: 通过 constructor() 的参数 props 来接收获取	 props
+				
+				示例: 设置 state 和 props
+					class Greeting extends React.Component {
+						constructor(props) {
+							// 获取 props
+							super(props)
+
+							this.state = {
+								count: props.initCount
+							}
+						}
+					}
+
+
+			* componentWillMount()
+				- 说明: 组件被挂载到页面之前调用, 其在render() 之前被调用, 所以在这个方法里面 同步地 设置状态(state)将不会触发重新渲染
+				- 注意: 无法获取页面中的 DOM 对象
+				- 可调用 setState() 来改变状态值
+				- 用途: 可发送 ajax 请求获取呼叫
+
+				- 示例: 
+					componentWillMount() {
+						console.warn(document.getElementById('btn')); // => null, 获取不到 DOM 对象
+
+						this.setState({
+							count: this.state.count + 1
+						})
+					}
+
+			* render()
+				- 作用: 渲染组件到页面中 无法获取页面中的 DOM 对象
+				- 注意: 不要在 render() 中调用 setState(), 会造成递归渲染
+					- 原因: 状态改变会重新调用 render(), 而 render() 又会重新改变状态
+
+				- 示例:
+					render() {
+						console.warn(document.getElementById('btn')) // => null, 获取不到 DOM 对象
+
+						return(
+							<div>
+								<button id="btn" onClick={this.handleAdd}>
+									点击一次
+									{
+										this.state.count === 4? null : <CounterChild initCount = {this.state.count}></CounterChild>
+									}
+								</button>
+							</div>
+						)
+					}	 
+
+			* componentDidMount()
+				- 此时组件已经挂载到页面中
+				- 可进行 DOM 操作, 如: 获取组件内部的 DOM 对象
+				- 可发送 ajax 请求获取数据
+				- 可通过 setState() 修改状态的值
+				- 注意: 在这里修改状态会重新渲染
+
+					componentDidMount() {
+						console.log('componentDidMount', document.getElementById('btn')) // => 可以进行 DOM 的相关操作
+					}
+
+
+		- 运行和交互阶段(Updating)
+			= 特点: 该阶段的函数会执行多次
+			= 说明: 每当组件的 props 或者 state 改变的时候, 都会触发运行此阶段的函数
+
+			* componentWillReceiveProps(nextProps)
+				- 说明: 组件接收到新的 props 之前会触发这个方法
+				- 参数: 当前组件的 props 值
+				- 可通过 this.props 获取到上一次的值
+				- 使用: 若你需要响应属性的改变, 可通过对比 this.props 和 nextProps 并在该方法中使用 this.setState() 处理状态改变
+				- 注意点: 修改 state 并不会触发该方法
+
+			* shouldComponentUpdate(nextProps, nextState)
+				- 作用: 根据这个方法的返回值 来决定是否重新渲染组件, 返回 true 则重新渲染, 否则不渲染
+				- 参数: 最新的属性和状态对象
+				- 优势: 通过某个条件渲染组件, 减低组件的渲染频率, 提升组件性能
+				- 说明: 如果返回值为 false, 后续的 render() 不会被调用
+				- 注意点: 该方法必须返回 布尔值
+				- 使用场景: 根据随机数来决定是否渲染组件
+
+					shouldComponentUpdate(nextProps, nextState) {
+						return nextState.count % 2 === 0
+					} 
+
+			* componentWillUpdate(nextProps, nextState)
+				- 说明: 组件将要更新
+				- 参数: 最新的属性和状态对象
+				- 注意点: 不能修改状态, 否则会循环渲染(递归渲染)
+
+					componentWillUpdate(nextProps, nextState) {
+						
+					}
+
+			* render() 
+				- 作用: 重新渲染组件, 与 Mounting 阶段的 render() 是同一个
+				- 注意点: 该函数可执行多次, 只要组件的属性或者状态改变, 该方法就会重新执行
+
+			* componentDidUpdate(prevProps, prevState)
+				- 说明: 此阶段的组件已经被更新
+				- 参数: 旧的属性(prevProps)和状态对象(prevState)
+
+	
+		- 卸载阶段(Unmounting)
+			= 特点: 组件销毁卸载阶段, 只有一个钩子: 
+			
+			* componentWillUnmount()
+				- 说明: 一个组件只会执行一次
+				- 作用: 在卸载组件时, 执行一些清理工作
+					-- 清除定时器
+					-- 清除 componentDidMount 创建的 DOM 对象
+
+ -->
+
+<!-- ref 属性
+	- 介绍
+		- 在典型的 React 数据流中, 属性(props) 是父组件与子组件交互的唯一方式; 
+		- 要修改子组件, 你需要使用新的 props 重新渲染它, 但是, 某些情况下你需要在典型数据流外强制修改子组件;
+		- 要修改的子组件可以是React组件的实例, 也可以使 DOM 元素;
+		- 对于这两种情况, React提供了解决方法
+
+	- 何时使用 Refs
+		- 1. 处理焦点 文本选择 或 媒体控制
+		- 2 触发强制动画
+		- 3. 集成第三方 DOM 库
+
+	- 注意点:
+		不能在函数式组件上使用 ref 属性, 因为他们没有实例			
+	- 如果可通过声明式实现, 则尽量避免使用 refs; 比如: 不要 在弹框组件 直接暴露 open() 和 close(), 最好传递 isOpen 属性 	
+
+	- 不要过度使用 refs
+
+	- 使用:
+		1. 创建 Refs
+			React.createRef(), 通过 ref 属性获得 React 元素; 当构造组件时, refs 通常被赋值给实例的一个属性, 这样你可以在组件中任意地方 使用它们	
+
+			class MyComponent extends React.Component {
+				constructor(props) {
+					super(props);
+					this.myRef = React.createRef();
+				}
+
+				render() {
+					return <div ref={this.myRef}></div>
+				}
+			}
+
+		2. 访问 Refs
+			当一个 ref 属性被传递给一个 render 函数中的元素时, 可使用 ref 中的 current 属性对节点的引用进行访问
+
+			const node = this.myRef.current;
+
+			ref 的值取决于节点的类型
+				- 当 ref 属性被用于一个普通的 HTML 元素时, React.createRef() 将接收底层 DOM元素作为它的 current 属性以创建 ref
+				- 当 ref 属性被用于一个自定义类组件时, ref对象将接收该组件已挂载的实例作为它的 current
+
+			举例说明:	
+				1. 为 DOM 元素添加 Ref
+					以下代码使用 ref 存储对 DOM 节点的引用:
+
+					class CustomTextInput extends React.Component {
+						constructor(props) {
+							super(props);
+							// 创建 ref 存储 textInput DOM 元素
+							this.textInput = React.createRef();
+							this.focusTextInput = this.focusTextInput.bind(this);
+						}
+
+						focusTextInput() {
+							// 直接使用原生 API 使 text 输入框获取焦点
+							// 注意点: 通过 'current' 取得 DOM 节点
+							this.textInput.current.focus();
+						}
+
+						render() {
+							// 告诉 React 我们想要将 <input> ref 关联到构造器里面 创建的 'textInput' 上
+							return (
+								<div>
+									<input type="text" name="" ref={this.textInput} />
+
+									<input type="button" name="" value="获得焦点" onClick={this.focusTextInput} />
+								</div>
+							)
+						}
+					}
+
+					--- React 会在组件加载时将 DOM 元素传入 current 属性, 在卸载时则会改回 null; ref 的更新会发生在 componentDidMount 或者 componentDidUpdate 生命周期钩子之前
+
+				2. 为类组件添加 ref
+					如果想要包装上面的 CustomTextInput, 来模拟挂载之后立即被激活, 可使用 ref 来访问自定义输入, 并手动调用它的 focusTextInput 方法
+
+					class AutoFocusTextInput extends React.Component {
+						constructor(props) {
+							super(props);
+
+							this.textInput = React.createRef();
+						}
+
+						componentDidMount() {
+							this.textInput.current.focusTextInput();
+						}
+
+						render() {
+							return (
+								<CustomTextInput ref={this.textInput} />
+							)
+						}
+					}	
+
+				特殊说明:
+					虽然并不能在 函数式组件上使用 ref 属性, 但可在函数式组件内部使用 ref, 只要它指向一个DOM元素或者class组件
+
+					function MyFunctionalComponent() {
+						return <input />;
+					}	
+
+					class Parent extends React.Component {
+						constructor(props) {
+							super(props);
+							this.textInput = React.createRef();
+						}
+
+						render() {
+							// 这里不会正常 执行
+							return (
+								<MyFunctionalComponent ref={this.textInput} />
+							)
+						}
+					}
+
+					function CustomTextInput(props) {
+						// 这里必须声明 textInput, 这样 ref 回调才可引用它
+
+						let textInput = null;
+
+						function handleClick() {
+							textInput.focus();
+						}
+
+						return (
+							<div>
+								<input type="text" ref={(input) => { textInput = input; }} name="" />
+
+								<input type="button" name="" value="获取焦点" onClick={handleClick}>
+							</div>
+						)
+					}
+
+		
+		3. 对父组件暴露 DOM 节点
+			- 在少数情况下, 可能希望从父组件访问子节点的 DOM 节点, 通常情况下不建议这样做, 因为会破坏组件的封装, 但偶尔也可用于触发焦点或测量 子DOM节点的大小或者位置
+
+			- 虽然可以向子组件添加 ref, 但这不是理想的解决方案, 只能获取组件实例而不是DOM节点, 并且, 在函数式组件上无效
+
+			- React 16.3 或更高的版本, 推荐使用 ref 转发; Ref 转发可让组件像暴露自己的 ref 一样暴露子组件的 ref
+
+			- React 16.2 或更低的版本, 或者需要比 ref 转发更高的灵活性, 可使用 这个替代方案 将 ref 作为特殊名字的 prop 直接传递
+
+			- 可能的话, 不建议暴露 DOM 节点, 
+
+		4. 回调 Refs
+			- 说明:
+				React 也支持另一种设置 ref 的方式, 称为 "回调Ref", 可更加细致的控制 ref 何时被设置和解除
+
+				不同于传递 createRef() 创建的 ref 属性, 你会传递一个函数, 该函数接受 React 组件的实例或 HTML DOM 元素作为参数, 以存储它们并使它们能被其他的地方访问
+
+					class CustomTextInput extends React.Component {
+						constructor(props) {
+							super(props);
+
+							this.textInput = null;
+
+							this.setTextInputRef = element => {
+								this.textInput = element;
+							};
+
+							this.focusTextInput = () => {
+								// 直接使用原生 API 是 text 输入框 获得焦点
+
+								if(this.textInput) this.textInput.focus();
+							}
+						}
+
+						componentDidMount() {
+							// 渲染后文本框自动获得焦点
+							this.focusTextInput();
+						}
+
+						render() {
+							// 使用 'ref' 的回调将 text 输入框的 DOM 节点存储到 React
+
+							return (
+								<div>
+									<input type="text" name="" ref={this.setTextInputRef}>
+
+									<input type="button" name="" value="获取焦点" onClick={this.focusTextInput}>
+								</div>
+							)
+						}
+					}	
+
+				React 将在组件挂载时将 DOM 元素传入 ref 回调函数并调用, 当卸载时传入 null 并调用它, ref 回调函数会在 componentDidMount 和 componentDidUpdate 生命周期钩子函数之前调用
+
+				可在组件间传递回调形式的 refs, 就像你可传递通过 React.createRef() 创建的对象 refs 一样
+
+					function CustomTextInput(props) {
+						return (
+							<div>
+								<input type="" name="" ref={props.inputRef}>
+							</div>
+						);
+					}
+
+					class Parent extends React.Component {
+						constructor(props) {
+							super(props)
+						}
+
+						render() {
+							return (
+								<CustomTextInput inputRef={el => this.inputElement = el} />
+							)
+						}
+					}
+
+					Parent 传递给他的 ref回调函数作为 inputRef 传递给 CustomTextInput, 然后 CustomTextInput 通过 ref 属性将其传递给 <input>; 最终, Parent 中的 this.inputElement 将被设置为与 CustomTextInput 中的 <input> 元素相对应的DOM节点
+
+
+
+
+ -->
+
+<!-- 组件绑定事件
+	- 1. 通过 React 事件机制绑定(推荐)
+		<input type="button" name="" value="React 事件机制绑定"
+			onClick={this.handleBtnClick}
+			onMouseEnter={this.handleBtnMouseEnter} />
+
+	- 2. JS 原生方式绑定 (通过 ref 获取元素) (了解)
+		== 注意:
+			-- ref 是 React 提供的一个特殊属性
+		== 说明: 
+			-- 给元素添加 ref 属性, 然后, 获取元素并绑定事件
+
+			// JSX
+			// .. 将当前 DOM 的引用赋值给 this.textInput 属性
+			<input type="button" name="" ref={ input => this.textInput = input } value="按钮">
+
+			componentDidMount() {
+				// 通过 this.textInput 属性获取元素并绑定事件
+
+				this.textInput.addEventListener(() => {
+					this.setState({
+						count: this.state.count + 1
+					})
+				})
+			}
+
+		== 事件中绑定的 this
+			-- 1. 通过 bind 绑定
+				** 原理:
+					bind 能够调用函数, 改变函数内部 this 的指向, 并返回一个新函数
+				** 说明:
+					bind 第一个参数为返回函数中 this 的指向, 后续参数为传给返回函数的参数	 
+
+					// 自定义方法:
+					handleBtnClick(arg1, arg2) {
+						this.setState({
+							msg: '点击事件修改state的值' + arg1 + arg2
+						})
+					}
+
+					render() {
+						return (
+							<div>
+								<button onClick={
+									// 无参数
+									// this.handlebtnClick.bind(this)
+
+									// 有参数
+									this.handleBtnClick.bind(this, 'abc', 123)	
+
+								}>事件中this的处理</button>
+								<p>{this.state.msg}</p>
+							</div>
+						)
+					}
+
+				** 在构造函数中使用 bind
+					
+					constructor() {
+						super()
+
+						this.handleBtnClick = this.handleBtnClick.bind(this)
+					}	
+
+					<button onClick={ this.handleBtnClick }>事件中 this 的处理</button>
+
+			-- 2. 通过 箭头函数 绑定
+				** 原理: 箭头函数中的this指向函数外层的对象	
+					
+					<input type="button" name="" value="偶组函数中绑定this并传参" onClick={() => {this.handleBtnClick('参数1', '参数2')}}>
+
+					handleBtnClick(arg1, arg2) {
+						this.setState({
+							msg: '在构造函数中绑定this并传参' + arg1 + arg2
+						})
+					}
+
+ -->
+</body>
+</html>

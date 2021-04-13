@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>过滤器filter</title>
+</head>
+<body>
+<!-- 
+	过滤器: filter
+		- 作用: 可用于一些常见的文本格式化, 当要使用的数据是由之前的原始数据经过一系列的变换得到的
+		
+		- 例如: 反正字符串、 数组去重、 大小排序
+
+		- 使用场景: 
+			- 可用于差值表达式中: {{ data | 过滤器 }}
+			- 可用于 v-bind 中:
+
+		- 分类:
+			- 全局过滤器:
+				1. 创建过滤器对象:
+					Vue.filter('过滤器名称', function (value) {
+						// 回调函数中的 value: 要使用过滤器进行处理的 data中的数据, 即管道符号 | 前面的数据
+						
+						2. 实现过滤器的功能, 一定要设置返回值
+						return '名字' + value
+					})
+
+			- 局部过滤器:	
+				1. 在vue实例中, 添加一个 filters 属性:
+					filters: {
+						2. 添加一个 键值对
+						'过滤器名字': function (value) {
+							return '名字' + value
+						}
+					}
+
+		- 过滤器的处理函数(回调函数) 传参详解:
+			参数1: 要使用这个过滤器的数据
+			参数2: 调用时传入的第一个参数
+			参数3: 调用时传入的第二个参数
+
+		- 过滤器串联使用:
+			- 将多个过滤器串联在一起使用
+				{{ msg | 过滤器1 | 过滤器2('参数1', '参数2') }}
+
+
+		moment时间格式化模块 制作 全局的时间格式化过滤器
+			1. 安装moment	
+				npm i moment -S
+
+			2. 然后 main.js 中 导入 moment
+				import Moment from 'moment'
+
+			3. 设置一个全局的事件格式化 过滤器
+				Vue.filter('dateFilter', function (vaule) {
+					return Moment(value).format('YYYY/MM/DD hh:mm:ss')
+				})							
+ -->
+</body>
+</html>
