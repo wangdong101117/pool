@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>vue内置组件-动态组件</title>
+</head>
+<body>
+<!-- 
+	某些场景, 需要我们动态切换页面部分区域的视图, 这是内置组件 component 就派上用场了
+
+	<template>
+		// 内置组件 component 会接收一个 is 属性, 该属性值为 在父组件中 祖册过的组件的名称
+		<component :is="current_component"></component>
+	</template>
+
+	<script type="text/javascript">
+		import AdminPage from './admin'
+		import UserPage from './user'
+		export defalt {
+			components: {
+				AdminPage,
+				UserPage
+			},
+			data() {
+				return {
+					info:
+					current_component: ''
+				}
+			},
+			mounted() {
+				// 假设获取到了个人信息, 并保存在了 info 中
+
+				if (this.info.role === 'admin') this.current_component = 'AdminPage'
+				else this.current_component = 'UserPage'
+			}
+		}
+	</script>
+ -->
+</body>
+</html>

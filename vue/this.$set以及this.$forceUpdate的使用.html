@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<!-- 
+	this.$set()
+		- 使用场景:
+			当data中的某个对象的属性发生了改变, 却不能动态更新在视图上(虽然数据发生了改变, 但是界面却没动态更新), 这时需要使用this.$set()
+
+		- 说明:
+			该方法向响应式对象中添加一个属性, 并确保这个新属性同样是响应式的, 且触发视图更新, 但是它必须用于向响应式对象上添加新属性, 因此vue无法探测普通的新增属性
+
+		- 如: 
+			data中: 
+				list: [
+					{name: 'zs', id: 1},
+					{name: 'ls', id: 2}
+				]		 
+
+			当点击每一行数据后面的操作按钮后, 改变name, 此时调用:
+				this.$set(target, key, value);
+					target: 要更改的数据源(对象/数组)
+					key: 要更改的具体数据
+					value: 重新赋的值
+
+				this.$set(this.list, 2, {name: 'ww', id: 3})
+				
+				而使用: this.list[2] = {name: 'ww', id: 3}, 会发现, 虽然打印出来的数据是更改了, 但是视图却不会更新
+
+
+	this.$forceUpdate(): 强制更新视图				
+ -->
+</body>
+</html>

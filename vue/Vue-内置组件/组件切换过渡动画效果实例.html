@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>过渡动画效果实例</title>
+</head>
+<body>
+<!-- 
+	<transition>
+		<component :is="current_component"></component>
+	</transition>
+
+	1. 渐隐过渡效果
+		原理: 通过改变元素的 opacity 实现此效果
+
+			设置 过渡模式: mode: out-in
+
+			.fade-enter-active,
+			.fade-leave-active {
+			  	transition: opacity 0.5s ease;
+			}
+
+			.fade-enter-from,
+			.fade-leave-to {
+			  	opacity: 0;
+			}
+
+
+	2. 幻灯片过渡效果		
+
+		
+		.slide-enter-active,
+		.slide-leave-active {
+		  	transition: all 0.75s ease-out;
+		}
+
+		.slide-enter-to {
+			position: absolute;
+			right: 0;
+		}
+
+		.slide-enter-from {
+		  	position: absolute;
+		  	right: -100%;
+		}
+
+		.slide-leave-to {
+		  	position: absolute;
+		  	left: -100%;
+		}
+
+		.slide-leave-from {
+		  	position: absolute;
+		  	left: 0;
+		}
+
+
+	3. 缩放过渡效果
+		设置过渡模式: mode: out-in
+
+		.scale-enter-active,
+		.scale-leave-active {
+		  	transition: all 0.5s ease;
+		}
+
+		.scale-enter-from,
+		.scale-leave-to {
+		  	opacity: 0;
+		  	transform: scale(0.9);
+		}
+
+	
+	4. 幻灯片与缩放效果合并过渡效果
+
+		.scale-slide-enter-active,
+		.scale-slide-leave-active {
+		  	position: absolute;
+		  	transition: all 0.85s ease;
+		}
+
+		.scale-slide-enter-from {
+		  	left: -100%;
+		}
+
+		.scale-slide-enter-to {
+		  	left: 0%;
+		}
+
+		.scale-slide-leave-from {
+		  	transform: scale(1);
+		}
+
+		.scale-slide-leave-to {
+		  	transform: scale(0.8);
+		}
+ -->
+</body>
+</html>
