@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>h5新增的选择器</title>
+	<style type="text/css">
+		[class$='container'] {
+			font-size: 24px;
+		}
+
+		[id^='user'] {
+			color: red;
+		}
+	</style>
+</head>
+<body>
+
+	<!-- 属性选择器 -> 规则3 -->
+	<div id="users">属性选择器 规则3</div>
+	<div class="box container">属性选择器 规则4</div>
+<!--  
+	1. 属性选择器：
+		规则：
+
+			<1> [attr]
+				- 说明：标签中包含 属性名为 attr 的就会被选中 
+
+				- 例如： 标签中只要有 class 属性的就会被选中
+					[class] {
+						color: red;
+					}	
+
+			<2> [attr=value]
+				- 说明： 标签中包含属性名为 attr，且属性值完全等于 value 的就会被选中
+
+				- 例如： 属性名为 class (类选择器)，且类名为 box 的标签才会被选中
+					[class="box"] {
+						color； red;
+					}
+
+			<3> [attr^=value]
+				- 说明： 标签中包含：属性名为 attr 的，且属性值必须以 value 开头的才会被选中
+
+				- 例如： 属性名为 id, id名以 user 开头的标签才会选中
+					[id^='user'] {
+						font-size: 16px;
+					}
+
+			<4> [attr$=value]
+				- 说明： 标签中包含：属性名为 attr 的，且属性值必须以 value 结束的才会被选中
+
+				- 例如： 属性为 class, 类名以 container 结束的标签才会选中
+					[class$='container'] {
+						font-size: 20px;
+					}		
+
+			<5> [attr*=value]
+				- 说明： 标签中包含：属性名为 attr 的，且属性值含有 value 的被选中		
+
+
+	2. 结构伪类选择器：（序号伪类选择器）
+		
+		- 结构伪类选择器的选择步骤：（以 li:nth-child(3) 举例说明）
+			1. 找到所有 li 元素
+			2. 通过 li 元素找到他的父元素
+			3. 通过 li 的父元素找到所有的子元素
+			4. 找到第 3 个子元素
+			5. 判断：
+				- 如果第 3 个元素的类型与 li 一致，那么选中
+				- 否则，该选择器就是无效的选择器
+
+
+		- 扩展： nth-child()
+			1. 括号（）里面还可设置一些包含变量 n 的公式
+				注意：
+					=1= 变量 n 必须在公式的前面
+						如： 2n+1 不能写成：1+2n
+
+					=2= 变量 n 的取值范围是：自然数（从0开始的整数）
+
+					=3= 当表达式的值 <= 0 时，不选择任何元素
+
+				常用的一些公式：
+					=1= 选择偶数：li:nth-child(2n)
+
+					=2= 选择奇数：li:nth-child(2n+1)
+
+					=3= 倒数三个元素：li:nth-child(n+(总个数-3+1))	
+
+						- 解释说明：
+							因为 n 从0开始，假设有5个 li 元素，倒数三个就是 第三个，第四个，第五个。那么：nth-child(n+(5-3+1)) => nth-child(n+3)
+								n = 0时：选中第三个
+								n = 1时：选中第四个
+								n = 2时：选中第五个
+
+					=4= 最后一个元素：li:last-child
+
+					=5= 第一个元素： li:first-child
+
+					=6= 倒着数： nth-last-child(n)
+						-- li:nth-last-child(1) => 倒数第一个 li 元素
+						-- li:nth-last-child(3) => 倒数第三个 li 元素
+
+
+	3. 伪元素选择器：
+		- 说明： 
+			=1= 伪元素可实现一个真正的元素能够实现的效果
+			=2= 伪元素的默认效果与行内元素的效果一致
+			=3= 伪元素元素在进行设置时，content属性为必填内容，否则该伪元素不会生成
+
+				.box::after {
+					content: '';
+				}
+
+		- 包括： 
+			=1= 前伪元素 -> ::before => 会在元素内部的最前面位置追加一个伪元素
+			=2= 后伪元素 -> ::after => 会在元素内部的最后面位置追加一个伪元素
+-->
+</body>
+</html>

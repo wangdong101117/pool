@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>setup函数</title>
+</head>
+<body>
+<!-- 
+	1. Vue3 中 setup 函数的作用:
+		setup函数是一个新的组件选项; 作为在组件内使用 Composition API 的入口点; 通俗来说: setup 函数的设计是为了使用组合式api
+
+	2. 为什么不用之前的组件的选项
+		data, computed, methods, watch 等在大多数情况下都有效, 但是当我们的组件变得更大时, 为导致组件难以阅读和理解, 尤其是对于那些一开始就没有参与编写这些组件的人来说; 通过 setup 函数就可将该部分的逻辑抽离成函数, 让其他开发者就不用关心该部分逻辑了
+
+
+	3. setup 函数在 vue 生命周期的位置:	
+		创建组件实例, 然后初始化 props, 紧接着开始调用 setup 函数;
+		从生命周期的角度来看, 会在 beforeCreate 之前执行, 即:
+				创建组件先执行 setup、 beforeCreate、 create
+
+		- 在 setup 函数内 可通过以下 hook 来操作整个生命周期
+			onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted ...			
+
+	4. setup 函数中的 this指向
+		由于不能在 setup 函数中使用 data 及 methods, 为了避免使用 Vue 出错, 所以把 setup 函数中的 this 指向 修改为: undefined
+
+	5. setup 函数接收的参数
+		* props
+			说明: 接收组件传递过来的所有数据, 并且都是响应式的(因此不能直接解构赋值)
+
+				props: {
+					title: {
+						type: String
+					}
+				},
+				setup(props) {
+					console.log(props.title);
+				}
+
+				注意: props 数据不能使用解构, 否则响应式数据失效
+					setup({ title }) {
+						console.log(title); // 这里的响应式数据将会失效
+					}	
+			
+		* context
+			说明: 该参数提供一个上下文对象, 从原来的 2.x 版本中选择性的暴露了一些属性:
+				= attrs: 组件的 attrs
+				= slots: 插槽
+				= emit: 事件分发
+
+					setup(props, { attrs, slots, emit }) {
+						
+					}
+
+				attrs 与 slots 都是内部组件实例上对应项的代理, 可确保在更新后仍然还是最新的值, 它是一个普通的 JS 对象(不是响应式的), 所以这里可以使用解构语法;
+
+		- 返回值
+			可将 setup 函数返回值渲染到页面上, 但前提是: setup 函数的返回值必须是一个对象, 否则返回其他值则渲染无效
+				<template>
+					<div>{{ name }}</div>
+				</template>
+
+				setup() {
+					const name = '张三'
+					return {
+						name
+					}
+				}
+
+
+	6. setup 函数 优先级: 如果 data, prop, setup 中都有一个同名属性, setup 返回的该属性优先级最高
+
+
+	7. 如何在 setup 函数中拿到 ref 对应的子组件, 并执行子组件中的函数:
+		例如, iview 中的 form 表单验证: 在 2.x 版本中, 可在methods 中 通过:
+			this.$refs[name].validate()			
+		
+		但是: 在setup 函数中拿不到 this, 因此应该从 { ref } 入手:
+
+				<Form label-position="left" :label-width="72" class="my-form" :model="query_param.select_key"
+	                ref="ruleForm">
+	            <FormItem label="选择机构：" class="my-form-item" prop="organization_uid">
+	                <TagChange v-model="query_param.select_key.organization_uid" codeDesc="请选择组织机构"
+	                        codeType="tlt_organization" ref="tag" style="width: 180px" />
+	            </FormItem>
+	            <Row style="width: 150px; margin-bottom: 24px;" class="my-form-button-container">
+	                <Button type="primary" :disabled="button_disabled" @click="search('ruleForm')">
+	                    查询
+	                </Button>
+	                <Button type="primary" @click="reset('ruleForm')" class="my-form-button">
+	                    重置
+	                </Button>
+	            </Row>
+	        </Form>
+
+			// vue3...
+			setup() {
+				// 设置一个 ref 同名属性, 并使用 ref(null) 包装
+				// 通过 ref 或者 reactive 包裹起来, 让其成为响应式数据
+				const ruleForm = ref(null);
+				// const ruleForm = reactive({value: null});
+
+				const search = () => {
+					ruleForm.value
+						.validate()
+						.then(() => {
+							console.log("values", form);
+						})
+						.catch(err => {
+							console.log("error", error);
+						})
+				}
+
+				const reset = () => {
+					console.log("重置表单");
+					ruleForm.value.resetFields();
+				}
+
+				// vue3 自动绑定 组件中使用到所返回的一些数据
+				return {
+					ruleForm,
+					search,
+					reset
+				}
+			}	
+
+	8. 如何调用 子组件内 setup 中的方法
+
+		- 1. 子组件在 setup 中写好方法, 并通过 return 暴露出去
+		- 2. 父组件调用子组件时为其添加 ref 属性
+		- 3. 父组件 setup 中拿到子组件添加的 ref 属性 property, 再通过 property.value.method() 调用
+
+		子组件:
+
+			<template>
+				<div>子组件: {{ valueRef }}</div>
+			</template>		
+
+			<script>
+				import { defineComponent, ref } from 'vue'
+				export default defindComponent({
+					name: "son",
+					setup() {
+						const valueRef = ref('');
+
+						// 该函数可接受父组件传递一个参数, 并修改 valueRef 的值
+						const acceptValue = (value: string) => (valueRef.value = value);
+
+						return {
+							acceptValue,
+							valueRef
+						}
+					}
+				})
+			</script>
+
+		
+		父组件:
+
+			<button @click="sendValue">发送</button>
+			// 这里的 ref 接受的字符串, 需要 setup 函数返回的 ref 类型的变量同名
+			<Son ref="sonRef" />
+
+			<script>
+				import { definedComponent, ref } from 'vue'
+
+				import Son from '@/component/Son.vue'
+
+				export default defineComponent({
+					name: 'Demo',
+					components: {
+						Son
+					},
+					setup() {
+						// 如果 ref 初始值是一个 空, 那么可以用来接收一个实例:
+						// vue3 中获取实例的方式和 vue2 略有不同
+
+						const sonRef = ref();
+						const sendValue = () => {
+							// 可拿到 Son 组件的实例, 并调用 Son 组件的 setup 函数返回的所有信息
+							console.log(sonRef.value);
+
+							// 通过嗲用 Son 组件实例的方法, 向其传递数据
+							sonRef.value.acceptValue('123456');
+						}
+
+						return {
+							sonRef,
+							sendValue
+						}
+					}
+				})
+			</script>	
+
+
+	9. Vue3中 setup 函数如何实现多属性的监听以及如何实现深度监听
+		1. 引入 watch, watch最后返回 unwatch(), 调用 unwatch将停止监听
+
+		2. watch 传入数组, 需要注意的是: 监听的如果是普通类型的可直接输入, 如果是引用类型, 则需要输入函数返回的值, 例如:
+			如果要想 同时监听 data.form.c.c1 和 ddd 属性
+
+		3. watch 第三个传参: deep, immediate, flush
+			其中: flush的做用哪个是觉得 callback 的执行时机, 有三个选项:
+				pre(默认),
+				post,
+				sync
+
+			这三个选项分别对应 watch 在组件更新前, 更新后, 更新时 执行 callback
+			
+
+			cons ddd = ref('www');
+
+			const data = reactive({
+				form: {
+					a: 1,
+					b: 2,
+					c: {
+						c1: 'c1',
+						c2: 'c2'
+					}
+				},
+				haha: 'haha'
+			}) 				
+
+			// watch() 会返回 unwatch(), 这里用 unwatch 接收
+			const unwatch = watch(
+				 // 传入数组, ddd 时机普通类型值, 可直接输入
+				 // data.form.c.c1 是引用类型(对象), 需要输入一个函数 并将 data.form.c.c1 进行返回
+				[ddd, () => data.form.c.c1],
+				(newValue, oldValue) => {
+					consolle.log(newValue, oldValue);
+				},
+				{ deep: true } // 第三个参数传入: deep, immediate, flush 属性
+			);
+
+			setTimeout(() => {
+				ddd.value = 'eee';
+			}, 1000)
+
+			setTimeout(() => {
+				data.for.c.c1 = 'xxx';
+				setTimeout(() => {
+					unwatch(); // 这里异步使用 unwatch(), 后面的 ddd.value = 'fff' 将不被监听
+				});
+			})
+
+			setTimeout(() => {
+				ddd.value = 'fff';
+			}, 3000)
+
+ -->
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>vue事件对象-$event</title>
+</head>
+<body>
+<!-- 
+	1. 获取原生DOM事件的事件对象
+		在DOM事件的回调函数中传入参数 $event，可获取到该事件的事件对象
+
+		如：当我们点击 button 按钮时，可看到控制台打印的事件对象
+
+		<template>
+			<button @click="getData($event)">按钮</button>
+		<template />
+	
+		<script>
+			export default {
+				setup () {
+					const getData = (e) => {
+						consolle.log(e);
+					}
+
+					return {
+						getData
+					}
+				}
+			}
+		</script>
+
+
+	2. 事件注册所传的参数（子组件向父组件传值）：
+		在子组件中通过：$emit 注册事件，将数据作为参数传入，在父组件中通过 $event 接收：
+			
+			父组件：
+				<template>
+					<Hellow @hello="showData($event)" />
+					<h4>{{ data }}</h4>
+				</template>
+
+				<script>
+					import Hello from '@/components/Hello.vue'
+					import { ref } from 'vue'
+
+					export default {
+						components: {
+							Hello
+						},
+						setup () {
+							const data = ref(null);
+							const showData = (e) => {
+								data.value = e;
+							}
+
+							return {
+								showData,
+								data
+							}
+						}
+					}
+				</script>
+
+
+			子组件：
+				<template>
+					<button @click="emit('hello', 'hello')">按钮</button>
+				</template>
+
+				<script>
+					export default {
+	
+					}
+				</script>
+-->
+</body>
+</html>

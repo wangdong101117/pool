@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>清除浮动</title>
+	<style type="text/css">
+		.float-box {
+			float: left;
+			height: 100px;
+			width: 300px;
+			background: #ccc;
+		}
+	</style>
+</head>
+<body>
+	<div class="container clearfix">
+		<div class="float-box"></div>
+		<div class="clear"></div>
+	</div>
+<!-- 
+	浮动带来的问题：
+		在非IE浏览器，浮动的元素不占位，不能撑高父元素，详细来说：
+		
+
+		非IE浏览器下，当容器的高度为auto，且容器的内容中有浮动的元素，这种情况系，容器的高度不能自动撑开以适应容器的高度，使得内容溢出到容器外面而影响布局的现象，该现象叫浮动溢出。为了防止浮动溢出的出现，需要进行 css 清除浮动。
+
+
+	清除浮动方法：
+		1. 使用带 clear 属性的空元素
+			在浮动元素后使用一个空元素：
+				如：	<div style="clear: both;"></div>
+
+			优点：简单，代码少，浏览器兼容性好。
+			缺点：需要添加大量无意义的 html 元素。代码冗余，后期不易维护。
+
+			.clear {
+				clear: both;
+			}
+
+
+		2. 使用 css 的 overflow 属性
+			给浮动元素的容器添加：
+				overflow: hidden; 或者 overflow: auto; 
+			另外在 IE6 中还需要触发 hasLayout，例如为父元素设置容器宽高或设置 zoom: 1
+			
+			在添加 overflow 属性后，浮动元素又回到了容器层，将容器高度撑开，达到了清除浮动的效果。
+
+			.container {
+				overflow: hidden;
+			}
+
+		
+		3. 给浮动的元素的父容器添加浮动
+			给浮动的元素的父容器也添加上浮动属性也可清除内部浮动，但这样会使其整体浮动，影响布局，不推荐使用。
+					 
+	
+		4. 使用后伪元素 :after
+			结合 后伪元素和 IEhack（触发hasLayout） 可完美兼容当前主流的各大浏览器
+			给浮动元素的容器添加一个 clearfix 的 class类名，然后给这个 class 添加一个 后伪元素 :after 实现在元素最后面添加一个看不见的块元素清除浮动。
+
+			.clearfix:after {
+				content: '00';
+				display: block;
+				visibility: hidden;
+				height: 0;
+				clear: both;
+			}
+
+			.clearfix {
+				// 触发 hasLayout
+				zoom: 1;
+			}
+-->
+</body>
+</html>

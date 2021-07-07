@@ -1,0 +1,455 @@
+// 在本文件中可配置云数据库初始化，数据格式见：https://uniapp.dcloud.io/uniCloud/hellodb?id=db-init
+// 编写完毕后对本文件点右键，可按配置规则创建表和添加数据
+{  "qiun-charts-demo": {
+    "data": [
+      {
+          "nickname": "赵六3",
+          "gender": 1,
+          "status": 3,
+          "register_date": 1618894332888,
+          "total_fee": 2589
+      },
+      {
+          "nickname": "李四4",
+          "gender": 2,
+          "status": 0,
+          "register_date": 1619671932888,
+          "total_fee": 3171
+      },
+      {
+          "nickname": "张三3",
+          "gender": 2,
+          "status": 0,
+          "register_date": 1617857532888,
+          "total_fee": 4523
+      },
+      {
+          "nickname": "张三2",
+          "gender": 1,
+          "status": 0,
+          "register_date": 1617771132888,
+          "total_fee": 4522
+      },
+      {
+          "nickname": "李四2",
+          "gender": 1,
+          "status": 0,
+          "register_date": 1622263932888,
+          "total_fee": 3169
+      },
+      {
+          "nickname": "王五4",
+          "gender": 2,
+          "status": 2,
+          "register_date": 1620017532888,
+          "total_fee": 7686
+      },
+      {
+          "nickname": "赵六2",
+          "gender": 1,
+          "status": 3,
+          "register_date": 1618807932888,
+          "total_fee": 2588
+      },
+      {
+          "nickname": "张三3",
+          "gender": 2,
+          "status": 0,
+          "register_date": 1620622332888,
+          "total_fee": 4523
+      },
+      {
+          "nickname": "赵六1",
+          "gender": 1,
+          "status": 3,
+          "register_date": 1620103932888,
+          "total_fee": 2587
+      },
+      {
+          "nickname": "张三2",
+          "gender": 1,
+          "status": 0,
+          "register_date": 1621918332888,
+          "total_fee": 4522
+      },
+      {
+          "nickname": "王五3",
+          "gender": 2,
+          "status": 2,
+          "register_date": 1621313532888,
+          "total_fee": 7685
+      },
+      {
+          "nickname": "赵六4",
+          "gender": 1,
+          "status": 3,
+          "register_date": 1621745532888,
+          "total_fee": 2590
+      },
+      {
+          "nickname": "张三4",
+          "gender": 2,
+          "status": 0,
+          "register_date": 1622091132888,
+          "total_fee": 4524
+      },
+      {
+          "nickname": "赵六1",
+          "gender": 1,
+          "status": 3,
+          "register_date": 1622868732888,
+          "total_fee": 2587
+      },
+      {
+          "nickname": "张三4",
+          "gender": 2,
+          "status": 0,
+          "register_date": 1617943932888,
+          "total_fee": 4524
+      },
+      {
+          "nickname": "王五3",
+          "gender": 2,
+          "status": 2,
+          "register_date": 1619931132888,
+          "total_fee": 7685
+      },
+      {
+          "nickname": "王五4",
+          "gender": 2,
+          "status": 2,
+          "register_date": 1621399932888,
+          "total_fee": 7686
+      },
+      {
+          "nickname": "张三3",
+          "gender": 2,
+          "status": 0,
+          "register_date": 1622004732888,
+          "total_fee": 4523
+      },
+      {
+          "nickname": "张三1",
+          "gender": 1,
+          "status": 0,
+          "register_date": 1620449532888,
+          "total_fee": 4521
+      },
+      {
+          "nickname": "赵六1",
+          "gender": 1,
+          "status": 3,
+          "register_date": 1621486332888,
+          "total_fee": 2587
+      },
+      {
+          "nickname": "李四2",
+          "gender": 1,
+          "status": 0,
+          "register_date": 1620881532888,
+          "total_fee": 3169
+      },
+      {
+          "nickname": "王五4",
+          "gender": 2,
+          "status": 2,
+          "register_date": 1618635132888,
+          "total_fee": 7686
+      },
+      {
+          "nickname": "张三3",
+          "gender": 2,
+          "status": 0,
+          "register_date": 1619239932888,
+          "total_fee": 4523
+      },
+      {
+          "nickname": "张三1",
+          "gender": 1,
+          "status": 0,
+          "register_date": 1617684732888,
+          "total_fee": 4521
+      },
+      {
+          "nickname": "李四2",
+          "gender": 1,
+          "status": 0,
+          "register_date": 1618116732888,
+          "total_fee": 3169
+      },
+      {
+          "nickname": "王五2",
+          "gender": 1,
+          "status": 1,
+          "register_date": 1618462332888,
+          "total_fee": 7684
+      },
+      {
+          "nickname": "李四4",
+          "gender": 2,
+          "status": 0,
+          "register_date": 1622436732888,
+          "total_fee": 3171
+      },
+      {
+          "nickname": "李四4",
+          "gender": 2,
+          "status": 0,
+          "register_date": 1618289532888,
+          "total_fee": 3171
+      },
+      {
+          "nickname": "赵六2",
+          "gender": 1,
+          "status": 3,
+          "register_date": 1620190332888,
+          "total_fee": 2588
+      },
+      {
+          "nickname": "李四1",
+          "gender": 1,
+          "status": 0,
+          "register_date": 1622177532888,
+          "total_fee": 3168
+      },
+      {
+          "nickname": "李四3",
+          "gender": 2,
+          "status": 0,
+          "register_date": 1622350332888,
+          "total_fee": 3170
+      },
+      {
+          "nickname": "赵六3",
+          "gender": 1,
+          "status": 3,
+          "register_date": 1623041532888,
+          "total_fee": 2589
+      },
+      {
+          "nickname": "王五3",
+          "gender": 2,
+          "status": 2,
+          "register_date": 1618548732888,
+          "total_fee": 7685
+      },
+      {
+          "nickname": "张三2",
+          "gender": 1,
+          "status": 0,
+          "register_date": 1620535932888,
+          "total_fee": 4522
+      },
+      {
+          "nickname": "李四1",
+          "gender": 1,
+          "status": 0,
+          "register_date": 1620795132888,
+          "total_fee": 3168
+      },
+      {
+          "nickname": "王五2",
+          "gender": 1,
+          "status": 1,
+          "register_date": 1622609532888,
+          "total_fee": 7684
+      },
+      {
+          "nickname": "张三4",
+          "gender": 2,
+          "status": 0,
+          "register_date": 1620708732888,
+          "total_fee": 4524
+      },
+      {
+          "nickname": "李四1",
+          "gender": 1,
+          "status": 0,
+          "register_date": 1618030332888,
+          "total_fee": 3168
+      },
+      {
+          "nickname": "王五1",
+          "gender": 1,
+          "status": 1,
+          "register_date": 1618375932888,
+          "total_fee": 7683
+      },
+      {
+          "nickname": "张三4",
+          "gender": 2,
+          "status": 0,
+          "register_date": 1619326332888,
+          "total_fee": 4524
+      },
+      {
+          "nickname": "王五1",
+          "gender": 1,
+          "status": 1,
+          "register_date": 1619758332888,
+          "total_fee": 7683
+      },
+      {
+          "nickname": "赵六4",
+          "gender": 1,
+          "status": 3,
+          "register_date": 1620363132888,
+          "total_fee": 2590
+      },
+      {
+          "nickname": "李四4",
+          "gender": 2,
+          "status": 0,
+          "register_date": 1621054332888,
+          "total_fee": 3171
+      },
+      {
+          "nickname": "赵六3",
+          "gender": 1,
+          "status": 3,
+          "register_date": 1621659132888,
+          "total_fee": 2589
+      },
+      {
+          "nickname": "赵六2",
+          "gender": 1,
+          "status": 3,
+          "register_date": 1621572732888,
+          "total_fee": 2588
+      },
+      {
+          "nickname": "李四1",
+          "gender": 1,
+          "status": 0,
+          "register_date": 1619412732888,
+          "total_fee": 3168
+      },
+      {
+          "nickname": "李四2",
+          "gender": 1,
+          "status": 0,
+          "register_date": 1619499132888,
+          "total_fee": 3169
+      },
+      {
+          "nickname": "王五1",
+          "gender": 1,
+          "status": 1,
+          "register_date": 1621140732888,
+          "total_fee": 7683
+      },
+      {
+          "nickname": "张三1",
+          "gender": 1,
+          "status": 0,
+          "register_date": 1619067132888,
+          "total_fee": 4521
+      },
+      {
+          "nickname": "王五3",
+          "gender": 2,
+          "status": 2,
+          "register_date": 1622695932888,
+          "total_fee": 7685
+      },
+      {
+          "nickname": "赵六4",
+          "gender": 1,
+          "status": 3,
+          "register_date": 1623127932888,
+          "total_fee": 2590
+      },
+      {
+          "nickname": "张三2",
+          "gender": 1,
+          "status": 0,
+          "register_date": 1619153532888,
+          "total_fee": 4522
+      },
+      {
+          "nickname": "李四3",
+          "gender": 2,
+          "status": 0,
+          "register_date": 1619585532888,
+          "total_fee": 3170
+      },
+      {
+          "nickname": "赵六1",
+          "gender": 1,
+          "status": 3,
+          "register_date": 1618721532888,
+          "total_fee": 2587
+      },
+      {
+          "nickname": "王五2",
+          "gender": 1,
+          "status": 1,
+          "register_date": 1621227132888,
+          "total_fee": 7684
+      },
+      {
+          "nickname": "赵六4",
+          "gender": 1,
+          "status": 3,
+          "register_date": 1618980732888,
+          "total_fee": 2590
+      },
+      {
+          "nickname": "王五4",
+          "gender": 2,
+          "status": 2,
+          "register_date": 1622782332888,
+          "total_fee": 7686
+      },
+      {
+          "nickname": "李四3",
+          "gender": 2,
+          "status": 0,
+          "register_date": 1620967932888,
+          "total_fee": 3170
+      },
+      {
+          "nickname": "王五1",
+          "gender": 1,
+          "status": 1,
+          "register_date": 1622523132888,
+          "total_fee": 7683
+      },
+      {
+          "nickname": "李四3",
+          "gender": 2,
+          "status": 0,
+          "register_date": 1618203132888,
+          "total_fee": 3170
+      },
+      {
+          "nickname": "王五2",
+          "gender": 1,
+          "status": 1,
+          "register_date": 1619844732888,
+          "total_fee": 7684
+      },
+      {
+          "nickname": "赵六3",
+          "gender": 1,
+          "status": 3,
+          "register_date": 1620276732888,
+          "total_fee": 2589
+      },
+      {
+          "nickname": "张三1",
+          "gender": 1,
+          "status": 0,
+          "register_date": 1621831932888,
+          "total_fee": 4521
+      },
+      {
+          "nickname": "赵六2",
+          "gender": 1,
+          "status": 3,
+          "register_date": 1622955132888,
+          "total_fee": 2588
+      }
+    ]
+  }
+}

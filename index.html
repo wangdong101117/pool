@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<!--  -->
+
+
+<script type="text/javascript">
+	let arr = ['A2', 'A1', 'A5', 'A0'];
+	let arr1 = [1, 5, 0, 2];
+
+	arr.sort(function(a, b) {
+		console.log(a, b)
+		return a.split('A')[1] - b.split('A')[1];
+	})
+
+	arr1.sort(function(a, b) {
+		return a - b
+	})
+
+	console.log(arr, arr1)
+</script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "秋云高性能跨全端图表组件"
+			}
+		},
+    {
+    	"path": "pages/ucharts/ucharts",
+    	"style": {
+    		"navigationBarTitleText": "全端uCharts渲染图表"
+    	}
+    },
+    {
+    	"path": "pages/echarts/echarts",
+    	"style": {
+    		"navigationBarTitleText": "H5、App用ECharts，其他端用uCharts"
+    	}
+    },
+    {
+    	"path": "pages/unicloud/unicloud",
+    	"style": {
+    		"navigationBarTitleText": "uniCloud数据渲染图表"
+    	}
+    },
+    {
+    	"path": "pages/other/other",
+    	"style": {
+    		"navigationBarTitleText": "图表交互示例"
+    	}
+    },
+    {
+    	"path": "pages/tab/tab",
+    	"style": {
+    		"navigationBarTitleText": "Tab选项卡切换示例"
+    	}
+    },
+    {
+    	"path": "pages/layout/layout",
+    	"style": {
+    		"navigationBarTitleText": "特殊布局示例"
+    	}
+    },
+    {
+    	"path": "pages/format-e/format-e",
+    	"style": {
+    		"navigationBarTitleText": "ECharts的formatter用法"
+    	}
+    },
+    {
+    	"path": "pages/format-u/format-u",
+    	"style": {
+    		"navigationBarTitleText": "uCharts的formatter用法"
+    	}
+    },
+    {
+    	"path": "pages/canvas/canvas",
+    	"style": {
+    		"navigationBarTitleText": "原生用法示例（非组件）"
+    	}
+    },
+    {
+    	"path": "pages/updata/updata",
+    	"style": {
+    		"navigationBarTitleText": "动态更新数据示例"
+    	}
+    }
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "秋云高性能跨全端图表组件",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8",
+    "mp-alipay" : {
+        "titleBarColor" : "#FFFFFF"
+    }
+	}
+}

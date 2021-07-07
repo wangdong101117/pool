@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>reactive函数</title>
+</head>
+<body>
+<!-- 
+	说明: 
+		reactive方法接收一个对象参数创建一个响应式对象; 跟 2.x 版本的 Vue.observable 一样; 如果该参数不是对象的话, 也可渲染到模板上, 但不是响应式的数据
+	
+
+	例如:
+
+		<template>
+			<div class="test">
+				姓名: {{ name.value }}
+				{{ test() }}
+			</div>
+		</template>
+
+		<script>
+			import { reactive } from 'vue'
+			
+			export default {
+				name: 'test',
+				data() {
+					return {}
+				},
+				setup() {
+					let name = reactive({ value: '张三' });
+
+					// 该方法测试响应式数据, 可看到执行完该方法后视图也会发生变化
+					function test() {
+						name.value = 'abc';
+					} 
+
+					return {
+						name,
+						test
+					}
+				}		
+			}
+		</script>
+
+
+
+ -->
+</body>
+</html>

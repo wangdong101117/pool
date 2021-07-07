@@ -13,3 +13,61 @@ vue 动态绑定 style:
 			table_width: '100px'
 		}
 	}	
+
+
+给 class 属性绑定多个值：
+	- 1. 使用一个对象的形式：
+		<div :class="{color: colorVal, font: fontVal}">内容</div>
+
+		data () {
+			return {
+				colorVal: true,
+				fontVal: true
+			}
+		}		
+
+
+	- 2. 使用一个数组的形式：
+		= 1. 
+			<div ：class="[a, b]">内容</div>		
+
+			data: {
+				a: 'colorVal',
+				b: 'fontVal'
+			}
+
+
+		= 2.
+			<div :class="[c, d]">内容</div>
+
+			data: {
+				return {
+					c: { color: true },
+					d: { font: true }
+				}
+			}	
+
+
+给 style 绑定多个值：
+	- 1. 使用一个对象的形式：
+		<div :style="{color: colorVal, font: fontVal}">内容</div>
+
+		data() {
+			return {
+				colorVal: 'red',
+				fontVal: '40px'
+			}
+		}
+
+		注意： 在设置时，中间带有横杠的css属性要设置为驼峰命名法
+
+
+	- 2. 使用一个数组的形式：
+		<div :style="[a, b]">内容</div>	
+		在 vue 实例的 data 属性中设置:
+			data () {
+				return {
+					a: {color: 'red'},
+					b: {fontSize: '40px'}
+				}
+			}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>css3-文字渐变</title>
+	<style type="text/css">
+		div	{
+			width: 400px;
+			height: 200px;
+			text-align: center;
+			line-height: 200px;
+			letter-spacing: 3px;
+			color: red;
+			font-size: 5em;
+		}
+
+		div::after {  
+            content: attr(data-text);  
+            color: yellow;  
+            position: absolute;  
+            left: 0;
+            top: 0;
+            z-index: 2;
+         /*   -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(#FBEE00), to(rgba(251,246,147,.6)));*/
+         /*-webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 1)), to(rgba(255, 255, 255, 0)));*/
+         -webkit-mask-image:-webkit-gradient(linear, 0 0, 0 bottom, from(yellow), to(rgba(0, 0, 255, 0)));
+        }
+	</style>
+</head>
+<body>
+	<!-- 
+		使用下面这两个属性也可: (棚友app中使用到)
+
+			background-image: linear-gradient(135deg,red,blue);
+            -webkit-background-clip:text;
+
+	 -->
+	<div data-text="文字渐变"></div>
+</body>
+</html>

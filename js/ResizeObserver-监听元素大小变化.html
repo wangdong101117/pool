@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div id="box" style="height: 100%; width: 100%; background: #0139a4"></div>
+	<script type="text/javascript">
+		var flag = true;
+		// ResizeObserver 监听元素宽高变化
+		var resizeObserver = new ResizeObserver(() => {
+			if (!flag) {
+				return
+			}
+			flag = false;
+			setTimeout(() => {
+				// 要执行的操作
+				flag = true
+			}, 300)
+		})
+
+		resizeObserver.observer(document.getElementById())
+
+		
+		// 结束观察指定的 Element 或 SVGElement
+		// resizeObserver.unobserve(document.getElementById())
+		
+
+		// 取消和结束目标对象上所有对 元素(包括svgElement) 观察
+		// resizeObserver.disconnect();
+	</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>h5-DOM扩展-api扩展</title>
+</head>
+<body>
+<!-- 
+	1. 获取元素的 api扩展
+		document.querySelector('#box');
+		document.querySelectorAll('.box');
+
+
+	2. 操作类名的 api扩展
+		H5 中更新了关于类名操作的 api；classList
+			- 说明： 是一个用于描述关于当前元素含有的类名的相关信息的对象
+
+			- 使用：
+				添加：classList.add()
+
+				删除：classList.remove()
+
+				切换：classList.toggle()
+
+				检测：classList.contains()
+					= 说明： 返回一个布尔类型的值，true表示存在，false表示不存在。
+
+
+	3. 自定义属性：（操作自定义属性的 api: dataset）
+		- 扩展：
+			=1= 标准属性：元素本身就含有的属性（class，id ...）
+			=2= 自定义属性：非标准属性就是自定义属性
+				
+				- 说明：在 H5 中对于自定义属性有了一些新的规范：
+					* 必须以 data- 开头
+						- 因此如果设置了一个 abc 作为自定义属性时，浏览器会将 abc 作为标准属性就行解析
+
+					* 要作为信息存储进行使用
+					* 在进行属性的名称使用时，不加 data-
+					* 要遵循驼峰命名法：
+						如： 设置了一个自定义属性：data-user-name，在标签中实际生效的是 userName，在进行属性名的使用时，也使用 userName，使用 user-name 显示的是 NaN
+					* 不支持大写，即使大写，也会默认转换为小写
+		
+		- H5 中新增的操作自定义属性的 api：dataset
+			dom对象.dateset： 可得到 元素上所有的自定义属性数据的集合，对象结构
+			操作自定义属性：
+				添加： dom对象.dataset.name = 'lj';
+				修改（重新赋值即可）： dom对象.dataset.name = 'wd';
+				删除：使用 delete，删除对象的属性使用 delete
+					delete dom对象.dataset.name;		
+ -->
+</body>
+</html>

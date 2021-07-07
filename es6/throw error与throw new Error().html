@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>throw error 与 throw new Error()</title>
+</head>
+<body>
+<script type="text/javascript">
+	/**
+	 	thorw new Error(error): 创建错误, 创建一个错误类型抛出
+			- 这种 new Error() 实例化写法是 js 规范所推崇的
+			- 此时 throw 出去的是一个 Error 对象
+				- 该对象中有一个被广泛支持的属性:
+					= name: 用来存储错误的类型, 共有七种, 详情可查询 try-catch 语句
+					= message: 用来存储 error message, 就是 new Error() 的参数
+
+
+	 	throw error: 抛出错误
+	 		抛出的是一个字符串类型的错误
+	 */
+	
+	var num = 6;
+	try {
+		if (num === 6) {
+			throw new Error('num 不全等于 5');
+		}
+	} catch (e) {
+		console.log(e);
+		console.log(e.message); // num 不全等于 5
+	}
+
+
+	var a = 'aaa';
+	try {
+		if (a === 'aaa') {
+			throw 'a 全等于 aaa';
+		}
+	} catch (e) {
+		console.log(e);
+		console.log(e.message); // undefined
+	}
+</script>
+</body>
+</html>

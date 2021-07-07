@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue3新特性-组件v-model支持参数</title>
+</head>
+<body>
+<!-- 
+	在 Vue 2.x 版本时, 要想给子组件传值, 还得单独传入; 在 Vue3.x 版本中可以直接以 v-model:xxx 形式传入参数, 并且配合修饰符 .sync进行数据同步更新
+
+
+	App.vue:
+
+		<template>
+			{{ title }}
+			<Input v-model:title="title" />
+		</template>
+
+		<script>
+			import Input from './components/Input'
+
+			export default {
+				name: 'App',
+				components: {
+					Input
+				},
+				data() {
+					return {
+						title: "张三"
+					}
+				}
+			}
+		</script>
+
+ -->
+</body>
+</html>

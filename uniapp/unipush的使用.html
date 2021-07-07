@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>unipush的使用</title>
+</head>
+<body>
+<!-- 
+	使用unipush参考: https://blog.csdn.net/qdf_200014/article/details/110127391
+	如何配置各厂商渠道可参考极光推送的厂商配置:
+		https://docs.jiguang.cn/jpush/client/Android/mipush-Push-guide/  => 点击 Android
+
+
+	前端代码也可参考: 项目pengyou -> App.vue -> onLaunch 中的代码设置	以及 greenhouse.vue 中的 onShow
+
+	app端接入unipush:
+		1. 首先在 HBuilderX 编辑器中 勾选 push模块:
+
+		2. 在各厂商渠道进行申请 DCloud 开发者中心 -> unipush 厂商推送设置 需要的信息:
+
+			- 小米开发平台: https://dev.mi.com
+				AppID: 2882303761519913849 
+				AppKey：5761991380849 
+				AppSecret：vm4pJqSjtlYOdym2yeTPyg==
+
+			- 华为开发平台
+				appid: 104310355
+				SecretKey：f0d6d17e8e73a22f082316ebfc359ee52d57863e6875ffcf753665a617cbe704
+
+			- oppo: https://open.oppomobile.com
+				appid: 30528247
+				appkey: fce099c5e58d4007878ce2ab097aa2c4(勿外泄)
+				appsecret: ef47456862e84275a23ba8b472c3707c(勿外泄)
+				appserversecret: 81912a611cbc4692a53602181206b9be(勿外泄)
+				MasterSecret: 81912a611cbc4692a53602181206b9be(就是appserversecret)
+
+			- vivo: https://id.vivo.com.cn/
+
+			- 魅族
+
+
+		3. 都配置完后, 打自定义基座,
+
+
+	个推分为: 通知和透传
+		App在线时:
+			透传消息可立马监听到, 可用于自定义播放声音 / 弹框 进行提示等
+			通知消息只会在系统通知栏中进行显示
+
+		App离线时:
+			透传和通知都只会在通知栏中显示, 目前无法自定义提示音	
+
+
+	若App在线能收到推送但离线时收不到推送一定要进行故障排查 -> 查看是否有 device token 信息, 若无就无法接受离线推送
+
+	每次unipush 后台修改了厂商信息配置都要重新打自定义基座
+
+
+
+	https://www.cnblogs.com/murenziwei/p/13036231.html
+	./jarsigner.exe -digestalg SHA1 -sigalg MD5withRSA -tsa http://sha256timestamp.ws.symantec.com/sha256/timestamp -keystore ./pykeystore.keystore -storepass 123456 -signedjar E:\Tonglishukuang\pengyou\trunk\app\Workspace\pengyou-unipush版本\unpackage\debug\android_debug\lcqsalias.apk E:\Tonglishukuang\pengyou\trunk\app\Workspace\pengyou-unipush版本\unpackage\debug\android_debug\android_debug\android_debug.apk pengyou			
+ -->
+</body>
+</html>

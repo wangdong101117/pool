@@ -5,23 +5,20 @@
 </head>
 <body>
 <!-- 
-			option = {
-                legend: {　　　　　　　　　　　　//配置图例
-                    itemWidth: 5,　　　　　　　//图例大小  我这里用的是圆
-                    itemGap: 30,　　　　　　　　//图例之间的间隔
-                    orient: 'horizontal',　　　//布局方式，默认水平布局，另可选vertical
-                    y: '80%',　　　　　　　　　　//垂直放的位置，可以写top，center，bottom，也可以写px或者百分比。x轴方向同理，默认center
-                    icon: "circle",　　　　　　//图例的形状，选择类型有："circle"（圆形）、"rectangle"（长方形）、"triangle"（三角形）、"diamond"（菱形）、"emptyCircle"（空心圆）、
-　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　"emptyRectangle"（空心长方形）、"emptyTriangle"（空心三角形）、"emptyDiamon"（空心菱形），还可以放自定义图片，格式为"image://path",
-　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　path为图片路径
+	option = {
+        legend: {　　　//配置图例
+            itemWidth: 5,　　　//图例大小  我这里用的是圆
+            itemGap: 30,　　　　//图例之间的间隔
+            orient: 'horizontal',　//布局方式，默认水平布局，另可选vertical
+            y: '80%',　　　　　//垂直放的位置，可以写top，center，bottom，也可以写px或者百分比。x轴方向同理，默认center
+            icon: "circle",　//图例的形状，选择类型有："circle"（圆形）、"rectangle"（长方形）、"triangle"（三角形）、"diamond"（菱形）、"emptyCircle"（空心圆）、"emptyRectangle"（空心长方形）、"emptyTriangle"（空心三角形）、"emptyDiamon"（空心菱形），还可以放自定义图片，格式为"image://path",path为图片路径
                    
- 　　　　　　　　　　　selectedMode: false,　　　　//选中哪个图例 false后图例不可点击
-                    textStyle: {　　　　　　　　　
-                        fontSize: 14,
-                        fontFamily: "Microsoft YaHei",
-
-                    },
-                    data: [{name: '达标', textStyle: {color: "#3999dd"}}, {　　　　//name和下面的series中data的name对应显示。后面加textStyle可设置图例后面文字的颜色
+ 　　　　　　selectedMode: false,　　　　//选中哪个图例 false后图例不可点击
+            textStyle: {　　　　　　　　　
+                fontSize: 14,
+                fontFamily: "Microsoft YaHei",
+            },
+            data: [{name: '达标', textStyle: {color: "#3999dd"}}, {　　　　//name和下面的series中data的name对应显示。后面加textStyle可设置图例后面文字的颜色
                         name: '未达标',
                         textStyle: {color: "#a3a6b4"}
                     }],

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue3新特性-ref函数</title>
+</head>
+<body>
+<!-- 
+	说明:
+		该方法接收一个参数, 参数可是单个值或者对象, 所创建的都是响应式的数据; 
+
+			- 当传入一个对象时, 内部将调用 reactive() 进行转换为响应式数据; 返回值里面带有 value 属性取值, 当使用模板进行渲染时可以省去 ".value"
+
+
+	使用:
+
+		<template>
+			<div>
+				姓名: {{ name }} // 模板中渲染时 可省去 .value
+				{{ test() }}
+			</div>
+		</template>
+
+		import { ref } from 'vue'
+
+		setup() {
+			let name = ref('张三');
+	
+			function test() {
+				name.value = 'abc'; 
+			}
+
+			return {
+				name,
+				test
+			}
+		}
+ -->
+</body>
+</html>

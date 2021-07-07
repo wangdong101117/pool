@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue3新特性-computed函数</title>
+</head>
+<body>
+<!-- 
+	说明: 该方法可传入一个函数, 默认该函数就是 getter, 不管 getter 返回值为一个 ref 响应式数据还是一个 普通变量, 数据都是只读且不能改变
+
+		import { ref, computed } from 'vue'
+		export default {
+			name: 'test',
+			setup() {
+				let name = ref('张三');
+				let test = computed(() => name.value);
+				test.value = '123'; // 修改无效, 为只读的
+			}
+		}
+
+	当传入一个对象: set函数 和 get函数, 这样就可修改了
+		import { ref, computed } from "vue"
+
+		setup() {
+			let name = ref("张三");
+
+			let test = computed({
+				get() {
+					return name.value;
+				},
+				set(val) {
+					return name.value = val;
+				}
+			});
+
+			test.value = "李四";
+		}	
+
+ -->
+</body>
+</html>

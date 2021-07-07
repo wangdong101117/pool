@@ -1,0 +1,10 @@
+direction: String (left) 滚动方向，可选：left/right/up/down
+loop: Number(Int: -1) 循环次数，-1为无限循环
+scrolldelay: Number(Int: 0) 每次重复之前的延迟
+scrollamount: Number(Int: 50) 滚动速度，数值越大越快
+circular: Boolean(true) 无缝滚动，如果为false，则与 marquee 标签效果一样
+drag: Boolean(true) 鼠标可拖动
+runshort： Boolean(true) 内容不足是否滚动
+hoverstop：Boolean(true) 鼠标悬停暂停
+xml: Boolean(false) 加载 xml 文件
+inverthover：Boolean(false) 反向，即默认不滚动，鼠标悬停滚动

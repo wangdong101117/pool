@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<!-- 
+	https://ask.dcloud.net.cn/article/36982
+	
+	提交到云端打包后会自动添加以下权限: 
+        <uses-permission android:name="android.permission.INTERNET" />  
+
+        // 下面两个为: 读写SD卡权限，系统授权提示未“访问设备上的照片、媒体内容和文件”，可以参考这里配置应用启动时申请读写手机存储策略
+        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />  
+        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />  
+
+		// 下面是三个 读取设备标识使用，用于uni统计服务
+        <uses-permission android:name="android.permission.READ_PHONE_STATE" />  
+        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />  
+        <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />  
+
+        // 获取设备标识信息oaid在华硕设备上需要用到的权限
+        <uses-permission android:name="com.asus.msa.SupplementaryDID.ACCESS" />  
+
+       	// 设置应用角标功能在华为设备上需要用到的权限
+        <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE" />  
+
+        // 下面两个为 安装apk需要的权限
+        <uses-permission android:name="android.permission.INSTALL_PACKAGES" />  
+        <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+
+    模块及第三方SDK默认自动添加的权限列表: 勾选中模块就会添加的权限
+    	Bluetooth(低功耗蓝牙)
+    		"<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />",  
+	      	"<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />",  
+	      	"<uses-permission android:name=\"android.permission.BLUETOOTH_ADMIN\" />",  
+	      	"<uses-permission android:name=\"android.permission.BLUETOOTH\" />"    
+
+	    Contact(通讯录)
+	    	"<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",  
+      		"<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",  
+      		"<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>"  
+
+
+      	Fingerprint(指纹识别)
+      		"<uses-permission android:name=\"android.permission.USE_FINGERPRINT\"/>"
+
+      	iBeacon
+      		"<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />",  
+	      	"<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />",  
+	      	"<uses-permission android:name=\"android.permission.BLUETOOTH_ADMIN\" />",  
+	      	"<uses-permission android:name=\"android.permission.BLUETOOTH\" />"	
+
+
+	    Maps(定位和地图)
+			高德地图:
+				"<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />",  
+			  	"<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />",  
+			  	"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",  
+			  	"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\" />",  
+			  	"<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\" />",  
+			  	"<uses-permission android:name=\"android.permission.INTERNET\" />",  
+			  	"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />",  
+			  	"<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",  
+			 	"<uses-permission android:name=\"android.permission.ACCESS_LOCATION_EXTRA_COMMANDS\" />",  
+			 	"<uses-permission android:name=\"android.permission.BLUETOOTH\" />",  
+			 	"<uses-permission android:name=\"android.permission.BLUETOOTH_ADMIN\" />"  			
+
+			百度地图:
+				"<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />",  
+				"<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />",  
+				"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\" />",  
+				"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",  
+				"<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\" />",  
+				"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />",  
+				"<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",  
+				"<uses-permission android:name=\"android.permission.INTERNET\"/>",  
+				"<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\" />",  
+				"<uses-permission android:name=\"android.permission.READ_LOGS\" />",  
+				"<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
+
+
+		Messaging(短彩邮件消息):
+			"<uses-permission android:name=\"android.permission.RECEIVE_SMS\"/>",  
+		    "<uses-permission android:name=\"android.permission.SEND_SMS\"/>",  
+		    "<uses-permission android:name=\"android.permission.WRITE_SMS\"/>",  
+		    "<uses-permission android:name=\"android.permission.READ_SMS\"/>"
+
+
+		OAuth(登录鉴权)
+		    微信登录:
+				"<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>"
+
+			QQ登录:
+				"<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>"
+
+			新浪微博登录:
+				无
+
+			小米登录:
+				无
+
+
+		Payment(支付)
+			支付宝支付:
+				<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />  
+				<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+			
+			微信支付:
+				"<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>"
+		
+		Push(消息推送)
+			uniPush
+				// 个推通道必需权限  权限说明：  https://docs.getui.com/getui/question/sdk/
+			 	"<uses-permission android:name=\"android.permission.INTERNET\" />",  
+			  	"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />",  
+			  	"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",  
+			  	"<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\" />",  
+			  	"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\" />",  
+			  	"<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\" />",  
+			  	"<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",  
+			  	"<uses-permission android:name=\"android.permission.VIBRATE\" />",  
+			  	"<uses-permission android:name=\"android.permission.GET_TASKS\" />",  
+			
+				// 个推通道 可选权限 用于电子围栏
+				  	"<uses-permission android:name=\"android.permission.BLUETOOTH\" />（可选）",  
+				  	"<uses-permission android:name=\"android.permission.BLUETOOTH_ADMIN\" />（可选）",  
+				  	"<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />（可选）",  
+				  	"<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />（可选）",  
+				
+				// 厂商通道必需权限  小米 
+				  	"<uses-permission android:name=\"android.permission.BROADCAST_PACKAGE_ADDED\" />",  
+				  	"<uses-permission android:name=\"android.permission.BROADCAST_PACKAGE_CHANGED\" />",  
+				  	"<uses-permission android:name=\"android.permission.BROADCAST_PACKAGE_INSTALL\" />",  
+				  	"<uses-permission android:name=\"android.permission.BROADCAST_PACKAGE_REPLACED\" />",  
+				  	"<uses-permission android:name=\"android.permission.RESTART_PACKAGES\" />",  
+				  	"<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\" />",  
+				
+				// 厂商通道必需权限  魅族
+				 	"<uses-permission android:name=\"android.permission.WRITE_SETTINGS\" />",  
+				
+				// 厂商通道必需权限 华为
+				  	"<uses-permission android:name=\"android.permission.REQUEST_INSTALL_PACKAGES\" />"			  	
+		
+		Share(分享)
+			微信分享
+				"<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>"
+			
+			QQ分享
+				"<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>"
+			
+			新浪微博分享
+			  	"<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\" />",  
+			  	"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\" />",  
+			  	"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",  
+			  	"<uses-permission android:name=\"android.permission.INTERNET\" />",  
+			  	"<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />"
+		
+		Speech(语音识别)
+			百度语音识别
+			  	"<uses-permission android:name=\"android.permission.RECORD_AUDIO\" />",  
+			  	"<uses-permission android:name=\"android.permission.INTERNET\" />",  
+			  	"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",  
+			 	"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\" />",  
+			  	"<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\" />",  
+			  	"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />",  
+			  	"<uses-permission  android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />"
+			
+			讯飞语音识别
+			  	"<uses-permission android:name=\"android.permission.RECORD_AUDIO\" />",  
+			  	"<uses-permission android:name=\"android.permission.INTERNET\" />",  
+			  	"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",  
+			  	"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\" />",  
+			  	"<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\" />",  
+			  	"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />",  
+			  	"<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />"
+		
+		Static(统计)
+			友盟统计
+			  	"<uses-permission android:name=\"android.permission.READ_LOGS\" />",  
+			  	"<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\" />",  
+			  	"<uses-permission android:name=\"android.permission.RECEIVE_USER_PRESENT\" />"
+		
+		uni-AD
+			今日头条穿山甲广告联盟
+			  	"<uses-permission android:name=\"android.permission.REQUEST_INSTALL_PACKAGES\"/>",  
+			  	"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />",  
+			  	"<uses-permission android:name=\"android.permission.GET_TASKS\"/>"
+			
+			腾旭优量汇广告联盟
+			  	"<uses-permission android:name=\"android.permission.REQUEST_INSTALL_PACKAGES\"/>",  
+			  	"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />"
+			
+			快手广告联盟
+			  	"<uses-permission android:name=\"android.permission.REQUEST_INSTALL_PACKAGES\"/>",  
+			  	"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />",  
+			  	"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\" />",  
+			  	"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />"
+
+ -->
+</body>
+</html>

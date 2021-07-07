@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>运用ES6来解决实际开发的JS问题</title>
+</head>
+<body>
+<script type="text/javascript">
+	/* 1. 如何隐藏所有指定的元素 */
+	
+	const hideElement = (...el) => [...el].forEach(ele => (ele.style.display = 'none'))
+
+	// hideElement(document.querySelectorAll('img'));
+	
+
+	/* 2. 如何检查元素是否具有指定的类	 
+
+		每个DOM节点上都有一个 classLis 对象，通过该对象可对类名进行增删改查操作，还可判断某个dom节点上是否存在某个 class类名
+	*/
+
+	const hasClass = (el, className) => el.classList.contains(className);
+
+	// hasClass(document.querySelector('p.title'), 'title');	
+
+	
+	/* 3. 元素的类名切换 */
+
+	const toggleClass = (el, className) => el.classList.toggle(className);
+
+	// toggleClass(document.querySelector('p.title'), 'title');
+
+
+
+ 	/* 4.如何获取当前页面的滚动位置 */ 
+
+ 	const getScrollPosition = (el = window) => ({
+ 		x: el.pageXOffset !== undefined? el.pageXoffset : el.scrollLeft,
+ 		y: el.pageYOffset !== undefined? el.pageYOffset : el.scrollTop
+ 	})
+
+
+ 	/* 5. 如何平滑滚动到页面顶部 */
+
+ 	const scrollToTop = () => {
+ 		const c = document.documentElement.scrollTop || document.body.scrollTop;
+
+ 		if (c > 0) {
+ 			// window.requestAnimationFrame() 会通知浏览器： 你希望执行一个动画，并且要求浏览器在下次重绘之前调用指定的回调函数来更新动画。该方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次重绘前执行。
+ 			
+ 			// rquestAnimationFrame：优势在于是通过系统决定回调函数的执行时机。如果是60Hz的刷新频率，那么每次刷新的间隔中会执行一次回调函数，不会引起丢帧，也不会卡顿 
+ 			window.requestAnimationFrame(scrollToTop);
+ 			window.scrollTop(0, c - c / 8);
+ 		}
+ 	}
+</script>
+</body>
+</html>

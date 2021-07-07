@@ -131,7 +131,7 @@
 			// 除此之外: 
 				this.route: 当前页面的路径
 				this.setData():
-					用于将数据从逻辑层发送到视图层(异步), 同时改变对应的 this.data 的值(同步)
+	 x层发送到视图层(异步), 同时改变对应的 this.data 的值(同步)
 
 					注:
 						1/ 直接修改this.data而不调用this.setData是无法改变页面的状态的, 还会造成数据不一致
@@ -163,7 +163,7 @@
 					页面可使用 behaviors, 可用来让多个页面有相同的数据字段和方法
 
 					behaviors是用于组件间代码共享的特性, 类似于 mixins / traits, 
-					每个behaviors可包含医嘱属性 数组 生命周期和方法, 组件引用它时, 它的属性 数据和方法会被合并到数组中, 生命周期函数也会在对应时机被调用, 每个组件可引用多个behaviors, behavior也可引用其他的behavior
+					每个behaviors可包含一组属性 数组 生命周期和方法, 组件引用它时, 它的属性 数据和方法会被合并到数组中, 生命周期函数也会在对应时机被调用, 每个组件可引用多个behaviors, behavior也可引用其他的behavior
 
 					// my-behaviors.js
 					module.exports = Behavior({

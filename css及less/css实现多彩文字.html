@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>css实现多彩文字</title>
+	<style type="text/css">
+		span {
+			font-size: 18px;
+			color: transparent;
+			background: -webkit-linear-gradient(45deg, #00a0e9, #10d39d, #00a0e9, #10d39d);
+			-webkit-background-clip: text; /* 背景裁剪: 只保留文本上的背景*/
+			animation: ran 15s linear infinite;
+		}	
+
+		@keyframes ran {
+	        from {
+	            background-position: 0 0;
+	        } to {
+	            background-position: 1000px 0;
+	        }
+	    }
+	</style>
+</head>
+<body>
+<span>css实现多彩文字效果</div>
+</body>
+</html>

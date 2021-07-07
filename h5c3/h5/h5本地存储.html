@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>H5本地存储</title>
+</head>
+<body>
+<!-- 
+	-1- cookie：
+		数据格式： 字符串、json字符串
+		存储大小：4kb 左右
+		有效期：
+			= 默认：在没有进行设置有效时间时，会在浏览器关闭后失效
+			= 当设置了有效期，过了有效期时间后失效
+		网络请求：
+			请求报文中会携带 cookie 信息（是设置在请求头里面的 Request Headers 进行发送的）
+
+		操作cookie:
+			- 设置：
+				document.cookie = 'username = jingjing', Expires = "+new Date(2021-06-09 18:00:00)"
+			- 获取：
+				document.cookie
+
+		注意：
+			在 cookie 设置好的当前页面中立即去访问 cookie, 是不能访问到的，会报错。
+			这是因为：cookie是需要通过浏览器传递给服务器，服务器在返回给浏览器，然后才能被访问到。			
+
+
+	-2- sessionStorage：
+		数据格式: 字符串，json字符串
+		存储大小：5MB左右
+		有效期：浏览器关闭失效，或者重新访问网站地址失效
+		网络请求：不会携带
+		操作方式：与 localStorage 操作方式相同
+
+
+	-3- localStorage：
+		数据格式：字符串、json字符串
+		存储大小：20MB 左右
+		有效期：永久生效，除非手动进行删除
+		网络请求：因为可存储的信息量较大，不会携带
+		操作方式：
+			在使用时，先定义设置好 key
+			- 设置：localStorage.setItem(key, value);
+			- 修改（重新赋值）：localStorage.setItem(key, value);
+			- 删除：localStorage.removeItem(key);
+			- 清空：localStorage.clear(); 
+				= 会清空 localStorage 中保存的所有信息
+
+	-4- indexedDB 数据库
+		如果需要将大量数据存储在客户端，避免重复向服务员发送请求获取数据，优化响应速度，此时可使用 indexedDB
+
+		=1= 产生背景：
+			*1* 随着浏览器功能的不断增强，越来越多的网站开始考虑将大量数据存储在客户端，这样可减少从服务端获取数据，并且，如果单次请求数据量大时，也能避免每次都向服务端发起请求，影响体验。
+			
+			*2* 现有的浏览器本地存储方案，都不适合存储大量数据，localStorage大小在2.5M-10M之间，并且不提供搜索功能，也不能建立自定义的索引，上述问题下，indexedDB 诞生了。
+			
+		=2= 简单介绍：
+			indexedDB 就是浏览器提供的本地数据库，可被网页脚本创建和操作，indexedDB 允许存储大量数据，提供查找接口，也可建立索引，就数据库类型而言，indexedDB 不属于关系型数据库（不支持 SQL 查询语句），更接近 NOSQL 数据库。
+
+		=3= 特点：
+			*1* 键值对存储：
+				indexedDB 内部采用对象仓库（Object Store）存放数据，所有类型的数据都可直接存入，包括 JS 对象。在对象仓库中，数据以“键值对”的形式保存，每一个数据记录都有对应的主键，主键是独一无二的，不能重复，否则会抛出一个错误。
+
+			*2* 异步：
+				indexedDB 操作时不会锁死浏览器，用户依然可进行其他操作，这与 localStorage 形成对比，localStorage 的操作是同步的，异步设计是为了放置大量数据读写时，拖慢网页的表现。
+
+			*3* 支持事务：
+				indexedDB 支持事务（transaction），意味着一系列操作步骤中，只要有异步失败，整个事务就会取消，数据库回滚到事务发生之前的状态，不存在之改写一部分数据的情况。
+
+			*4* 同源限制：
+				indexedDB 受到同源限制，每一个数据库对应创建它的域名，网页只能访问自身域名下的数据库，而不能访问跨域的数据库。
+
+			*5* 存储空间大：
+				一般来说不少于 250MB，甚至没有上限。
+
+			*6* 支持二进制存储。
+				indexedDB不仅可存储字符串，还可存储耳机在那会数据（ArrayBuffer对象和Blob对象）。	
+
+		=4= 基本概念：
+			indexedDB 是一个比较复杂的 API，涉及到许多概念，它将被冉的实体，抽象成一个个对象接口，学习这个 API，就是在学习他的各个对象接口。
+
+			*1* 数据库： IDBDatabase 对象
+				
+				-- 数据库是一系列相关数据的容器，每个域名都可新建任意多个数据库。
+				-- indexedDB数据库有版本的概念，同一时刻，只能有一个版本的数据库存在，如果要修改数据库结构（新增/删除表、主键或者是索引），只能通过升级数据库完成。
+
+			*2* 对象仓库：IDBObjectStore 对象
+				-- 每个数据库包含若干个对象仓库，它类似于关系型数据库的表格。
+				
+				-- 数据记录：
+					对象仓库保存的是数据记录，每条记录类似于关系型数据的行，但只有主键和数据体两部分，主键用来简历默认的索引，必须是不同的，否则会报错。主键可以使数据记录里面的一个属性，也可指定为一个递增的整数编号。
+
+					{ id: 1, text: 'foo' } 中 id 属性可作为主键，数据体可以使任意数据类型，不仅仅局限于对象。
+
+			*3* 索引：IDBIndex 对象
+				为了能对数据进行检索，可在对象仓库里面，为不同的属性建立索引。
+						
+			*4* 事务：IDBTransaction 对象
+				数据记录的读写和删改，都要通过事务完成，事务对象提供 error、abort和compolete三个事件，用来监听操作结果。
+
+			。。。
+			
+
+		=5= 操作流程：
+			indexedDB 数据库的各种操作，一般按照下面的流程进行。下面的示例用于快速上手。
+
+			/1/ 打开数据库
+
+				使用 indexedDB 的第一步是打开数据库：indexDB.open() 
+
+					var request = window.indexedDB.open(databaseName, version);
+
+					/**
+					 * @params: databaseName：string，数据库名称。如果指定的数据库不存在，会新建数据库。
+					 * @params: version：整数，表示数据库的版本，如果省略，打开已有数据库时，默认为当前版本，新建数据库时，默认为 1
+					 */
+					
+					indexedDB.open() 返回一个 IDBRequest 对象，该对象通过三种事件处理打开数据库的操作结果。
+						<1> onerror事件：打开数据库失败：
+							request.onerror = function(e) {
+								console.log('数据库打开报错');
+							}
+
+						<2> onsuccess事件：表示成功打开数据库：
+							var db; // 保存数据库实例
+							request.onsuccess = function(e) {
+								db = request.result;
+								console.log('数据库打开成功');
+							}
+
+						<3> onupgradeneeded事件: 如果指定的版本号大于数据库的实际版本号，就会发生数据库升级事件：upgradeneeded事件
+							var db;
+							request.onupgradeneeded = function(e) {
+								// 注意：此时要通过 事件对象event的 target.result属性, 拿到数据库实例
+								db = request.target.result;
+							}
+
+			/2/ 新建数据库：
+				其实：新建数据库与打开数据库是同一个操作，如果指定的数据库不存在，就会进行创建，两者之间的不同在于：
+					1. 新建数据库的操作主要在 onupgradeneeded 事件的监听函数里面完成，因为这时候，版本从无到有，所以会触发这个事件。
+						request.onupgradeneeded	= function() {
+							db = event.target.result;
+							var objectStore = db.createObjectStore('person', { keyPah: 'id' })
+						}		
+
+						// 上面代码中，数据库新建成功后，新增一张叫做person的表格，主键是 id
+
+						// 其实更好的写法是：先判断一下，如果这张表格不存在，再进行创建
+						request.onupgradeneeded = function(e) {
+							db = event.target.result;
+							var objectStore;
+							if (!db.objectStoreNames.contains('person')) {
+								// 如果没有这张表格，进行创建表格
+								objectStore = db.creatObjectStore('person', {
+									keyPath: 'id'
+								});
+							}
+						}
+
+						主键（key）是默认建立索引的属性，比如，数据记录是：
+							{ id: 1, name: '张三' }
+
+						那么 id 属性可作为主键，主键也可指定为下一层属性的对象：
+							{ foo: { bar: 'bar' } } 中的 foo.bar 也可指定为主键	
+		
+						如果数据记录中没有合适的属性作为主键，那么可让 indexedDB 自动生成主键
+							var objectStore = db.createObjectStore('person', {
+								autoIncrement: true
+							})
+
+						在新建完对象仓库后，下一步可新建索引：
+							request.onupgradeneeded = function(e) {
+								db = event.target.result;
+								var objectStore = db.createObjectStore('person', {
+									keyPath: 'id'
+								})
+								objectStore.createIndex('name', 'name', {
+									unique: false
+								});
+								objectStore.createIndex('age', 'age', {
+									unique: false
+								});
+							}
+
+						上面代码中， iDBObject.createIndex() 的三个参数：
+							params1: 索引名称
+							params2: 索引所在的属性
+							params3: 配置对象（该属性是否可包含重复值）
+
+
+			/3/ 新增数据：
+				新增数据指的是想对象数据写入数据记录，这需要通过事务完成
+					function addInformation () {
+						var request = db.transaction(['person'], 'readwrite')
+							.objectStore('person')
+							.add({
+								id: 1, name: '刘京'， age: 22
+							})
+
+
+						request.onsuccess = function (e) {
+							console.log('数据写入成功');
+						}
+
+						request.onerror = function (e) {
+							console.log('数据写入失败');
+						}
+					}
+
+					addInformation();
+
+				上面代码中：写入数据时，需要新建一个事务，新建时必须指定表格名称和操作模式（‘只读’或者‘读写’）。新建事务后，通过 IDBTranscationobjectstore(name) 拿到 IDBObjectStore(表格)对象，再通过表格对象的 add()，向表格写入一条记录。
+
+				写入操作是一个异步事件，通过监听连接对象的 onsuccess事件 和 onerror事件，判断是否写入成功。
+
+			
+			/4/ 读取数据：
+				读取数据也是通过事务完成
+					function readInformation () {
+						var transcation = db.transcation(['person']);
+						var objectStore = transcation.objectStore('person');
+
+						// 读取数据，参数是主键的值
+						var request = objectStore.get(1);
+
+						request.onerror = function (e) {
+							console.log('读取事务失败');
+						}
+
+						request.onsuccess = function (e) {
+							if (request.result) {
+								console.log('读取成功', 'name:', request.result.name);
+								console.log('读取成功', 'age:', request.result.age);
+							} else {
+								console.log('未获取到数据记录');
+							}
+						}
+					}
+
+				上面代码中： objectStore.get() 用于读取数据，参数是主键的值
+				
+			/5/ 修改（更新）数据
+				修改（更新）数据要使用 IDBObject.put()
+					function updateInformation () {
+						var request = db.transaction(['person'], 'readwrite')
+							.objectStore('person')
+							.put({
+								id: 1, name: '王东', age: 25
+							})
+
+						request.onsuccess = function (e) {
+							console.log('数据更新成功');
+						}
+
+						request.onerror = function (e) {
+							console.log('数据更新失败');
+						}
+					}
+
+					updateInformation();
+
+				上面代码中：.put() 自动更新了主键为 1 的记录。
+				
+			/6/ 删除数据：
+				IDBObjectStore.delete() 用于删除记录
+					function deleteInformation () {
+						var request = db.transcation(['person'], 'readwrite')
+							.objectStore('person')
+							.delete(1);
+
+
+						request.onsuccess = function (e) {
+							console.log('数据删除成功');
+						}
+
+						request.onerror = function (e) {
+							console.log('数据删除失败');
+						}
+					}
+
+			/7/ 遍历数据：
+				遍历表格中的所有数据记录，要使用指针对象：IDBCursor
+					function readAllInformation () {
+						var objectStore = db.transaction(['person']).objectStore('person');
+
+						objectStore.openCursor().onsuccess = function (e) {
+							var cursor = event.target.result;
+
+							if (cursor) {
+								console.log('id:', cursor.key);
+								console.log('name:', cursor.value.name);
+								console.log('age:', cursor.value.age);
+
+								cursor.continue();
+							} else {
+								console.log('没有更多数据了');
+							}
+						}
+					}
+
+					readAllInformation();
+
+				上面代码中：新建指针对象的 openCursor() 是一个异步操作，所以要监听 onsuccess事件
+				
+
+			/8/ 使用索引：
+				索引的意义在于：可以让你搜索任意字段，也就是说从任意字段拿到数据记录，如果不建立索引，默认只能搜索主键（从主键取值）
+
+				在上面新建表格的时候，对 name 字段建立了索引：
+					即：
+						objectStore.createIndex('name', 'name', {
+							unique: false
+						});
+
+					那么，即可从 name	 找到相对应的数据记录了：
+						var transaction = db.transaction(['person'], 'readonly');
+
+						var store = transaction.objectStore('person');
+						var index = store.index('name');
+						var request = index.get('张三');
+
+						request.onsuccess = function (e) {
+							var result = e.target.result;
+
+							if (result) {
+								// ...
+							} else {
+								// ...
+							}
+						}
+
+ -->
+</body>
+</html>

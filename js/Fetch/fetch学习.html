@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Fetch api 学习</title>
+</head>
+<body>
+<!-- 
+	- 说明: 
+		fetch() 是 XMLHttpRequest 的升级版, 用于在 JS 中发送 HTTP 请求
+	
+	- 基本用法:
+		* fetch() 的功能与 XMLHttpRequest 基本相同, 但有三个主要的差异
+			(1) fetch() 使用 Promise, 不使用回调函数, 写起来更简洁
+			(2) fetch() 采用模块化设计, API 分散在多个对象上(下面会详细说)
+					- Response 对象
+					- Request 对象
+					- Headers 对象	 
+				这样更合理一些, 而对比之下, XMLHttpRequest 的 API 都在同一个接口管理
+			(3) fetch() 通过数据流(Stream 对象)处理数据, 可分块读取, 有利于提高网站性能表现, 减少内存占用, 对于请求大文件或网速慢的场景相当有用; 而 XMLHttpRequest 对象不支持数据流, 所有的数据必须放置缓存里, 不支持分块读取, 必须等待全部拿到后, 在一次性吐出来
+
+		* 在用法上, fetch() 接受一个 URL 字符串作为参数, 默认向该网址发出 GET 请求, 返回一个 Promise 对象
+			
+			// 示例: 获取 json 数据
+			fetch('http://test.py.tlsk.com.cn')
+				.then(response => response.json())
+				.then(json => console.log(json))
+				.catch(err => console.log('请求失败', err));	
+			
+			示例中, fetch() 接收到的是 response 是一个 stream 对象, response.json() 是一个异步操作, 取出所有的内容, 并将其转为 JSON 对象
+
+		* Promise 可使用 await 语法改写, 使得语义更清晰
+			
+			// 使用 await 改写上面示例
+			async function getJson() {
+				let url = 'http://test.py.tlsk.com.cn';
+				try {
+					let response = await fetch(url);
+					return await response.json();
+				} catch(err) {
+					console.log('请求失败', err);
+				}
+			}	
+
+			await 语句必须放置在 try...catch 里面, 这样才能捕获到异步操作中可能出现的错误
+
+
+	- Response对象: 处理 HTTP 响应		
+		fetch() 请求成功后, 得到的是一个 Response对象, 它对应服务器的 HTTP 的响应
+			const response = await fetch(url);
+		
+		<1> Response 对象的同步属性:
+			前面讲到 Response 包含的数据 通过 Stream 接口异步读取, 但是它还包含一些同步属性; 对应 HTTP 响应的 Header(标头信息), 可立即读取, 比如: response.status 与 response.statusText
+
+				async function fetchText() {
+					let response = await fetch('/read.txt');
+					console.log(response.status);
+					console.log(response.statusText);
+				}
+
+			
+			Headers(标头信息)包括以下属性:
+				- Response.ok
+					返回一个布尔值, 表示请求是否成功, true 对应的 HTTP 请求的状态码为: 200 - 299, false 对应其他状态码
+
+				- Response.status
+					返回一个数字, 表示 HTTP 响应的状态码
+
+				- Response.statusText
+					返回一个字符串, 表示 HTTP 响应的状态信息(如: 请求成功, 服务器返回 'OK')
+
+				- Response.url
+					返回请求的URL, 如果 URL 存在跳转, 该属性返回的是最终的 URL	
+
+				- Response.type
+					返回请求的类型:
+						= basic: 普通请求(同源请求)
+						= cors: 跨域请求
+						= error: 网络错误, 主要用于 Service Worker
+						= 另外的值不多做介绍			
+				
+				- Response.redirected
+					返回一个布尔值, 表示请求是否发生过跳转
+
+		
+		<2> 判断请求是否成功:
+			fetch()发出请求后, 有一个很重要的注意点:
+				只有网络错误或者无法连接时, fetch() 才会报错, 其他情况都不会报错, 而是认为请求成功
+
+				即使服务器返回的状态码是 4xx、5xx, fetch() 也不会报错(Promise 不会变为 rejected 状态)
+
+				- 特殊说明: fetch() 会将跳转的状态码(3xx) 自动转为 200
+
+				方法一: 
+					通过 Response.status 属性, 得到 HTTP 响应的状态码, 才能判断请求是否成功:
+
+					async function fetchText() {
+						let response = await fetch('/read.txt');
+						if (response.status === 200) {
+							return await response.text();
+						} else {
+							throw new Error(response.statusText);
+						}
+					}
+
+				方法二:
+					判断 response.ok 是否为 true
+
+					if (response.ok) {
+						// 请求成功
+					} else {
+						// 请求失败
+					}
+
+		<3> Response.headers 属性
+			该属性指向一个 Headers 对象, 对应 HTTP 响应的所有标头			
+
+		<4> 读取内容
+			Response 对象根据服务器返回的不同类型的数据, 提供五种了不同的读取方法:
+				* response.text(): 得到文本字符串
+				* response.json(): 得到 JSON 对象
+				* response.blob(): 得到二进制的 Blob 对象
+				* response.formData(): 得到 formData 表单对象
+				* response.arrayBuffer(): 得到二进制的 ArrayBuffer 对象
+
+			这五个读取方法都是一部的, 返回的都是 Promise 对象; 必须等到异步操作结束才能得到服务器返回的完整数据
+
+			(1) response.text()
+				用于获取文本数据, 比如 HTML 文件
+
+					const response = await fetch('/user.html');
+					const body = await rsponse.text();
+					document.body.innerHTML = body;
+
+			(2) response.json()
+				主要用于获取服务器返回的 JSON 数据
+
+			(3) response.formData()
+				主要用在 Service Worker 中, 拦截用户提交的表单, 修改某些数据后再提交给服务器
+
+			(4) response.blob()
+				用于获取二进制文件, 如: 读取图片文件 flower.jpg, 显示在网页上
+
+					cons response = await fetch('flower.jpg');
+					const my_blob = await response.blob();
+					const obj_url = URL.createObjectURL(my_blob);
+
+					const my_img = document.querySelector('img');
+					my_img.src = obj_url;	
+
+			(5) response.arrayBuffer():
+				主要用于获取流媒体文件, 如: 获取音频文件 song.ogg, 在线播放
+
+					const audioCtx = new window.AudioContext();
+					const source = audioCtx.createBufferSource();
+
+					const response = await fetch('song.ogg');
+					const buffer = await response.arrayBuffer();
+
+					const decodeData = await audioCtx.decodeAudioData(buffer);
+
+					source.buffer = buffer;
+					source.connect(audioCtx.destination);
+					source.loop = true;					
+
+		
+		<5> Response.clone()
+			stream 对象只能读取一次, 读取完就没了, 意味着, 提供的五个读取方法, 只能使用一个
+
+				let text = await response.text();
+				let json = await response.json(); // 报错					
+			Response对象提供了 Response.clone(), 创建 Response 对象的副本, 实现多次读取;
+			
+				const response1 = await fetch('flower.jpg');
+				const response2 = response1.clone();
+
+				const myBlob1 = await.response1.blob();	
+				const myBlob2 = await.response2.blob();
+
+
+		<6> Response.body属性
+			该属性是 Response 对象暴露出的底层接口, 返回一个 ReadableStream 对象, 供用户操作
+				它可以用来分块读取内容, 应用之一就是显示下载的进度:
+
+					const response = await fetch('flower.jpg');
+					const reader = response.body.getReader();
+
+					while(true) {
+						const {done, value} = await reader.read();
+
+						if (done) {
+							break;
+						}
+
+						console.log(`接收 ${value.length} 字节`)
+					}
+
+				示例中: response.body.getReader() 返回一个遍历器; 该遍历器的read() 每次返回一个对象, 表示本次读取的内容块;
+				
+				该对象的 done 属性是一个布尔值, 用来判断有没有读取完; value 属性是一个 arrayBuffer 数组, 表示内容块的内容, 而value.length 属性是当前块的大小	
+
+	
+	- fetch() 的第二个参数: 定制 HTTP 请求
+		fetch() 的第一个参数是 URL, 还可接受第二个参数, 作为配置对象, 定制发出的 HTTP 请求
+
+			fetch(url, option)
+
+		HTTP 请求的方法、表头、请求参数都在这个对象里面设置; 下面是一些示例:
+			
+			(1) post 请求
+
+				const response = await fetch(url, {
+					// method: 请求的方法
+					method: 'POST',
+					// 设置 请求头
+					headers: {
+						'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+					},
+					// POST 请求的数据(请求参数)
+					body: 'foo=bar&lorem=jpsum'
+				}) ;
+
+				const json = await response.json();
+
+				-- 注意点: 有些标头 不能通过 headers 属性设置, 如: Content-Length / Cookie / Host 等; 它们是由浏览器自动生成, 无法修改
+
+
+			(2) 提交 JSON 数据
+				
+				const user = { name: 'zs', age: 18};
+				const response = await fetch('article/post/user', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json; charset=utf-8'
+					},
+					body: JSON.stringify(user)
+				});
+
+				示例中: 标头 Content-Type 设置为: 'application/json; charset=UTF-8'; 因为默认发送的是纯文本, Content-Type的默认值是: 'text/plain; charset=UTF-8'
+
+
+			(3) 提交表单:
+
+				const form = document.querySelector('form');
+
+				const response = await fetch('/users', {
+					method: 'POST',
+					body: new FormData(form)
+				})	
+
+
+			(4) 文件上传
+				如果表单里面有文件选择器, 可以用前一个例子的写法, 上传的文件包含在整个表单里面, 一起提交
+
+				另一种方法是用脚本添加文件, 构造出一个表单, 进行上传:
+					const input = document.querySeletor('input[type="file"]');
+
+					const data = new FormData();
+
+					data.append('file', input.files[0]);
+					data.append('user', 'foo');
+
+					fetch('/avatars', {
+						method: 'POST',
+						body: data
+					})	
+
+				在上传二进制文件时, 不用修改标头的 Content-Type, 浏览器会自动设置
+				
+
+			(5) 直接上传二进制数据
+				fetch() 也可直接上传 二进制数据, 将 Blob 或 arrayBuffer 数据放在 body 属性里面		
+				
+					let blob = await new Promise(resolve => {
+						canvasElem.toBlob(resolve, 'image/png')
+					});
+
+					let response = await fetch('/post/image', {
+						method: 'POST',
+						body: blob
+					})
+
+
+	- fetch() 配置对象的完整 API
+		fetch() 第二个参数的完整 API:
+			const response = fetch(url, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'text/plain; charsrt=UTF-8'
+				},
+				body: undefined,
+			  	referrer: "about:client",
+			  	referrerPolicy: "no-referrer-when-downgrade",
+			  	mode: "cors", 
+			  	credentials: "same-origin",
+			  	cache: "default",
+			  	redirect: "follow",
+			  	integrity: "",
+			  	keepalive: false,
+			  	signal: undefined
+			})
+
+
+
+	- 取消 fetch() 请求: 使用 AbortController 对象						
+-->
+</body>
+</html>

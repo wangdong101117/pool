@@ -22,7 +22,7 @@
                 
             <5> [attr*=value]
                     属性名称为attr的元素, 且属性值包含value的标签就会被选中
-                        // - 表示类名中含有box的div标签被选中
+                        例如： 表示类名中含有box的div标签被选中
                         div[class*="box"] {
                             color: red;
                         }
@@ -40,7 +40,7 @@
                 <3> 通过li的父元素 找到所有的子元素
                 <4> 找到第 3 个子元素 
                 <5> 判断:
-                         如果第 3 个元素类型与 li 一致, 那么选中, 否则该选择器就是无效的选择器               
+                        如果第 3 个元素类型与 li 一致, 那么选中, 否则该选择器就是无效的选择器               
         */ 
 
         扩展用法:
@@ -53,11 +53,11 @@
                     - 偶数: li:nth-child(2n)    
                     - 奇数: li:nth-child(2n+1)
                     - 倒数三个元素: li:nth-child(n+(总个数-3+1))
-                        - 因为n从0开始, 假设有5个li元素, 倒数三个就是 第三个 第四个 第五个
+                        - 因为 n 从0开始, 假设有5个 li 元素, 倒数三个就是 第三个 第四个 第五个
                             所以 nth-child(n+(5-3+1)) => nth-child(n+3)
-                                n=0时 => 选中第三个
-                                n=1时 => 选中第四个
-                                n=2时 => 选中第五个
+                                n = 0时 => 选中第三个
+                                n = 1时 => 选中第四个
+                                n = 2时 => 选中第五个
                        
                     - 最后一个元素: last-child
                     - 第一个元素: first-child
@@ -116,12 +116,12 @@
         .box:hover {
             left: 100px;
             top: 200px;
-            transform: left 1s linear 1s,
+            transition: left 1s linear 1s,
                        top 2s ease 1.5s 
         }
 
         /*
-            transitionend事件用于监听 过渡transition 结束时的瞬间
+            transitionend 事件用于监听过渡 transition 结束时的瞬间
         */
 
         $('.box').on('transitionend', function () {})
@@ -282,7 +282,6 @@
         document.querySelectorAll('.box')
     
     2. 操作类名的 api 扩展: classList:
-        
 
     3. 自定义属性: dataSet
 
@@ -297,6 +296,3 @@
         sessionStorage
 
         cookie
-
-
-

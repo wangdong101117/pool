@@ -1,0 +1,76 @@
+// 文档教程: https://uniapp.dcloud.net.cn/uniCloud/schema
+{
+	"bsonType": "object",
+	"required": [],
+	"permission": {
+		"read": true,
+		"create": true,
+		"update": true,
+		"delete": true
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+    "nickname": {
+      "bsonType": "string",
+      "title": "昵称",
+      "description": "用户昵称"
+    },
+    "gender": {
+      "bsonType": "int",
+      "title": "性别",
+      "description": "用户性别：0 未知 1 男性 2 女性",
+      "defaultValue": 0,
+      "enum": [
+        {
+          "text": "未知",
+          "value": 0
+        },
+        {
+          "text": "男",
+          "value": 1
+        },
+        {
+          "text": "女",
+          "value": 2
+        }
+      ]
+    },
+    "status": {
+      "bsonType": "int",
+      "description": "用户状态：0 正常 1 禁用 2 审核中 3 审核拒绝",
+      "title": "用户状态",
+      "defaultValue": 0,
+      "enum": [
+        {
+          "text": "正常",
+          "value": 0
+        },
+        {
+          "text": "禁用",
+          "value": 1
+        },
+        {
+          "text": "审核中",
+          "value": 2
+        },
+        {
+          "text": "审核拒绝",
+          "value": 3
+        }
+      ]
+    },
+    "register_date": {
+      "bsonType": "timestamp",
+      "description": "注册时间",
+      "forceDefaultValue": {
+        "$env": "now"
+      }
+    },
+    "total_fee": {
+      "bsonType": "int",
+      "description": "订单总金额，单位：分。"
+    }
+	}
+}

@@ -25,5 +25,9 @@
 
 		.. 因为setTimeout是宏任务, 被放入到事件队列中, Promise的then()是微任务, 也放入到事件队列中, 先执行主线程的代码, 分别是 2 4 然后从微任务的事件队列中拿回调函数 输出3 微任务执行完后从宏任务的事件队列里面执行回调函数 输出1
  -->
+ <script type="text/javascript">
+ 	let a;
+ 	let a  = 1;
+ </script>
 </body>
 </html>

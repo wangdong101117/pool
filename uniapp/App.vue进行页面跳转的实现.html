@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<!-- 
+	在 App.vue 中实现页面跳转使用: uni.reLaunch(), 且放在一个延时定时器里面
+
+		setTimeout(function() {
+			uni.reLaunch({
+				url: '/pages/tabbar/greenhouse/greenhouse'
+			})
+		}, 2500)
+
+		Voice('尊敬的棚友老王您有上地三街大棚内黑壳工位旁放风机发生温度报警')
+        let voice = Voice({
+            voiceSet: {
+                // tex: push_content.notifyContent
+                tex: '尊敬的棚友老王您有上地三街大棚内黑壳工位旁放风机发生温度报警'
+            },
+            audioSet: {
+              	volume: 1,
+                loop: true
+            },
+            audioCallback: {
+                'onPlay': ()=>{
+                   console.log('音频开始播放了')
+                }
+            },
+            lineUp: true,   // 加入语音队列
+            returnAudio: true  // 返回音频对象
+        })
+ -->
+</body>
+</html>
