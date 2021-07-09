@@ -7,11 +7,10 @@
 <body>
 	<div class="box" style="width: 100px; height: 100px; background: #ccc"></div>
 <script type="text/javascript">
-/** this在不同情况 使用分别指向的是什么: */
+/** this在不同情况使用时分别指向的是什么: */
 	/** 1. 在对象的方法中使用时: 指向的是当前的对象 */
 		const obj = {
 			name: 'wangdong',
-
 			getName() {
 				const name = 'liujing';
 				// getName() 属于对象obj 的方法, 对象中的方法 this 指向的是当前的对象: obj; this.name === obj.name
@@ -20,8 +19,11 @@
 		}
 		console.log(obj.getName()); // wangdong
 
+		// 下面这个比较特殊 在定时器中, obj.say 被作为了回调函数使用, 此时, this的指向为全局的 window对象
+		console.log(setTimeout(obj.getName, 0); // 名字: 张三, 年纪为18
+
 	/** 2. 构造函数中使用时, 指向创建的对象 
-		new 将函数内的 this 设置为创建的对象
+			原因：new 将函数内的 this 设置为创建的对象
 	*/
 		function CreateUser(name) {
 			// 这里的this 指向的是 创建的对象 girl
@@ -71,7 +73,7 @@
 			}
 		};
 
-		/* 这里只是将 otherObj.getName 作为了 (对象属性)定时器中的函数进行 使用
+		/* 下面的例子只是将 otherObj.getName 作为了 (对象属性)定时器中的函数进行 使用
 			相当于: 此时 this 是在 普通的函数中使用, this指向的是全局的 window 对象, window.name 为 undefined
 				setTimeout(function() {
 					console.log(this.name)
@@ -147,7 +149,7 @@
 				cback(); // 20
 
 				/** arguments 是伪数组对象结构, 得到的是本次函数调用传入的全部实参值
-					{
+					arguments: {
 						0: callback,
 						1: 1,
 						2: 2,

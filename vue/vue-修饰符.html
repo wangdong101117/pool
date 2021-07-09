@@ -41,15 +41,16 @@
 		- 修饰符可串联使用:
 			<form @click.stop.prevent="btnClick"></form>	
 
-		- .self :只有当前元素自身触发时才会执行处理函数
+		- .self :只有当前元素自身触发(event.target 是当前元素自身)时才会执行处理函数
 		
 		- .capture :事件捕获模式, 元素自身触发的事件在此处处理执行
 
 
 	<5> .once 事件只会触发一次
-	
 
-	<6> 按键修饰符
+	<6> .passive 告诉浏览器你不想阻止事件的默认行为
+
+	<其他1> 按键修饰符
 		// 使用 keyCode
 		<input @keyup.13="submit">
 		// 使用别名
@@ -66,7 +67,7 @@
 			- right
 
 
-	<7> 系统修饰键
+	<其他2> 系统修饰键
 		- 注意点: 系统修饰键与常规按键不同, 在跟 keyup 事件一起使用时, 事件触发时修饰键必须处于按下状态; 即只有按住 ctrl 的情况下再按下其他按键, 才能触发 keyup.ctrl; 单单释放 ctrl 也不会触发事件, 如果你想要单单触发 ctrl 就触发事件, 应该用 keyCode:
 			keyup.17
 		
@@ -82,11 +83,5 @@
 				// ctrl + click
 				<div @click.ctrl="toDo">todo</div>
  -->
- <script type="text/javascript">
- 	// let str = 'pages/home?scenec=device%3D863320'
-	let str = 'pages/home?scenec=device=863320'
- 	let new_str = decodeURIComponent(str);
- 	console.log(new_str, '------------------');
- </script>
 </body>
 </html>

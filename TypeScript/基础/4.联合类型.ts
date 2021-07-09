@@ -36,6 +36,5 @@
 		number = 6;
 		console.log(numner.length); // 编译时报错, number 类型没有 length 属性
 
-		// 上面 number = 'six' 被推断成了 string类型, 而number = 6 则被推断成了 numer类型
-
+		// 上面 number = 'six' 被推断成了 string 类型, 而 number = 6 则被推断成了 numer 类型
  */

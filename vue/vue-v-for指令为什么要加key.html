@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>v-for指令为什么要加 key</title>
+</head>
+<body>
+<!-- 
+	如果不适用 key, Vue 会使用一种最大限度减少动态元素并且尽可能的尝试就地修改/复用相同类新型元素的算法。key 是 Vue 中 vnode 的唯一标记，通过这个 key，我们的 diff 操作可以更准确、更快捷。
+
+		更准确：因为带 key 就不是就地复用了，在 sameNode 函数 a.key === b.key 对比中可避免就地复用的情况。
+
+		更快速：利用 key 的唯一性生成 map 对象来获取对应节点，比遍历方式更快。
+-->
+</body>
+</html>

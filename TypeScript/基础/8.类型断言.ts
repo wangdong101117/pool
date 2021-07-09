@@ -40,8 +40,64 @@
 				}
 
 				function isFish (animal: Cat | Fish) {
-					
+					if (typeof animal.swim === 'function') {
+						return true;
+					}
+
+					return false;
 				}
 
 
+			上面例子中，获取animal.swim 的时候会报错。
+			此时可使用 “类型断言”，将 animal 断言成 Fish：
+
+				interface Cat {
+					name: string;
+					run(): void;
+				}
+
+				interface Fish {
+					name: string;
+					swim(): void;
+				}
+
+				function isFish (animal: Cat | Fish) {
+					if (typeof (animal as Fish).swim === 'function') {
+						return true;
+					}
+
+					return false;
+				}
+
+			这样就可解决方法 animal.swim 报错的问题了
+
+			需要注意的是： 类型断言只能 “欺骗”	TypeScript 编译器，无法避免运行时的错误，反而滥用类型断言可能会导致 运行时错误。
+
+				interface Cat {
+					name: string;
+					run(): void;
+				}
+
+				interface Fish {
+					name: string;
+					swim(): void;
+				}
+
+				function swim(animal: Cat | Fish) {
+					(animal as Fish).swim();
+				}
+
+				const tom:Cat = {
+					name: 'Tom',
+					run() {
+						console.log('run');
+					}
+				}
+
+				swim(tom);
+
+			上面的例子在编译时不会报错，反而在运行时会报错；
+			原因： (animal as Fish).swim() 这段代码隐藏了 animal 可能为 Cat 的情况，将 animal 直接断言为了 Fish，而 TypeScript 编译器信任了我们的断言，所以在调用 swim() 是没有报错。
+
+			但是 swim 函数接受的参数是 Cat | Fish， 一旦传入的参数是 Cat 类型的变量，Cat 上没有 swim 方法，就会导致运行时错误了。	
  */

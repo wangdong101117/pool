@@ -35,12 +35,14 @@ let num: number = 1;
             let num = 1;
     */
 
+
 /* 3. 字符串:
         TypeScript中: 使用 string 定义字符串类型
 */
 
 let str: string = '张三';
 let say_str: string =  `你好, 我的名字是: ${str}`;
+
 
 /* 4. 空值:
         JavaScript 中没有空值(Void)的概念, 在TypeScript中, 可用 void 表示没有任何返回值的函数
@@ -55,14 +57,18 @@ function getName(): void {
     */
     let unusable: void = undefined;
 
+
 /* 5. Null 和 Undefined
-        TypeScript中, 可使用 null 和 undefined来定义这两个原始数据类型:
+        TypeScript中, 可使用 null 和 undefined 来定义这两个原始数据类型:
 */
+
 let und: undefined = undefined;
 let nu: null = null;
+
     /*
         与 void 的区别: undefined 和 null 是所有类型的子类型, 即: undefined 类型的变量可赋值给 number 类型的变量 
     */
+    
     let num: number = undefined; // 这样也不会报错, 应该是非严格模式下, tsconfig.json 中配置 strict: false
     // 或者:
     let und: undefined;
@@ -71,5 +77,6 @@ let nu: null = null;
     /* 
         但是: void类型的变量不能赋值给 number 类型的变量
     */
+   
     let u: void;
     let num: numebr = u; // 这样会报错 Type 'void' is not assignable to type 'number'.

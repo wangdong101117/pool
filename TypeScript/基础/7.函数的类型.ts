@@ -5,7 +5,7 @@
 		- 函数表达式
 			let sum = function() {}
 	
-	一个函数有输入和输出, 要在 TS 中对其进行约束, 需要将输入和输入都考虑到, 其中函数声明的类型定义较为简单:
+	一个函数有输入和输出, 要在 TS 中对其进行约束, 需要将输入和输出都考虑到, 其中函数声明语句的类型定义较为简单:
 
 
 	函数声明：
@@ -20,7 +20,7 @@
 
 	函数表达式:
 		
-		let mySum: (x: number, y: number) => bumber = function (x: number, y:number): number {
+		let mySum: (x: number, y: number) => number = function (x: number, y:number): number {
 			return x + y;
 		}
 
@@ -30,7 +30,7 @@
 
 
 	用接口定义函数的形状：
-		可使用井口的方式来定义一个函数需要符合的形状：
+		可使用接口的方式来定义一个函数需要符合的形状：
 
 			interface searchFunc {
 				(source: string, subString: string): booleadn;
@@ -64,7 +64,7 @@
 				return firstName + ' ' + lastName;
 			}
 
-			- 注意: 此时就不受：可选参数必须接在必选参数后面的限制了：
+			- 注意: 此时就不受 可选参数必须要在必选参数后面的限制了
 
 	剩余参数：
 		在 ES6 中，可用 ...rest 的方式获取函数中的剩余参数（rest参数）：

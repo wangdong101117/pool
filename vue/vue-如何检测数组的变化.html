@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>vue是如何监测数组发生变化的</title>
+</head>
+<body>
+<!-- 
+	数组由于考虑性能的原因没有使用 defineProperty 对数组的每一项都进行拦截，而是选择对数组的 7 个方法（push， pop，shift，unshift，splice，sort，reverse）进行了重写（AOP 切换思想）
+
+	因此在 Vue 中修改数组的索引和长度是无法监控到的。需要通过以上 7 中方法来修改数组才会触发数组对应的 watcher 进行更新。
+
+ -->
+</body>
+</html>
